@@ -60,14 +60,14 @@ public class CameraOrbit : MonoBehaviour
         //MOBILE
 
 #if UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
-            _LocalRotation.x += Input.touches[0].deltaPosition.x * OrbitSensitivity;
-            _LocalRotation.y -= Input.touches[0].deltaPosition.y * OrbitSensitivity;
+            _LocalRotation.x += (Input.touches[0].deltaPosition.x / 10) * OrbitSensitivity; //Divided by 2 to reduce speed
+            _LocalRotation.y -= (Input.touches[0].deltaPosition.y / 10) * OrbitSensitivity; //Divided by 2 to reduce speed
 
             //Clamp the y Rotation to horizon and not flipping over at the top
-            if (_LocalRotation.y < 0f)
-                _LocalRotation.y = 0f;
+            if (_LocalRotation.y < 25f)
+                _LocalRotation.y = 25f;
             else if (_LocalRotation.y > 90f)
                 _LocalRotation.y = 90f;
         }
@@ -96,7 +96,7 @@ public class CameraOrbit : MonoBehaviour
 #endif
 
 #if UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount >= 2)
+        if (Input.touchCount == 2)
         {
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
@@ -107,9 +107,9 @@ public class CameraOrbit : MonoBehaviour
             float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
 
-            float difference = (currentMagnitude - prevMagnitude) / 10;
+            float difference = (currentMagnitude - prevMagnitude);
 
-            float zoomAmount = difference * ZoomSensitivity;
+            float zoomAmount = (difference / 100) * ZoomSensitivity;//Divided because it moves to fast
 
             zoomAmount *= (this._CameraDistance * 0.3f);
 
