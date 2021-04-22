@@ -1,0 +1,45 @@
+===========================================================================
+
+The default imported RealToon Shader, Effects and Example are for Built-In RP.
+
+===========================================================================
+
+*If you are a unity 2019 users and beyond, See the "Others" folder.
+*Read the "Important (Read Me).txt" before unpack.
+
+===========================================================================
+
+*If you are a SRP's user, only import and unpack the RealToon SRP packages you need to use.
+*Don't forget to import "RealToon (User Guide).pdf".
+*See the folder "RealToon SRP".
+
+**This is important for SRP users before unpacking the RealToon SRP Packages:
+1.Delete/Remove the 'EXAMPLE' folder, 
+2.Delete/Remove folders and files inside the 'REALTOON SHADER' folder.
+3.Delete/Remove files inside the 'EDITOR' folder.
+**This is important because the default imported RealToon Shader, Effects and Example are for Built-In RP.
+
+Accessing the shader:
+[RealToon LWRP] The shaders are in "Lightweight Render Pipeline"
+[RealToon URP] The shader are in "Universal Render Pipeline"
+[RealToon HDRP] The shader is in "HDRP".
+
+Recommended SRP Versions:
+[RealToon LWRP] - Unity 2018 and LWRP V4.0.0 or latest version.
+[RealToon URP] - Unity 2019.3.0 to newer versions and URP V7.1.1 or latest version.
+[RealToon HDRP] - Unity 2019 to newer versions and HDRP V7.2.0 or latest version.
+
+Note:
+The included example is only for RealToon Built-In/Old RP version.
+So if you try to import it in (LWRP/URP or HDRP), it will turn pink.
+I recommend you to delete it or exclude it on importing.
+
+The included example will be change soon.
+
+========================================================================
+
+Note:
+Delete the "EXAMPLE" folder if you're done exploring it 
+or you don't want it in your project.
+
+========================================================================
