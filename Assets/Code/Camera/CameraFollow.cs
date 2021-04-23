@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform followTransform;
 
-    void Update()
+    void LateUpdate()
     {
         transform.position = followTransform.position;
     }

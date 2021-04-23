@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     public Camera cam;
     public Vector3 destination;
-    public GameObject moveMarker;
+    public GameObject touchMarker;
 
     //touch variables
     bool isTwoTouch = false;
@@ -54,12 +54,15 @@ public class PlayerMovement : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
         // Save the info
         RaycastHit hit;
-        // You successfully hi
+        // You successfully hit
         if (Physics.Raycast(ray, out hit))
         {
-            moveMarker.transform.position = hit.point;
-            destination = moveMarker.transform.position;
+            destination = hit.point;
+            touchMarker.transform.position = destination;
             navMeshAgent.SetDestination(destination);
+
+            if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
+                GetComponent<PlayerInteraction>().target = null;
         }
 
     }
