@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        DetectTouch();
+        if (!UIManager.instance.uiActive)
+            DetectTouch();
     }
 
     void DetectTouch()
@@ -64,7 +65,8 @@ public class PlayerMovement : MonoBehaviour
             if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
                 GetComponent<PlayerInteraction>().target = null;
         }
-
     }
+
+    public void StopMovement() => navMeshAgent.destination = transform.position;
 
 }

@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    private static PlayerInteraction _instance;
+    public static PlayerInteraction instance { get { return _instance; } }
+
     public GameObject target;
     public GameObject TouchMarker;
-    void Start()
-    {
 
+    private void Awake() => CreateInstance();
+    void CreateInstance() //Make this UI Manager an instance (Or destroy if already exists)
+    {
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
+            _instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         selectTarget();
+        InteractWithTarget();
     }
 
     void selectTarget()
@@ -30,8 +38,24 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (hit.transform.gameObject.GetComponent<Interactable>())
                     target = hit.transform.gameObject;
-
             }
+        }
+    }
+
+    void InteractWithTarget()
+    {
+        if (target != null)
+        {
+            float distance = Vector3.Distance(transform.position, target.transform.position);
+            float interactDistance = target.GetComponent<Interactable>().interactDistance;
+            bool isInteracting = target.GetComponent<Interactable>().isInteracting;
+
+            if (distance <= interactDistance && !isInteracting)
+            {
+                target.GetComponent<Interactable>().Interact();
+                GetComponent<PlayerMovement>().StopMovement();
+            }
+
         }
 
     }
