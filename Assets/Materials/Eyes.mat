@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Black
+  m_Name: Eyes
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
   m_ShaderKeywords: N_F_EAL_ON N_F_GLO_ON N_F_RELGI_ON N_F_RL_ON N_F_SS_ON
   m_LightmapFlags: 4

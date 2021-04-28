@@ -8,7 +8,7 @@ public class TestBox : Interactable
     public override void Interact()
     {
         base.Interact();
-        UIManager.instance.WriteDialogue(new string[] { "You are interacting with the box...", "Great job!" });
+        UIManager.instance.WriteDialogue(new string[] { "You are interacting with the box...", "Great job!", "I could do this all day", "Just line after line..." });
     }
 
 }

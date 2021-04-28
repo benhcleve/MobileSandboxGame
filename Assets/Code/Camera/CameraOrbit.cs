@@ -28,6 +28,7 @@ public class CameraOrbit : MonoBehaviour
 
     void LateUpdate()
     {
+
         CameraRotation();
         CameraZoom();
 
@@ -39,6 +40,7 @@ public class CameraOrbit : MonoBehaviour
         {
             this._XForm_Camera.localPosition = new Vector3(0f, 0f, Mathf.Lerp(this._XForm_Camera.localPosition.z, this._CameraDistance * -1f, Time.deltaTime * ZoomDampening));
         }
+
     }
 
     void CameraRotation()
