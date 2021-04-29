@@ -7,6 +7,6 @@ public class ItemTool : Item
 {
     public override void Use()
     {
-
+        PlayerEquipmentManager.instance.EquipToolToHand(prefab);
     }
 }

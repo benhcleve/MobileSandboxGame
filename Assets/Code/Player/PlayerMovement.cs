@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -29,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
+            //Prevents moving when clicking UI elements
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                return;
+
+
             float touchMoveDist = 0;
 
             if (Input.touchCount >= 2) //If touch 2 is used

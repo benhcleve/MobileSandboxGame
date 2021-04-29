@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c23dd7accee0fd249a19729e4214c28f, type: 3}
-  m_Name: MediumMessyHair
+  m_Name: MediumHair(Brown)
   m_EditorClassIdentifier: 
   ID: 2003
-  itemName: Medium Hair
+  itemName: Medium Hair (Brown)
   description: 
   icon: {fileID: 0}
   prefab: {fileID: 5054691250819647769, guid: e919c4c00907f914f941c3c213686226, type: 3}
+  texture: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 2906481
+  apparelType: Head

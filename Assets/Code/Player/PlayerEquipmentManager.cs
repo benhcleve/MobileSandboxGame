@@ -7,27 +7,41 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     public GameObject avatar; //Drag human model to this slot, the whole model + Armature
     private Stitcher stitcher;
-
     public GameObject headWorn;
     public GameObject chestWorn;
     public GameObject legsWorn;
     public GameObject feetWorn;
     public GameObject backWorn;
+    public Transform rightHand;
+    public GameObject equippedItem;
 
-    public void Awake() => stitcher = new Stitcher();
+    private static PlayerEquipmentManager _instance;
+    public static PlayerEquipmentManager instance { get { return _instance; } }
+
+    void CreateInstance() //Make this UI Manager an instance (Or destroy if already exists)
+    {
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
+            _instance = this;
+    }
+
+    public void Awake()
+    {
+        CreateInstance();
+        stitcher = new Stitcher();
+    }
 
     private void Start()
     {
-        StartCoroutine(LoadClothes());
+        StartCoroutine(SpawnSavedOutfit());
     }
 
-    IEnumerator LoadClothes()
+    IEnumerator SpawnSavedOutfit()
     {
-        Wear(2001, "Chest");
+        StartCoroutine(Wear(2002, "Legs", null, new Color32(255, 255, 255, 0)));
         yield return new WaitForSeconds(0.01f);
-        Wear(2002, "Legs");
-        yield return new WaitForSeconds(0.01f);
-        Wear(2003, "Head");
+        StartCoroutine(Wear(2001, "Chest", null, new Color32(255, 255, 255, 0)));
     }
 
     public void RemoveWorn(string apparelType)
@@ -67,7 +81,7 @@ public class PlayerEquipmentManager : MonoBehaviour
         }
     }
 
-    public void Wear(int apparelID, string apparelType)
+    public IEnumerator Wear(int apparelID, string apparelType, Texture texture, Color32 color)
     {
         Item[] items = Resources.LoadAll<ItemApparel>("Items/Apparel").ToArray();
         foreach (Item i in items)
@@ -93,6 +107,25 @@ public class PlayerEquipmentManager : MonoBehaviour
                         backWorn = stitcher.Stitch(clothing, avatar);
                         break;
                 }
+
+                yield return new WaitForSeconds(0.01f);
+
+                var clothingMesh = clothing.transform.GetChild(0).gameObject;
+
+                clothingMesh.GetComponent<SkinnedMeshRenderer>().material.SetColor("_MainColor", color);
+                if (texture != null)
+                    clothingMesh.GetComponent<SkinnedMeshRenderer>().material.SetTexture("_MainTex", texture);
             }
+    }
+
+
+    public void EquipToolToHand(GameObject prefab)
+    {
+        //Remove if another item is already equipped
+        if (equippedItem != null)
+            Destroy(equippedItem);
+
+        equippedItem = Instantiate(prefab, rightHand.position, rightHand.rotation);
+        equippedItem.transform.parent = rightHand;
     }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f61d1150749474d912416e4940cc02, type: 3}
   m_Name: WateringCan
   m_EditorClassIdentifier: 
-  ID: 0
-  itemName: 
-  description: 
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  ID: 5004
+  itemName: Water Can
+  description: Used to water plants. Must be filled from water source.
+  icon: {fileID: 21300000, guid: 86f62d4420e2f0249bcf65d503f7200f, type: 3}
+  prefab: {fileID: 4508322576791615948, guid: ed7c39af570145643ac8fc5426e61778, type: 3}
