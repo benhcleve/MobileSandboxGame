@@ -15,6 +15,18 @@ public class PlayerMovement : MonoBehaviour
     bool isTwoTouch = false;
     Vector2 touchStartPos;
 
+    private static PlayerMovement _instance;
+    public static PlayerMovement instance { get { return _instance; } }
+
+    public void Awake() => CreateInstance();
+    void CreateInstance() //Make this an instance (Or destroy if already exists)
+    {
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
+            _instance = this;
+    }
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -22,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!UIManager.instance.uiActive)
+        if (!UIManager.instance.uiActive())
             DetectTouch();
     }
 

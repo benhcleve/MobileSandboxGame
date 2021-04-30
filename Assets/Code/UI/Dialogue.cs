@@ -6,11 +6,12 @@ using TMPro;
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI text;
+
     public void Write(string[] dialogue) => StartCoroutine(PlayText(dialogue));
 
     IEnumerator PlayText(string[] dialogue)
     {
-        UIManager.instance.uiActive = true;
+        UIManager.instance.itemBar.SetActive(false); //Hide ItemBar UI
 
         foreach (string line in dialogue)
         {
@@ -28,7 +29,9 @@ public class Dialogue : MonoBehaviour
 
         //End dialogue by closing ui and setting text to empty
         text.text = "";
-        UIManager.instance.uiActive = false;
+
+        UIManager.instance.itemBar.SetActive(true); //Bring back ItemBar UI
+
         UIManager.instance.dialogueUI.SetActive(false);
     }
 

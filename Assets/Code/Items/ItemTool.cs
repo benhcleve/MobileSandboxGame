@@ -7,6 +7,8 @@ public class ItemTool : Item
 {
     public override void Use()
     {
-        PlayerEquipmentManager.instance.EquipToolToHand(prefab);
+        if (PlayerEquipmentManager.instance.equippedItem == null || PlayerEquipmentManager.instance.equippedItem.name != prefab.name)
+            PlayerEquipmentManager.instance.EquipToolToHand(prefab);
+        else PlayerEquipmentManager.instance.UnequipTool();
     }
 }

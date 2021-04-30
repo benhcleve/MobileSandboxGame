@@ -39,6 +39,8 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     IEnumerator SpawnSavedOutfit()
     {
+        StartCoroutine(Wear(2003, "Head", null, new Color32(160, 82, 45, 0)));
+        yield return new WaitForSeconds(0.01f);
         StartCoroutine(Wear(2002, "Legs", null, new Color32(255, 255, 255, 0)));
         yield return new WaitForSeconds(0.01f);
         StartCoroutine(Wear(2001, "Chest", null, new Color32(255, 255, 255, 0)));
@@ -126,6 +128,14 @@ public class PlayerEquipmentManager : MonoBehaviour
             Destroy(equippedItem);
 
         equippedItem = Instantiate(prefab, rightHand.position, rightHand.rotation);
+        equippedItem.name = prefab.name; //Removes '(clone)' from name.
         equippedItem.transform.parent = rightHand;
+    }
+
+    public void UnequipTool()
+    {
+        if (equippedItem != null)
+            Destroy(equippedItem);
+        equippedItem = null;
     }
 }
