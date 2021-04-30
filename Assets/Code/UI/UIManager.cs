@@ -11,8 +11,12 @@ public class UIManager : MonoBehaviour
     public GameObject objectPlacementUI;
     public GameObject itemBar;
 
+    public enum UIState { Default, Placement, Dialogue };
+    public UIState uiState = UIState.Default;
+
     private void Awake() => CreateInstance();
 
+    private void Start() => UpdateUIManager(UIState.Default);
     void CreateInstance() //Make this UI Manager an instance (Or destroy if already exists)
     {
         if (_instance != null && _instance != this)
@@ -20,18 +24,33 @@ public class UIManager : MonoBehaviour
         else
             _instance = this;
     }
-
-    public bool uiActive()
-    {
-        if (dialogueUI.activeInHierarchy || objectPlacementUI.activeInHierarchy)
-            return true;
-        else return false;
-    }
-
     public void WriteDialogue(string[] dialogue)
     {
         dialogueUI.SetActive(true);
         dialogueUI.GetComponent<Dialogue>().Write(dialogue);
+    }
+
+    public void UpdateUIManager(UIState state)
+    {
+        uiState = state;
+        switch (uiState)
+        {
+            case UIState.Default:
+                dialogueUI.SetActive(false);
+                objectPlacementUI.SetActive(false);
+                itemBar.SetActive(true);
+                break;
+            case UIState.Placement:
+                dialogueUI.SetActive(false);
+                objectPlacementUI.SetActive(true);
+                itemBar.SetActive(false);
+                break;
+            case UIState.Dialogue:
+                dialogueUI.SetActive(true);
+                objectPlacementUI.SetActive(false);
+                itemBar.SetActive(false);
+                break;
+        }
     }
 
 }

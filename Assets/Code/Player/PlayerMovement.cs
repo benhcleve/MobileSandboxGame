@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!UIManager.instance.uiActive())
+        if (UIManager.instance.uiState == UIManager.UIState.Default)
             DetectTouch();
     }
 

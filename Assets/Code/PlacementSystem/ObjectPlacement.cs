@@ -5,11 +5,18 @@ using UnityEngine.EventSystems;
 
 public class ObjectPlacement : MonoBehaviour
 {
+    Transform player;
+    bool isObjectPlaced;
+    GameObject rotateButton;
+    GameObject placeButton;
+
     public GameObject placedObjectPrefab;
     public GameObject placedObjectInstance;
-    Transform player;
+    public float buildTimer;
 
-    public bool isObjectPlaced;
+
+
+
 
 
     private static ObjectPlacement _instance;
@@ -19,7 +26,9 @@ public class ObjectPlacement : MonoBehaviour
     private void Start()
     {
         player = PlayerMovement.instance.transform;
-        gameObject.SetActive(false);
+        placeButton = transform.Find("Place Button").gameObject;
+        rotateButton = transform.Find("Rotate Button").gameObject;
+
     }
     void CreateInstance() //Make this an instance (Or destroy if already exists)
     {
@@ -37,6 +46,9 @@ public class ObjectPlacement : MonoBehaviour
     Vector3 touchStartPos = Vector3.zero;
     void PlaceObject()
     {
+        if (UIManager.instance.uiState != UIManager.UIState.Placement)
+            UIManager.instance.UpdateUIManager(UIManager.UIState.Placement);
+
         if (placedObjectInstance == null && !isObjectPlaced) //If object instance has not been instantiated
         {
             //Instantiates initial prefab to position in front of player
@@ -57,7 +69,6 @@ public class ObjectPlacement : MonoBehaviour
             if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
-                Debug.Log(touchMoveDist);
                 if (touchMoveDist < 50) //If 1 touch tap
                 {
                     //MOVE OBJECT
@@ -73,13 +84,11 @@ public class ObjectPlacement : MonoBehaviour
         }
     }
 
-    public void RotatePlacementObjInstance() => placedObjectInstance.transform.Rotate(0, 90, 0);
-
-    public void PlaceObjInstance() => StartCoroutine(PlaceObjCoroutine());
-
     public IEnumerator PlaceObjCoroutine()
     {
         isObjectPlaced = true;
+        placeButton.SetActive(false);
+        rotateButton.SetActive(false);
         Vector3 placementPos = placedObjectInstance.transform.position;
         Quaternion placementRot = placedObjectInstance.transform.rotation;
 
@@ -91,12 +100,12 @@ public class ObjectPlacement : MonoBehaviour
         yield return new WaitUntil(() => Vector3.Distance(player.position, placementPos) < 2);
         PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
 
+        yield return new WaitForSeconds(buildTimer);
+
         GameObject placedObj = Instantiate(placedObjectPrefab, placementPos, placementRot);
         placedObj.name = placedObjectPrefab.name;
 
-        isObjectPlaced = false;
-
-        gameObject.SetActive(false);
+        ExitPlacement();
     }
 
     public float RoundToNearestMultiple(float numberToRound, float multipleOf)
@@ -104,6 +113,29 @@ public class ObjectPlacement : MonoBehaviour
         int multiple = Mathf.RoundToInt(numberToRound / multipleOf);
 
         return multiple * multipleOf;
+    }
+
+    //BUTTONS
+    public void RotatePlacementObjInstance() => placedObjectInstance.transform.Rotate(0, 90, 0);
+
+    public void PlaceObjInstance() => StartCoroutine(PlaceObjCoroutine());
+
+    public void ExitPlacement()
+    {
+        PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
+        if (placedObjectInstance != null)
+            Destroy(placedObjectInstance);
+        if (placedObjectPrefab != null)
+            placedObjectPrefab = null;
+        if (PlayerEquipmentManager.instance.equippedItem != null)
+            Destroy(PlayerEquipmentManager.instance.equippedItem);
+
+        placeButton.SetActive(true);
+        rotateButton.SetActive(true);
+        buildTimer = 0;
+        isObjectPlaced = false;
+        UIManager.instance.UpdateUIManager(UIManager.UIState.Default);
+        gameObject.SetActive(false);
     }
 
 }

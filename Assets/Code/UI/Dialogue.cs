@@ -11,7 +11,7 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator PlayText(string[] dialogue)
     {
-        UIManager.instance.itemBar.SetActive(false); //Hide ItemBar UI
+        UIManager.instance.UpdateUIManager(UIManager.UIState.Dialogue);
 
         foreach (string line in dialogue)
         {
@@ -30,9 +30,7 @@ public class Dialogue : MonoBehaviour
         //End dialogue by closing ui and setting text to empty
         text.text = "";
 
-        UIManager.instance.itemBar.SetActive(true); //Bring back ItemBar UI
-
-        UIManager.instance.dialogueUI.SetActive(false);
+        UIManager.instance.UpdateUIManager(UIManager.UIState.Default);
     }
 
 

@@ -12,23 +12,27 @@ public class TouchMarker : MonoBehaviour
 
     void Update()
     {
-        if (player.GetComponent<PlayerInteraction>().target != null)
+        if (UIManager.instance.uiState == UIManager.UIState.Default)
         {
-            targetMarker.gameObject.SetActive(true);
-            UpdateTargetMarker();
-            moveMarker.SetActive(false);
-            transform.position = player.GetComponent<PlayerInteraction>().target.transform.position;
-        }
-        else if (player.GetComponent<PlayerInteraction>().target == null && player.GetComponent<PlayerMovement>().navMeshAgent.hasPath)
-        {
-            moveMarker.SetActive(true);
-            targetMarker.gameObject.SetActive(false);
+            if (player.GetComponent<PlayerInteraction>().target != null)
+            {
+                targetMarker.gameObject.SetActive(true);
+                UpdateTargetMarker();
+                moveMarker.SetActive(false);
+                transform.position = player.GetComponent<PlayerInteraction>().target.transform.position;
+            }
+            else if (player.GetComponent<PlayerInteraction>().target == null && player.GetComponent<PlayerMovement>().navMeshAgent.hasPath)
+            {
+                moveMarker.SetActive(true);
+                targetMarker.gameObject.SetActive(false);
+            }
         }
         else
         {
             moveMarker.SetActive(false);
             targetMarker.gameObject.SetActive(false);
         }
+
 
     }
 
