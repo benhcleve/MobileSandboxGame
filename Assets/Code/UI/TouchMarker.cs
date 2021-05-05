@@ -21,9 +21,14 @@ public class TouchMarker : MonoBehaviour
                 moveMarker.SetActive(false);
                 transform.position = player.GetComponent<PlayerInteraction>().target.transform.position;
             }
-            else if (player.GetComponent<PlayerInteraction>().target == null && player.GetComponent<PlayerMovement>().navMeshAgent.hasPath)
+            else if (player.GetComponent<PlayerInteraction>().target == null && PlayerMovement.instance.navMeshAgent.hasPath)
             {
                 moveMarker.SetActive(true);
+                targetMarker.gameObject.SetActive(false);
+            }
+            else
+            {
+                moveMarker.SetActive(false);
                 targetMarker.gameObject.SetActive(false);
             }
         }
@@ -32,8 +37,6 @@ public class TouchMarker : MonoBehaviour
             moveMarker.SetActive(false);
             targetMarker.gameObject.SetActive(false);
         }
-
-
     }
 
     void UpdateTargetMarker()

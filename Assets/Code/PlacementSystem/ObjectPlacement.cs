@@ -6,18 +6,15 @@ using UnityEngine.EventSystems;
 public class ObjectPlacement : MonoBehaviour
 {
     Transform player;
-    bool isObjectPlaced;
+    bool isObjectPlaced = false;
+    public LayerMask cannotBuildLayer;
     GameObject rotateButton;
     GameObject placeButton;
 
     public GameObject placedObjectPrefab;
     public GameObject placedObjectInstance;
     public float buildTimer;
-
-
-
-
-
+    public Material placementGlowMat;
 
     private static ObjectPlacement _instance;
     public static ObjectPlacement instance { get { return _instance; } }
@@ -54,6 +51,16 @@ public class ObjectPlacement : MonoBehaviour
             //Instantiates initial prefab to position in front of player
             Vector3 nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
             placedObjectInstance = Instantiate(placedObjectPrefab, nearPlayerPos, Quaternion.identity);
+            placedObjectInstance.layer = LayerMask.NameToLayer("Ground");
+            //Adds glow material
+            var prefabTxtr = placedObjectInstance.GetComponent<MeshRenderer>().material.mainTexture;
+            placedObjectInstance.GetComponent<MeshRenderer>().material = placementGlowMat;
+            placementGlowMat.SetTexture("_Texture", prefabTxtr);
+            //Adds silouette when behind other gameobjects
+            var outline = placedObjectInstance.AddComponent<Outline>();
+            outline.OutlineMode = Outline.Mode.SilhouetteOnly;
+            outline.OutlineColor = placementGlowMat.GetColor("_GlowColor");
+            SetPlacementeColor();
         }
 
         if (Input.touchCount > 0)
@@ -71,16 +78,43 @@ public class ObjectPlacement : MonoBehaviour
                 touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
                 if (touchMoveDist < 50) //If 1 touch tap
                 {
-                    //MOVE OBJECT
-                    Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        Vector3 placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
-                        placedObjectInstance.transform.position = placementPos;
-                    }
+                    MoveObjectInstance(Input.GetTouch(0).position);
                 }
             }
+        }
+    }
+    void MoveObjectInstance(Vector3 movePos)
+    {
+        //MOVE OBJECT
+        Ray ray = Camera.main.ScreenPointToRay(movePos);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
+            placedObjectInstance.transform.position = placementPos;
+            SetPlacementeColor();
+        }
+    }
+    public bool canPlace()
+    {
+        //Detect if object can be placed here
+        if (Physics.CheckSphere(placedObjectInstance.transform.position, 1, cannotBuildLayer))
+            return false;
+        else return true;
+    }
+
+    void SetPlacementeColor()
+    {
+        //Detect if object can be placed here
+        if (canPlace())
+        {
+            placedObjectInstance.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.green);
+            placedObjectInstance.GetComponent<Outline>().OutlineColor = new Color(0, 1, 0, .5f);
+        }
+        else
+        {
+            placedObjectInstance.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.red);
+            placedObjectInstance.GetComponent<Outline>().OutlineColor = new Color(1, 0, 0, .5f);
         }
     }
 
@@ -99,6 +133,7 @@ public class ObjectPlacement : MonoBehaviour
 
         yield return new WaitUntil(() => Vector3.Distance(player.position, placementPos) < 2);
         PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
+        player.LookAt(new Vector3(placementPos.x, player.position.y, placementPos.z));
 
         PlayerAnimation.instance.animator.SetBool("isBuilding", true);
 
@@ -122,7 +157,11 @@ public class ObjectPlacement : MonoBehaviour
     //BUTTONS
     public void RotatePlacementObjInstance() => placedObjectInstance.transform.Rotate(0, 90, 0);
 
-    public void PlaceObjInstance() => StartCoroutine(PlaceObjCoroutine());
+    public void PlaceObjInstance()
+    {
+        if (canPlace())
+            StartCoroutine(PlaceObjCoroutine());
+    }
 
     public void ExitPlacement()
     {
@@ -136,6 +175,8 @@ public class ObjectPlacement : MonoBehaviour
 
         placeButton.SetActive(true);
         rotateButton.SetActive(true);
+        PlayerAnimation.instance.animator.SetBool("isBuilding", false);
+        PlayerAnimation.instance.animator.SetInteger("buildAnim", 0);
         buildTimer = 0;
         isObjectPlaced = false;
         UIManager.instance.UpdateUIManager(UIManager.UIState.Default);

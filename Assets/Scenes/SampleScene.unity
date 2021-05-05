@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &456025040
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1227,9 +1227,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b02d2d84a1e1a14899abbf5067284e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannotBuildLayer:
+    serializedVersion: 2
+    m_Bits: 1
   placedObjectPrefab: {fileID: 0}
   placedObjectInstance: {fileID: 0}
   buildTimer: 0
+  placementGlowMat: {fileID: 2100000, guid: 36cb779fd8174e9448effd13a5c6fb7d, type: 2}
 --- !u!1 &847107589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,6 +1919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51187dd26cba514fafe10a140500000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!114 &1169823721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2136,7 +2141,7 @@ GameObject:
   - component: {fileID: 1787976753}
   - component: {fileID: 1787976752}
   - component: {fileID: 1787976751}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2898,6 +2903,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterCan
       objectReference: {fileID: 0}
+    - target: {fileID: 4508322576791615948, guid: ed7c39af570145643ac8fc5426e61778,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed7c39af570145643ac8fc5426e61778, type: 3}
 --- !u!1001 &4481906702783080382
@@ -2911,6 +2921,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hatchet
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671427343856104317, guid: 63f1dd55ad044eb49b1e6eedefcd71ed,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4159170029411281351, guid: 63f1dd55ad044eb49b1e6eedefcd71ed,
         type: 3}
@@ -3036,6 +3051,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingPole
       objectReference: {fileID: 0}
+    - target: {fileID: 6341383883652426533, guid: a8231d2ab9782e94b8e14b7413573a8f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8231d2ab9782e94b8e14b7413573a8f, type: 3}
 --- !u!1001 &6565529249180401162
@@ -3110,6 +3130,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6565529250101498745, guid: 70869c8e32847224fb4aa801c38da887,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6565529250101498751, guid: 70869c8e32847224fb4aa801c38da887,
         type: 3}
       propertyPath: m_StopNaN
@@ -3138,11 +3163,16 @@ PrefabInstance:
     - target: {fileID: 6565529250101498751, guid: 70869c8e32847224fb4aa801c38da887,
         type: 3}
       propertyPath: m_AntialiasingQuality
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6565529250101498751, guid: 70869c8e32847224fb4aa801c38da887,
         type: 3}
       propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565529250101498751, guid: 70869c8e32847224fb4aa801c38da887,
+        type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

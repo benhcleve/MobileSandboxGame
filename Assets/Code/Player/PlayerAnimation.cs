@@ -33,9 +33,10 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (!animator.GetBool("isBuilding"))
         {
-            if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero)
+            if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero && !animator.GetBool("isWalking"))
                 SetAnimation("isWalking");
-            else SetAnimation("isIdle");
+            else if (GetComponent<PlayerMovement>().navMeshAgent.velocity == Vector3.zero && !animator.GetBool("isIdle"))
+                SetAnimation("isIdle");
         }
     }
 
@@ -43,14 +44,15 @@ public class PlayerAnimation : MonoBehaviour
 
 
 
-    void SetAnimation(string animName)
+    void SetAnimation(string animName = null)
     {
         //Set all animations false
         foreach (AnimatorControllerParameter parameter in animator.parameters)
-            animator.SetBool(parameter.name, false);
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+                animator.SetBool(parameter.name, false);
 
-        //Set desired animation true
-        animator.SetBool(animName, true);
+        if (animName != null) //Set desired animation true if not null
+            animator.SetBool(animName, true);
 
     }
 }
