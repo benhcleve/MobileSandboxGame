@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Lighting Preset
+  m_EditorClassIdentifier: Assembly-CSharp::LightingPreset
+  AmbientColor:
+    serializedVersion: 2
+    key0: {r: 0.8207547, g: 0.9103774, b: 1, a: 1}
+    key1: {r: 0.8307594, g: 0.9123312, b: 0.98841566, a: 1}
+    key2: {r: 1, g: 0.9453823, b: 0.7924528, a: 0}
+    key3: {r: 1, g: 0.9984277, b: 0.9622642, a: 0}
+    key4: {r: 1, g: 0.9958983, b: 0.9056604, a: 0}
+    key5: {r: 0.990566, g: 0.80740476, b: 0.53266287, a: 0}
+    key6: {r: 0.92941177, g: 0.7670566, b: 0.70980394, a: 0}
+    key7: {r: 0.8265908, g: 0.9115171, b: 0.99324244, a: 0}
+    ctime0: 0
+    ctime1: 9830
+    ctime2: 14769
+    ctime3: 26214
+    ctime4: 49151
+    ctime5: 54269
+    ctime6: 55025
+    ctime7: 56124
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  DirectionalColor:
+    serializedVersion: 2
+    key0: {r: 0.8207547, g: 0.9103774, b: 1, a: 1}
+    key1: {r: 0.8307594, g: 0.9123312, b: 0.98841566, a: 1}
+    key2: {r: 1, g: 0.9453823, b: 0.7924528, a: 0}
+    key3: {r: 1, g: 1, b: 1, a: 0}
+    key4: {r: 1, g: 1, b: 1, a: 0}
+    key5: {r: 0.990566, g: 0.80740476, b: 0.53266287, a: 0}
+    key6: {r: 0.92941177, g: 0.7670566, b: 0.70980394, a: 0}
+    key7: {r: 0.8265908, g: 0.9115171, b: 0.99324244, a: 0}
+    ctime0: 0
+    ctime1: 9830
+    ctime2: 14769
+    ctime3: 26214
+    ctime4: 49151
+    ctime5: 54269
+    ctime6: 55025
+    ctime7: 56124
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
