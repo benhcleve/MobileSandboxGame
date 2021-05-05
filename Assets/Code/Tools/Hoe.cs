@@ -9,7 +9,8 @@ public class Hoe : MonoBehaviour
     {
         ObjectPlacement.instance.gameObject.SetActive(true);
         ObjectPlacement.instance.placedObjectPrefab = tilledSoil;
-        ObjectPlacement.instance.buildTimer = 3;
+        ObjectPlacement.instance.buildTimer = 5;
+        PlayerAnimation.instance.SetBuildAnimation(1);
     }
 
     private void OnDestroy()

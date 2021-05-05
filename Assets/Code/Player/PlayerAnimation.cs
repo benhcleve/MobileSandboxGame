@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
+
+    private static PlayerAnimation _instance;
+    public static PlayerAnimation instance { get { return _instance; } }
+
+    public void Awake() => CreateInstance();
+    void CreateInstance() //Make this an instance (Or destroy if already exists)
+    {
+        if (_instance != null && _instance != this)
+            Destroy(this.gameObject);
+        else
+            _instance = this;
+    }
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -18,11 +31,15 @@ public class PlayerAnimation : MonoBehaviour
 
     void HandleMovementAnimation()
     {
-        if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero)
-            SetAnimation("isWalking");
-        else SetAnimation("isIdle");
-
+        if (!animator.GetBool("isBuilding"))
+        {
+            if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero)
+                SetAnimation("isWalking");
+            else SetAnimation("isIdle");
+        }
     }
+
+    public void SetBuildAnimation(int animID) => animator.SetInteger("buildAnim", animID);
 
 
 

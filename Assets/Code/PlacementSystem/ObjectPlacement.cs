@@ -100,10 +100,14 @@ public class ObjectPlacement : MonoBehaviour
         yield return new WaitUntil(() => Vector3.Distance(player.position, placementPos) < 2);
         PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
 
+        PlayerAnimation.instance.animator.SetBool("isBuilding", true);
+
         yield return new WaitForSeconds(buildTimer);
 
         GameObject placedObj = Instantiate(placedObjectPrefab, placementPos, placementRot);
         placedObj.name = placedObjectPrefab.name;
+
+        PlayerAnimation.instance.animator.SetBool("isBuilding", false);
 
         ExitPlacement();
     }
