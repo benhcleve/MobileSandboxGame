@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject objectPlacementUI;
     public GameObject itemBar;
 
-    public enum UIState { Default, Placement, Dialogue };
+    public enum UIState { Default, Default_NoMovement, Placement, Dialogue };
     public UIState uiState = UIState.Default;
 
     private void Awake() => CreateInstance();
@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
         switch (uiState)
         {
             case UIState.Default:
+                dialogueUI.SetActive(false);
+                objectPlacementUI.SetActive(false);
+                itemBar.SetActive(true);
+                break;
+            case UIState.Default_NoMovement:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
                 itemBar.SetActive(true);

@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (UIManager.instance.uiState == UIManager.UIState.Default)
             DetectTouch();
+
     }
 
     void DetectTouch()

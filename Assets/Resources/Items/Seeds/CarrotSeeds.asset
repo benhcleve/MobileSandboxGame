@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d1c98b15aba64d818a5c77690cc25, type: 3}
+  m_Name: CarrotSeeds
+  m_EditorClassIdentifier: 
+  ID: 7001
+  itemName: Carrot Seeds
+  description: Add time to grow and other info here.
+  stackable: 1
+  stackCount: 1
+  icon: {fileID: 21300000, guid: a41db8a5162e3504caad7e723f25cc10, type: 3}
+  prefab: {fileID: 6194906302541299724, guid: 06b698a100177d042affb7c4ed690bd4, type: 3}
