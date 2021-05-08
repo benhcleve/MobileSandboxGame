@@ -15,5 +15,8 @@ MonoBehaviour:
   ID: 5004
   itemName: Water Can
   description: Used to water plants. Must be filled from water source.
+  stackable: 0
+  stackCount: 0
   icon: {fileID: 21300000, guid: 86f62d4420e2f0249bcf65d503f7200f, type: 3}
   prefab: {fileID: 4508322576791615948, guid: ed7c39af570145643ac8fc5426e61778, type: 3}
+  value: 20

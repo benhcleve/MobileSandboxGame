@@ -19,3 +19,4 @@ MonoBehaviour:
   stackCount: 1
   icon: {fileID: 21300000, guid: a41db8a5162e3504caad7e723f25cc10, type: 3}
   prefab: {fileID: 6194906302541299724, guid: 06b698a100177d042affb7c4ed690bd4, type: 3}
+  value: 5

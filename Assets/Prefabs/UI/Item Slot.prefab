@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2498341810985408420}
   - component: {fileID: 4080342953842066842}
   m_Layer: 0
-  m_Name: StackCount
+  m_Name: Stack Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 6390693509622373271}
   - component: {fileID: 1147423045648354282}
   m_Layer: 0
-  m_Name: Stack
+  m_Name: Stack UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7475483163702177462
 RectTransform:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 7475483163758233514}
   - component: {fileID: 7475483163758233513}
   m_Layer: 0
-  m_Name: Item Button
+  m_Name: Item Slot
   m_TagString: Player Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,10 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6d3b80bc96b3d4a860bbf1cbc9e6c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInventory: 1
-  stackUI: {fileID: 7188012581070987157}
-  stackCountText: {fileID: 4080342953842066842}
-  button: {fileID: 0}
+  slotType: 0
   currentItemID: 7001
-  icon: {fileID: 7475483163702177463}
   currentItem: {fileID: 0}

@@ -10,6 +10,7 @@ public class Item : ScriptableObject
     public int stackCount;
     public Sprite icon;
     public GameObject prefab;
+    public int value;
 
     public virtual void Use() { }
 }

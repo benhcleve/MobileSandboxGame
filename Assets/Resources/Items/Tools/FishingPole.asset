@@ -15,5 +15,8 @@ MonoBehaviour:
   ID: 5001
   itemName: Fishing Pole
   description: A simple fishing pole.
+  stackable: 0
+  stackCount: 0
   icon: {fileID: 21300000, guid: 58f89a427f929824c88bba1ccf55648a, type: 3}
   prefab: {fileID: 6341383883652426533, guid: a8231d2ab9782e94b8e14b7413573a8f, type: 3}
+  value: 250
