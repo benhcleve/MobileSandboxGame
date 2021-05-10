@@ -69,9 +69,9 @@ public class StoreUI : MonoBehaviour
         foreach (Item item in saleStock)
         {
             GameObject buttonPref = Instantiate(itemButton);
-            buttonPref.transform.SetParent(listingPanel.transform);
+            buttonPref.transform.SetParent(listingPanel.transform.Find("Listing Panel Slots"));
             buttonPref.transform.localScale = Vector3.one;
-            buttonPref.GetComponent<ItemSlot>().currentItemID = item.ID;
+            buttonPref.GetComponent<ItemSlot>().currentItem.ID = item.ID;
             buttonPref.GetComponent<ItemSlot>().slotType = ItemSlot.SlotType.Shop;
             allSlots.Add(buttonPref);
             StartCoroutine(addPlantListener(buttonPref.GetComponent<Button>()));

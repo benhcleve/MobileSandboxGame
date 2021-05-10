@@ -427,5 +427,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  currentItemID: 7001
+  currentItemID: 0
   currentItem: {fileID: 0}

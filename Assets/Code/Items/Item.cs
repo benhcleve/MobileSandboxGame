@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "Item/Generic", order = 1)]
+[System.Serializable]
 public class Item : ScriptableObject
 {
     public int ID;
@@ -11,6 +12,12 @@ public class Item : ScriptableObject
     public Sprite icon;
     public GameObject prefab;
     public int value;
+
+    public Item()
+    {
+        this.ID = 0;
+        this.stackCount = 1;
+    }
 
     public virtual void Use() { }
 }

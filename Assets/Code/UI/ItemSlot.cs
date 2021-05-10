@@ -13,10 +13,9 @@ public class ItemSlot : MonoBehaviour
     TextMeshProUGUI stackCountText;
     Button button;
     Image icon;
-    public int currentItemID;
     public Item currentItem;
 
-    void Start()
+    void Awake()
     {
         button = GetComponent<Button>();
         //These components are found by NAME. Do not change names of children in Item Slot gameobject.
@@ -25,32 +24,28 @@ public class ItemSlot : MonoBehaviour
         stackCountText = stackUI.transform.Find("Stack Count").GetComponent<TextMeshProUGUI>();
         icon.gameObject.SetActive(false);
 
-        UpdateItemButton(currentItemID);
+        UpdateItemSlot(currentItem);
     }
 
-    public void UpdateItemButton(int ID)
+    public void UpdateItemSlot(Item currentItem)
     {
         button.onClick.RemoveAllListeners();
 
-        if (ID == 0)
+        if (currentItem == null)
         {
             icon.gameObject.SetActive(false);
+            stackUI.SetActive(false);
+            return;
         }
 
-        Item[] items = Resources.LoadAll<Item>("Items").ToArray();
-        foreach (Item i in items)
-            if (i.ID == ID)
-            {
-                currentItem = Object.Instantiate(i);
-                currentItemID = ID;
-                icon.gameObject.SetActive(true);
-                icon.sprite = currentItem.icon;
-                stackUI.SetActive(currentItem.stackable);
-                if (currentItem.stackable)
-                    stackCountText.text = currentItem.stackCount.ToString();
+        icon.gameObject.SetActive(true);
+        icon.sprite = currentItem.icon;
+        stackUI.SetActive(currentItem.stackable);
+        if (currentItem.stackable)
+            stackCountText.text = currentItem.stackCount.ToString();
 
-                SwitchSlotFunction();
-            }
+        SwitchSlotFunction();
+
     }
 
     void SwitchSlotFunction()

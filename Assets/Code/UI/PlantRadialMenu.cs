@@ -44,10 +44,10 @@ public class PlantRadialMenu : MonoBehaviour
         for (int invSlot = 0; invSlot < playerInventory.Length; invSlot++)
         {
             var itemButton = playerInventory[invSlot].GetComponent<ItemSlot>();
-            if (itemButton.currentItemID > 7000 && itemButton.currentItemID < 8000) //Seed IDs are the 7000's
+            if (itemButton.currentItem.ID > 7000 && itemButton.currentItem.ID < 8000) //Seed IDs are the 7000's
             {
                 GameObject entry = Instantiate(ItemButtonPrefab, transform);
-                entry.GetComponent<ItemSlot>().currentItemID = itemButton.currentItemID;
+                entry.GetComponent<ItemSlot>().currentItem.ID = itemButton.currentItem.ID;
                 entry.transform.SetParent(exitButton.transform);
                 entry.transform.localPosition = Vector3.zero;
                 Buttons.Add(entry);
@@ -59,7 +59,7 @@ public class PlantRadialMenu : MonoBehaviour
     IEnumerator addPlantListener(Button button)
     {
         yield return new WaitForSeconds(0.1f);
-        button.onClick.AddListener(() => this.PlantSeed(button.transform.GetComponent<ItemSlot>().currentItemID));
+        button.onClick.AddListener(() => this.PlantSeed(button.transform.GetComponent<ItemSlot>().currentItem.ID));
     }
 
     void Rearrange()

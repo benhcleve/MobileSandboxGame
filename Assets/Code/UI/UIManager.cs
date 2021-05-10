@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject dialogueUI;
     public GameObject objectPlacementUI;
-    public GameObject itemBar;
+    public GameObject hotbar;
 
     public enum UIState { Default, Default_NoMovement, Placement, Dialogue };
     public UIState uiState = UIState.Default;
@@ -38,22 +38,22 @@ public class UIManager : MonoBehaviour
             case UIState.Default:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
-                itemBar.SetActive(true);
+                hotbar.SetActive(true);
                 break;
             case UIState.Default_NoMovement:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
-                itemBar.SetActive(true);
+                hotbar.SetActive(true);
                 break;
             case UIState.Placement:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(true);
-                itemBar.SetActive(false);
+                hotbar.SetActive(false);
                 break;
             case UIState.Dialogue:
                 dialogueUI.SetActive(true);
                 objectPlacementUI.SetActive(false);
-                itemBar.SetActive(false);
+                hotbar.SetActive(false);
                 break;
         }
     }
