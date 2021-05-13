@@ -22,8 +22,6 @@ public class PlayerInventory : MonoBehaviour
     }
     public void Awake() => CreateInstance();
 
-
-
     private void Start()
     {
         CreateInventorySlots();
@@ -33,18 +31,21 @@ public class PlayerInventory : MonoBehaviour
 
     void CreateInventorySlots()
     {
-        for (int i = 0; i < inventoryLimit; i++)
+        int slotNumber = 1;
+        while (inventorySlots.Count < inventoryLimit)
         {
+            inventory.Add(null); //Add room to inventory item list
             GameObject slot = Instantiate(slotPrefab);
             slot.transform.SetParent(inventoryUI.transform.Find("Inventory Slots"));
             slot.transform.localScale = Vector3.one;
             inventorySlots.Add(slot.GetComponent<ItemSlot>());
             slot.GetComponent<ItemSlot>().slotType = ItemSlot.SlotType.Inventory;
-            slot.name = "Inventory Slot " + (i + 1);
+            slot.name = "Inventory Slot " + slotNumber;
+            slotNumber++;
         }
     }
 
-    void UpdateSlots()
+    public void UpdateSlots()
     {
         for (int i = 0; i < inventory.Count; i++)
         {
@@ -53,7 +54,15 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-
+    public void OpenCloseInventory()
+    {
+        if (!inventoryUI.activeSelf)
+        {
+            inventoryUI.SetActive(true);
+            UpdateSlots();
+        }
+        else inventoryUI.SetActive(false);
+    }
 
 }
 

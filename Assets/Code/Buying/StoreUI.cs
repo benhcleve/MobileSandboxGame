@@ -71,7 +71,7 @@ public class StoreUI : MonoBehaviour
             GameObject buttonPref = Instantiate(itemButton);
             buttonPref.transform.SetParent(listingPanel.transform.Find("Listing Panel Slots"));
             buttonPref.transform.localScale = Vector3.one;
-            buttonPref.GetComponent<ItemSlot>().currentItem.ID = item.ID;
+            buttonPref.GetComponent<ItemSlot>().currentItem = item;
             buttonPref.GetComponent<ItemSlot>().slotType = ItemSlot.SlotType.Shop;
             allSlots.Add(buttonPref);
             StartCoroutine(addPlantListener(buttonPref.GetComponent<Button>()));
@@ -120,6 +120,54 @@ public class StoreUI : MonoBehaviour
             buyCount--;
         buyCountDisplay.text = buyCount.ToString();
         price.text = (selectedItem.value * buyCount).ToString();
+    }
+
+    public void BuyItem()
+    {
+        if (PlayerInventory.instance.coins >= selectedItem.value)
+        {
+            int freeInvSlotIndex = -1;
+            foreach (Item item in PlayerInventory.instance.inventory) //find first free slot index in inventory, or inventory is full
+            {
+                if (item == null)
+                    freeInvSlotIndex = PlayerInventory.instance.inventory.IndexOf(item);
+            }
+
+            //If item is not stackable and there is space, create new instance in inventory
+            if (!selectedItem.stackable && freeInvSlotIndex != -1)
+            {
+                Item purchasedItem = Object.Instantiate(selectedItem);
+                PlayerInventory.instance.inventory[freeInvSlotIndex] = purchasedItem;
+                PlayerInventory.instance.coins -= selectedItem.value;
+            }
+            else
+            {
+                //If stackable item already exists in inventory, add to current stack
+                foreach (Item item in PlayerInventory.instance.inventory)
+                {
+                    if (item != null && item.ID == selectedItem.ID)
+                    {
+                        item.stackCount += buyCount;
+                        PlayerInventory.instance.coins -= selectedItem.value * buyCount;
+                        return;
+                    }
+                }
+
+                //If no item in inventory with this ID exists and there is space, create new stack
+                if (freeInvSlotIndex != -1)
+                {
+                    Item purchasedItem = Object.Instantiate(selectedItem);
+                    PlayerInventory.instance.inventory[freeInvSlotIndex] = purchasedItem;
+                    purchasedItem.stackCount = buyCount;
+                    PlayerInventory.instance.coins -= selectedItem.value * buyCount;
+                }
+
+            }
+            if (freeInvSlotIndex == -1)
+                Debug.Log("Inventory is full!");
+        }
+
+        PlayerInventory.instance.UpdateSlots();
     }
 
     public void ExitShop()

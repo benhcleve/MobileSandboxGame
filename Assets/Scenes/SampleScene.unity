@@ -3327,9 +3327,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1022092025}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1169823722}
+        m_MethodName: OpenCloseInventory
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3901,7 +3901,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1169094300}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1263151144}
+        m_MethodName: BuyItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1169094300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4111,8 +4122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777631c0d5b223849ad1fa5d0cba34b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 0
-  inventoryLimit: 9
+  coins: 500
+  inventoryLimit: 13
   inventoryUI: {fileID: 1022092025}
   slotPrefab: {fileID: 7475483163758233508, guid: 4cae888cd8f2eed41ab14ac592c9fcf1,
     type: 3}
@@ -6722,9 +6733,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1022092025}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1169823722}
+        m_MethodName: OpenCloseInventory
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
