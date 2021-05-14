@@ -49,8 +49,20 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            inventorySlots[i].currentItem = inventory[i];
-            inventorySlots[i].UpdateItemSlot(inventory[i]);
+            if (inventorySlots[i].gameObject.activeInHierarchy)
+            {
+                inventorySlots[i].currentItem = inventory[i];
+
+                if (inventory[i] != null)
+                    if (inventory[i].stackable && inventory[i].stackCount < 1)
+                    {
+                        Destroy(inventory[i]);
+                        inventory[i] = null;
+                        inventorySlots[i].currentItem = null;
+                    }
+
+                inventorySlots[i].UpdateItemSlot();
+            }
         }
     }
 
@@ -63,6 +75,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else inventoryUI.SetActive(false);
     }
+
 
 }
 

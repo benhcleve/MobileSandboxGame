@@ -39,19 +39,20 @@ public class PlantRadialMenu : MonoBehaviour
     void AddButtons()
     {
 
-        GameObject[] playerInventory = GameObject.FindGameObjectsWithTag("Player Inventory");
-
-        for (int invSlot = 0; invSlot < playerInventory.Length; invSlot++)
+        foreach (Item item in PlayerInventory.instance.inventory)
         {
-            var itemButton = playerInventory[invSlot].GetComponent<ItemSlot>();
-            if (itemButton.currentItem.ID > 7000 && itemButton.currentItem.ID < 8000) //Seed IDs are the 7000's
+            if (item != null)
             {
-                GameObject entry = Instantiate(ItemButtonPrefab, transform);
-                entry.GetComponent<ItemSlot>().currentItem.ID = itemButton.currentItem.ID;
-                entry.transform.SetParent(exitButton.transform);
-                entry.transform.localPosition = Vector3.zero;
-                Buttons.Add(entry);
-                StartCoroutine(addPlantListener(entry.GetComponent<Button>()));
+                if (item.ID > 7000 && item.ID < 8000) //Seed IDs are the 7000's
+                {
+                    GameObject entry = Instantiate(ItemButtonPrefab, transform);
+                    entry.GetComponent<ItemSlot>().currentItem = item;
+                    entry.GetComponent<ItemSlot>().UpdateItemSlot();
+                    entry.transform.SetParent(exitButton.transform);
+                    entry.transform.localPosition = Vector3.zero;
+                    Buttons.Add(entry);
+                    StartCoroutine(addPlantListener(entry.GetComponent<Button>()));
+                }
             }
         }
     }
@@ -101,10 +102,19 @@ public class PlantRadialMenu : MonoBehaviour
         foreach (Item i in items)
             if (i.ID == id)
             {
-                Debug.Log(id);
                 GameObject seedPrefab = Instantiate(i.prefab, transform.root.position, transform.root.rotation);
                 seedPrefab.transform.parent = transform.root;
                 transform.root.GetComponent<Soil>().currentCrop = seedPrefab;
+
+                foreach (Item item in PlayerInventory.instance.inventory)
+                {
+                    if (item != null && item.ID == id)
+                    {
+                        item.stackCount--;
+                        PlayerInventory.instance.UpdateSlots();
+                        break;
+                    }
+                }
             }
         ExitRadial();
     }

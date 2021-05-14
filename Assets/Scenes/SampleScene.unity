@@ -4122,7 +4122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777631c0d5b223849ad1fa5d0cba34b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 500
+  coins: 50000
   inventoryLimit: 13
   inventoryUI: {fileID: 1022092025}
   slotPrefab: {fileID: 7475483163758233508, guid: 4cae888cd8f2eed41ab14ac592c9fcf1,

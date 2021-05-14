@@ -24,10 +24,10 @@ public class ItemSlot : MonoBehaviour
         stackCountText = stackUI.transform.Find("Stack Count").GetComponent<TextMeshProUGUI>();
         icon.gameObject.SetActive(false);
 
-        UpdateItemSlot(currentItem);
+        UpdateItemSlot();
     }
 
-    public void UpdateItemSlot(Item currentItem)
+    public void UpdateItemSlot()
     {
         button.onClick.RemoveAllListeners();
 
@@ -62,7 +62,7 @@ public class ItemSlot : MonoBehaviour
                 button.onClick.AddListener(delegate { currentItem.Use(); });
                 break;
             case SlotType.Shop:
-
+                stackUI.SetActive(false);
                 break;
         }
     }

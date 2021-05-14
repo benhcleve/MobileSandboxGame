@@ -73,6 +73,7 @@ public class StoreUI : MonoBehaviour
             buttonPref.transform.localScale = Vector3.one;
             buttonPref.GetComponent<ItemSlot>().currentItem = item;
             buttonPref.GetComponent<ItemSlot>().slotType = ItemSlot.SlotType.Shop;
+            buttonPref.GetComponent<ItemSlot>().UpdateItemSlot();
             allSlots.Add(buttonPref);
             StartCoroutine(addPlantListener(buttonPref.GetComponent<Button>()));
         }
@@ -149,6 +150,7 @@ public class StoreUI : MonoBehaviour
                     {
                         item.stackCount += buyCount;
                         PlayerInventory.instance.coins -= selectedItem.value * buyCount;
+                        PlayerInventory.instance.UpdateSlots();
                         return;
                     }
                 }
@@ -161,7 +163,6 @@ public class StoreUI : MonoBehaviour
                     purchasedItem.stackCount = buyCount;
                     PlayerInventory.instance.coins -= selectedItem.value * buyCount;
                 }
-
             }
             if (freeInvSlotIndex == -1)
                 Debug.Log("Inventory is full!");
