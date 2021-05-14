@@ -8,14 +8,8 @@ public class TimeDisplay : MonoBehaviour
 {
     public enum DisplayStyle { AmPm, Military };
     public DisplayStyle currentDisplayStyle;
-    TextMeshProUGUI timeDisplay;
-    string hour;
-    string minute;
-    string period;
-    void Awake()
-    {
-        timeDisplay = GetComponent<TextMeshProUGUI>();
-    }
+    public TextMeshProUGUI timeDisplay;
+    public TextMeshProUGUI dateDisplay;
 
     void Update()
     {
@@ -25,9 +19,12 @@ public class TimeDisplay : MonoBehaviour
 
     void UpdateTimeDisplay()
     {
+        string hour;
+        string minute;
+        string period;
+
         if (currentDisplayStyle == DisplayStyle.AmPm)
         {
-
             //HOUR
             hour = GameTime.instance.hour.ToString();
             int periodHour; //instead of military time, adjust hour to period
@@ -63,6 +60,9 @@ public class TimeDisplay : MonoBehaviour
 
 
         }
+
+        if (GameTime.instance.hour == 0 && GameTime.instance.minute == 0)
+            dateDisplay.text = GameTime.instance.day + ", " + GameTime.instance.season;
 
     }
 }
