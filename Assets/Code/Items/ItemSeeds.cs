@@ -4,7 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "Item/Seeds", order = 4)]
 public class ItemSeeds : Item
 {
-    public int growTime;
+
+    public Duration growTime;
+    public GameObject sproutGrown;
+    public GameObject halfGrown;
+    public GameObject fullGrown;
 
     public override void Use()
     {

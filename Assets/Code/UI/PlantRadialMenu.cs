@@ -102,9 +102,9 @@ public class PlantRadialMenu : MonoBehaviour
         foreach (Item i in items)
             if (i.ID == id)
             {
-                GameObject seedPrefab = Instantiate(i.prefab, transform.root.position, transform.root.rotation);
-                seedPrefab.transform.parent = transform.root;
-                transform.root.GetComponent<Soil>().currentCrop = seedPrefab;
+                Soil soil = transform.root.GetComponent<Soil>();
+                soil.itemSeeds = (ItemSeeds)Object.Instantiate(i);
+                soil.PlantCrop();
 
                 foreach (Item item in PlayerInventory.instance.inventory)
                 {

@@ -20,3 +20,14 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a41db8a5162e3504caad7e723f25cc10, type: 3}
   prefab: {fileID: 6194906302541299724, guid: 06b698a100177d042affb7c4ed690bd4, type: 3}
   value: 5
+  growTime:
+    minutes: 0
+    hours: 0
+    days: 3
+    years: 0
+  sproutGrown: {fileID: 2662793116656487911, guid: 8951d01657035904cacdb86f1021b1cc,
+    type: 3}
+  halfGrown: {fileID: 5966663066772918743, guid: b958c686b7b5f534ca9c52b221d899fd,
+    type: 3}
+  fullGrown: {fileID: 2379491400458991796, guid: 84652cce8feadef41b27488e15d0783f,
+    type: 3}

@@ -51,18 +51,19 @@ public class GameTime : MonoBehaviour
             var dayMinutes = yearMinutes - (day * 1440);
 
             hour = (int)Mathf.Floor(dayMinutes / 60);
-
             minute = dayMinutes - (hour * 60);
 
-            //There are 10080 minutes in a week
+            //There are 7 days in a season
             season = (int)Mathf.Floor((day / 7));
-
-
-
-
-
-
         }
     }
+
+    public int DurationToGametime(Duration duration)
+    {
+        int gameTimeDuration = duration.minutes + (duration.hours * 60) + (duration.days * 1440) + (duration.years * 40320);
+        return gameTimeDuration;
+    }
+
+
 
 }
