@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    public enum Season { Spring, Summer, Fall, Winter }
-    public enum Day { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday };
-
-    public Season season = Season.Spring;
-    public Day day = Day.Monday;
-    public int hour = 12;
-    public int minute = 0;
+    public int gameTime;
+    public string[] seasons = new string[] { "Spring", "Summer", "Fall", "Winter" };
+    public string[] days = new string[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+    public int year;
+    public int season;
+    public int day;
+    public int hour;
+    public int minute;
 
 
     private static GameTime _instance;
@@ -35,72 +36,33 @@ public class GameTime : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1);
-            minute += 1;
+            gameTime++;
 
-            if (minute >= 60) //If hour has passed
-            {
-                hour += 1;
-                minute = 0;
+            //There are 40320 minutes in 28 Days. 4 Seasons (7 days per seasons) in a game year.
+            year = (int)Mathf.Floor(gameTime / 40320);
+            //Current year's minutes
+            var yearMinutes = gameTime - (year * 40320);
 
-                if (hour >= 24) //If day has passed
-                {
-                    hour = 0;
-                    UpdateDay();
-                    UpdateSeason();
-                }
 
-            }
+
+            //There are 1440 minutes in a day
+            day = (int)Mathf.Floor((yearMinutes / 1440));
+            //Current days's minutes
+            var dayMinutes = yearMinutes - (day * 1440);
+
+            hour = (int)Mathf.Floor(dayMinutes / 60);
+
+            minute = dayMinutes - (hour * 60);
+
+            //There are 10080 minutes in a week
+            season = (int)Mathf.Floor((day / 7));
+
+
+
+
+
+
         }
     }
 
-    void UpdateDay()
-    {
-        switch (day)
-        {
-            case Day.Monday:
-                day = Day.Tuesday;
-                break;
-            case Day.Tuesday:
-                day = Day.Wednesday;
-                break;
-            case Day.Wednesday:
-                day = Day.Thursday;
-                break;
-            case Day.Thursday:
-                day = Day.Friday;
-                break;
-            case Day.Friday:
-                day = Day.Saturday;
-                break;
-            case Day.Saturday:
-                day = Day.Sunday;
-                break;
-            case Day.Sunday:
-                day = Day.Monday;
-                break;
-        }
-    }
-
-    void UpdateSeason()
-    {
-        if (day == Day.Monday)
-        {
-            switch (season)
-            {
-                case Season.Spring:
-                    season = Season.Summer;
-                    break;
-                case Season.Summer:
-                    season = Season.Fall;
-                    break;
-                case Season.Fall:
-                    season = Season.Winter;
-                    break;
-                case Season.Winter:
-                    season = Season.Spring;
-                    break;
-            }
-        }
-
-    }
 }
