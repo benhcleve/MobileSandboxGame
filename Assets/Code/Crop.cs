@@ -50,11 +50,19 @@ public class Crop : MonoBehaviour
                     if (hit.transform == this.transform) //If not interactable, set target to null
                         isSelected = true;
 
-                if (isSelected && !isPlanted) //If already pulled up, pick up crop
+                if (isSelected) //If already pulled up, pick up crop
                 {
-                    PlayerInventory.instance.AddToInventory(item, gameObject);
-                }
+                    if (!isPlanted)
+                    {
+                        PlayerInventory.instance.AddToInventory(item, gameObject);
+                        return;
+                    }
 
+                    Outline outline = gameObject.AddComponent<Outline>();
+                    outline.OutlineColor = Color.white;
+                    outline.OutlineMode = Outline.Mode.OutlineVisible;
+                    outline.OutlineWidth = 5;
+                }
             }
 
             //Pulling crop up
@@ -81,12 +89,16 @@ public class Crop : MonoBehaviour
             }
 
             //Dropping crop after pulling up
-            if (Input.GetTouch(0).phase == TouchPhase.Ended && isSelected && !isPlanted)
+            if (Input.GetTouch(0).phase == TouchPhase.Ended && isSelected)
             {
+                Destroy(GetComponent<Outline>()); //Get rid of selected outline
                 isSelected = false;
-                col.isTrigger = false;
-                rb.isKinematic = false;
-                rb.angularVelocity = rb.transform.right * 5;
+                if (!isPlanted)
+                {
+                    col.isTrigger = false;
+                    rb.isKinematic = false;
+                    rb.angularVelocity = rb.transform.right * 5;
+                }
             }
         }
         else

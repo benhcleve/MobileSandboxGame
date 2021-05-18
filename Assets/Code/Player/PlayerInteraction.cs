@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class PlayerInteraction : MonoBehaviour
 {
     private static PlayerInteraction _instance;
@@ -9,6 +9,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public GameObject target;
     public GameObject TouchMarker;
+
+    Vector2 touchStartPos;
 
     private void Awake() => CreateInstance();
     void CreateInstance() //Make this UI Manager an instance (Or destroy if already exists)
@@ -27,20 +29,43 @@ public class PlayerInteraction : MonoBehaviour
 
     void selectTarget()
     {
-        if (Input.touchCount > 0)
+        if (UIManager.instance.uiState == UIManager.UIState.Default)
         {
-            // Cast a ray from screen point
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            // Save the info
-            RaycastHit hit;
-            // You successfully hit
-            if (Physics.Raycast(ray, out hit))
+            if (Input.touchCount == 1)
             {
-                if (hit.transform.gameObject.GetComponent<Interactable>())
-                    target = hit.transform.gameObject;
+                //Prevents moving when clicking UI elements
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                    return;
+
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                    touchStartPos = Input.GetTouch(0).position; //Set starting position of touch 1
+
+                if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    float dragDistance = Vector3.Distance(touchStartPos, Input.GetTouch(0).position);
+
+                    if (dragDistance < 50)
+                    {
+                        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                        RaycastHit hit;
+                        // You successfully hit
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            if (hit.transform.gameObject.GetComponent<Interactable>())
+                            {
+                                target = hit.transform.gameObject;
+                                PlayerMovement.instance.navMeshAgent.destination = target.transform.position; //Move to interactable object
+                            }
+
+                        }
+                    }
+
+                }
+
             }
         }
     }
+
 
     void InteractWithTarget()
     {
@@ -55,8 +80,9 @@ public class PlayerInteraction : MonoBehaviour
                 target.GetComponent<Interactable>().Interact();
                 GetComponent<PlayerMovement>().StopMovement();
             }
-
         }
-
     }
+
+
+
 }

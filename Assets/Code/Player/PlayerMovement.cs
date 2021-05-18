@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 destination;
     public GameObject touchMarker;
 
+    public LayerMask walkable;
+
     //touch variables
     bool isTwoTouch = false;
     Vector2 touchStartPos;
@@ -77,9 +79,13 @@ public class PlayerMovement : MonoBehaviour
         // You successfully hit
         if (Physics.Raycast(ray, out hit))
         {
-            destination = hit.point;
-            touchMarker.transform.position = destination;
-            navMeshAgent.SetDestination(destination);
+            if (walkable == (walkable | (1 << hit.transform.gameObject.layer)))
+            {
+                destination = hit.point;
+                touchMarker.transform.position = destination;
+                navMeshAgent.SetDestination(destination);
+
+            }
 
             if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
                 GetComponent<PlayerInteraction>().target = null;

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class StoreUI : MonoBehaviour
+public class StoreUI : Interactable
 {
     public List<Item> saleStock = new List<Item>();
     int buyCount = 1;
@@ -19,49 +19,16 @@ public class StoreUI : MonoBehaviour
     public Item selectedItem;
     List<GameObject> allSlots = new List<GameObject>();
 
-
-
-    void Update()
-    {
-        if (UIManager.instance.uiState == UIManager.UIState.Default)
-            DetectTouch();
-    }
-
     Vector2 touchStartPos;
-    void DetectTouch()
+    public override void Interact()
     {
-        if (Input.touchCount == 1)
-        {
-            //Prevents moving when clicking UI elements
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                return;
-            float touchMoveDist = 0;
-            if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
-                touchStartPos = Input.GetTouch(0).position;
-
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
-
-                if (touchMoveDist < 50) //If 1 touch tap
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    RaycastHit hit;
-                    // You successfully hit
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (hit.transform == this.transform) //If not interactable, set target to null
-                            if (Vector3.Distance(PlayerMovement.instance.transform.position, this.transform.position) < 5) //If player is near
-                            {
-                                transform.Find("Store Canvas").gameObject.SetActive(true);
-                                GenerateStock();
-                            }
-
-                    }
-                }
-            }
-        }
+        isInteracting = true;
+        transform.Find("Store Canvas").gameObject.SetActive(true);
+        UIManager.instance.uiState = UIManager.UIState.Default_NoMovement;
+        GenerateStock();
     }
+
+
 
 
     void GenerateStock()
@@ -177,6 +144,7 @@ public class StoreUI : MonoBehaviour
             Destroy(slot);
         allSlots.Clear();
         transform.Find("Store Canvas").gameObject.SetActive(false);
+        UIManager.instance.uiState = UIManager.UIState.Default;
 
     }
 }

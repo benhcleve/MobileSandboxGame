@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 6410900443486411944}
   - component: {fileID: 1962446926245014487}
   - component: {fileID: 1194337188488016826}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TilledSoil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
