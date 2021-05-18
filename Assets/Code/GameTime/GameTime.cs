@@ -10,6 +10,7 @@ public class GameTime : MonoBehaviour
     public int year;
     public int season;
     public int day;
+    public int dayOfWeek;
     public int hour;
     public int minute;
 
@@ -55,6 +56,8 @@ public class GameTime : MonoBehaviour
 
             //There are 7 days in a season
             season = (int)Mathf.Floor((day / 7));
+
+            dayOfWeek = day - (season * 7);
         }
     }
 

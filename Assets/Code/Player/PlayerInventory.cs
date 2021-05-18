@@ -76,6 +76,52 @@ public class PlayerInventory : MonoBehaviour
         else inventoryUI.SetActive(false);
     }
 
+    public void AddToInventory(Item selectedItem, GameObject destroyMe = null)
+    {
+        int freeInvSlotIndex = -1;
+        foreach (Item item in PlayerInventory.instance.inventory) //find first free slot index in inventory, or inventory is full
+        {
+            if (item == null)
+                freeInvSlotIndex = PlayerInventory.instance.inventory.IndexOf(item);
+        }
+
+        //If item is not stackable and there is space, create new instance in inventory
+        if (!selectedItem.stackable && freeInvSlotIndex != -1)
+        {
+            Item newItem = Object.Instantiate(selectedItem);
+            PlayerInventory.instance.inventory[freeInvSlotIndex] = newItem;
+        }
+        else
+        {
+            //If stackable item already exists in inventory, add to current stack
+            foreach (Item item in PlayerInventory.instance.inventory)
+            {
+                if (item != null && item.ID == selectedItem.ID)
+                {
+                    item.stackCount += selectedItem.stackCount;
+                    PlayerInventory.instance.UpdateSlots();
+                    if (freeInvSlotIndex != -1 && destroyMe != null) //Destroys gameobject that is being picked up
+                        Destroy(destroyMe);
+                    return;
+                }
+            }
+
+            //If no item in inventory with this ID exists and there is space, create new stack
+            if (freeInvSlotIndex != -1)
+            {
+                Item newItem = Object.Instantiate(selectedItem);
+                PlayerInventory.instance.inventory[freeInvSlotIndex] = newItem;
+                newItem.stackCount = selectedItem.stackCount;
+            }
+        }
+        if (freeInvSlotIndex == -1)
+            Debug.Log("Inventory is full!");
+        if (freeInvSlotIndex != -1 && destroyMe != null) //Destroys gameobject that is being picked up
+            Destroy(destroyMe);
+
+        PlayerInventory.instance.UpdateSlots();
+    }
+
 
 }
 

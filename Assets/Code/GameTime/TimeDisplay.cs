@@ -61,8 +61,7 @@ public class TimeDisplay : MonoBehaviour
 
         }
 
-        if (GameTime.instance.hour == 0 && GameTime.instance.minute == 0)
-            dateDisplay.text = GameTime.instance.days[GameTime.instance.day] + ", " + GameTime.instance.seasons[GameTime.instance.season];
+        dateDisplay.text = GameTime.instance.days[GameTime.instance.dayOfWeek] + ", " + GameTime.instance.seasons[GameTime.instance.season];
 
     }
 }

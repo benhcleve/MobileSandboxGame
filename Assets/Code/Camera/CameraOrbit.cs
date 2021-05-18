@@ -62,7 +62,7 @@ public class CameraOrbit : MonoBehaviour
         //MOBILE
 
 #if UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 2)
         {
             _LocalRotation.x += (Input.touches[0].deltaPosition.x / 10) * OrbitSensitivity; //Divided by 2 to reduce speed
             _LocalRotation.y -= (Input.touches[0].deltaPosition.y / 10) * OrbitSensitivity; //Divided by 2 to reduce speed
