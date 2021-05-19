@@ -27,6 +27,7 @@ public class Crop : MonoBehaviour
     private void Update()
     {
         DetectTouch();
+        PlayerMagnet();
     }
 
     void DetectTouch()
@@ -50,19 +51,9 @@ public class Crop : MonoBehaviour
                     if (hit.transform == this.transform) //If not interactable, set target to null
                         isSelected = true;
 
-                if (isSelected) //If already pulled up, pick up crop
-                {
-                    if (!isPlanted)
-                    {
-                        PlayerInventory.instance.AddToInventory(item, gameObject);
-                        return;
-                    }
+                if (isSelected && GetComponent<Outline>() == null)
+                    SetOutline(true);
 
-                    Outline outline = gameObject.AddComponent<Outline>();
-                    outline.OutlineColor = Color.white;
-                    outline.OutlineMode = Outline.Mode.OutlineVisible;
-                    outline.OutlineWidth = 5;
-                }
             }
 
             //Pulling crop up
@@ -91,7 +82,7 @@ public class Crop : MonoBehaviour
             //Dropping crop after pulling up
             if (Input.GetTouch(0).phase == TouchPhase.Ended && isSelected)
             {
-                Destroy(GetComponent<Outline>()); //Get rid of selected outline
+                SetOutline(false); //Get rid of selected outline
                 isSelected = false;
                 if (!isPlanted)
                 {
@@ -104,5 +95,34 @@ public class Crop : MonoBehaviour
         else
             isTwoTouch = false; //Set to false when not touching screen
     }
+
+    void SetOutline(bool isOn)
+    {
+        if (isOn)
+        {
+            Outline outline = gameObject.AddComponent<Outline>();
+            outline.OutlineColor = Color.white;
+            outline.OutlineMode = Outline.Mode.OutlineVisible;
+            outline.OutlineWidth = 5;
+        }
+        else if (!isOn)
+            Destroy(GetComponent<Outline>());
+    }
+
+    void PlayerMagnet()
+    {
+        float distFromPlayer = Vector3.Distance(PlayerMovement.instance.transform.position, transform.position);
+        if (distFromPlayer < 3)
+            if (!PlayerInventory.instance.isInventoryFull())
+            {
+                if (!isPlanted && !isSelected)
+                    transform.position = Vector3.MoveTowards(transform.position, PlayerMovement.instance.transform.position, 5 * Time.deltaTime);
+
+                if (distFromPlayer < .5f && !isSelected && !isPlanted)
+                    PlayerInventory.instance.AddToInventory(item, gameObject);
+            }
+    }
+
+
 
 }

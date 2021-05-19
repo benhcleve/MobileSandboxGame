@@ -91,8 +91,8 @@ public class PlantRadialMenu : MonoBehaviour
 
         for (int i = 0; i < Buttons.Count; i++)
             Destroy(Buttons[i]);
-
         UIManager.instance.uiState = UIManager.UIState.Default;
+        PlayerInteraction.instance.target = null;
         gameObject.SetActive(false);
     }
 

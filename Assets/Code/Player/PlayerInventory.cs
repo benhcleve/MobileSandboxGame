@@ -29,6 +29,17 @@ public class PlayerInventory : MonoBehaviour
         inventoryUI.SetActive(false);
     }
 
+    public bool isInventoryFull()
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i] == null)
+                return false;
+        }
+
+        return true;
+    }
+
     void CreateInventorySlots()
     {
         int slotNumber = 1;

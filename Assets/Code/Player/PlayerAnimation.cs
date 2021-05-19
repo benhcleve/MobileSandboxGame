@@ -42,14 +42,14 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetBuildAnimation(int animID) => animator.SetInteger("buildAnim", animID);
 
-
-
     void SetAnimation(string animName = null)
     {
+        //Add any base animations here:
+        string[] baseLayerBools = new string[] { "isWalking", "isIdle", "isBuilding" };
+
         //Set all animations false
-        foreach (AnimatorControllerParameter parameter in animator.parameters)
-            if (parameter.type == AnimatorControllerParameterType.Bool)
-                animator.SetBool(parameter.name, false);
+        foreach (string animBoolName in baseLayerBools)
+            animator.SetBool(animBoolName, false);
 
         if (animName != null) //Set desired animation true if not null
             animator.SetBool(animName, true);
