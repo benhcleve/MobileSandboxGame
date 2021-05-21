@@ -458,11 +458,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717d6f1a4a3c07f49a05e4203c623ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteracting: 0
+  interactDistance: 1
   status: 0
   itemSeeds: {fileID: 0}
   currentCrop: {fileID: 0}
   plantTime: 0
   radialMenu: {fileID: 888936662}
+  waterSaturation: 0
+  material: {fileID: 0}
 --- !u!65 &1194337188488016826
 BoxCollider:
   m_ObjectHideFlags: 0

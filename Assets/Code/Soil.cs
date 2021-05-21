@@ -11,6 +11,9 @@ public class Soil : Interactable
     public GameObject currentCrop;
     public int plantTime;
     public GameObject radialMenu;
+    public float waterSaturation = 0f;
+    public Material material;
+    int last_Gametime;
 
 
     public override void Interact()
@@ -19,6 +22,11 @@ public class Soil : Interactable
         radialMenu.SetActive(true);
     }
 
+    private void Start()
+    {
+        last_Gametime = GameTime.instance.gameTime;
+        material = GetComponent<Renderer>().material;
+    }
 
     void Update()
     {
@@ -27,6 +35,10 @@ public class Soil : Interactable
 
         if (isInteracting && !radialMenu.activeInHierarchy)
             isInteracting = false;
+
+
+        UpdateWaterSaturation();
+
     }
 
     Vector2 touchStartPos;
@@ -46,6 +58,16 @@ public class Soil : Interactable
         int growingTime = GameTime.instance.gameTime - plantTime; //Time taken to grow so far
         float growthPercent = (((float)growingTime / (float)GameTime.instance.DurationToGametime(itemSeeds.growTime)));
         return growthPercent;
+    }
+
+    void UpdateWaterSaturation()
+    {
+        if (GameTime.instance.gameTime != last_Gametime && waterSaturation > 0)
+            waterSaturation -= (GameTime.instance.gameTime - last_Gametime) * .01f;
+
+        material.SetFloat("_TextureTransition", waterSaturation);
+
+        last_Gametime = GameTime.instance.gameTime;
     }
 
     void StatusChange()

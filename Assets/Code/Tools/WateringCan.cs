@@ -8,8 +8,10 @@ public class WateringCan : MonoBehaviour
     Animator animator;
     public PathCreator pathCreator;
     public GameObject waterParticles;
+    Collider col;
     private void Awake()
     {
+        col = GetComponent<Collider>();
         if (PlayerEquipmentManager.instance.equippedItem = gameObject)
         {
             animator = PlayerAnimation.instance.animator;
@@ -21,9 +23,23 @@ public class WateringCan : MonoBehaviour
     private void Update()
     {
         if (pathCreator.onPath && !waterParticles.activeInHierarchy)
+        {
             waterParticles.SetActive(true);
+            col.enabled = true;
+            animator.SetBool("isWateringWaterCan", true);
+            animator.SetBool("isHoldingWaterCan", false);
+            PlayerMovement.instance.navMeshAgent.speed = 1;
+        }
+
         else if (!pathCreator.onPath && waterParticles.activeInHierarchy)
+        {
             waterParticles.SetActive(false);
+            col.enabled = false;
+            animator.SetBool("isWateringWaterCan", false);
+            animator.SetBool("isHoldingWaterCan", true);
+            PlayerMovement.instance.navMeshAgent.speed = 3.5f;
+        }
+
     }
 
     private void OnDestroy()
@@ -31,38 +47,13 @@ public class WateringCan : MonoBehaviour
         animator.SetBool("isHoldingWaterCan", false);
     }
 
-    Vector3 touchStartPos;
-    void DetectTouch()
+
+    private void OnTriggerStay(Collider other)
     {
-        bool isTwoTouch = false;
-
-        if (Input.touchCount > 0)
+        if (other.gameObject.GetComponent<Soil>())
         {
-            //Prevents moving when clicking UI elements
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                return;
-
-            if (Input.touchCount >= 2) //If touch 2 is used
-                isTwoTouch = true;
-
-            if (Input.GetTouch(0).phase == TouchPhase.Began && !isTwoTouch)
-            {
-                touchStartPos = Input.GetTouch(0).position; //Set starting position of touch 1
-            }
-
-            //Dropping crop after pulling up
-            if (Input.GetTouch(0).phase == TouchPhase.Ended && !isTwoTouch)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit hit;
-                // You successfully hit soil
-                if (Physics.Raycast(ray, out hit))
-                    if (hit.transform.GetComponent<Soil>())
-                    {
-
-                    }
-
-            }
+            if (other.gameObject.GetComponent<Soil>().waterSaturation < 1f)
+                other.gameObject.GetComponent<Soil>().waterSaturation += Time.deltaTime * .5f;
         }
     }
 

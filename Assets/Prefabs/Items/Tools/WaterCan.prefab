@@ -4908,6 +4908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3880721702140371830}
   - component: {fileID: 2100568182606679401}
+  - component: {fileID: 9209876671574666256}
   m_Layer: 0
   m_Name: WaterCan
   m_TagString: Untagged
@@ -4947,6 +4948,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathCreator: {fileID: 650947472}
   waterParticles: {fileID: 752545017}
+--- !u!65 &9209876671574666256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4508322576791615948}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.37, y: 1, z: 1}
+  m_Center: {x: 0, y: -0.27, z: 0.68}
 --- !u!1 &7595165057488353964
 GameObject:
   m_ObjectHideFlags: 0

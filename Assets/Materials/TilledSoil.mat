@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TilledSoil
-  m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 5e8351cfb8c5cd147a8f01d5ceead6b2,
+    type: 3}
   m_ShaderKeywords: N_F_EAL_ON N_F_RELGI_ON N_F_SS_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,6 +20,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_36B67AD3:
+        m_Texture: {fileID: 2800000, guid: aa7ecc0af1c83054d921a57f1cb5a2f9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D1B196C6:
+        m_Texture: {fileID: 2800000, guid: f6b0b6b72aefd6641a1cfc909b745a05, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _FReflection:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -75,7 +84,26 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture1:
+        m_Texture: {fileID: 2800000, guid: aa7ecc0af1c83054d921a57f1cb5a2f9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2:
+        m_Texture: {fileID: 2800000, guid: f6b0b6b72aefd6641a1cfc909b745a05, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_15C978A2_Out_0:
+        m_Texture: {fileID: 2800000, guid: f6b0b6b72aefd6641a1cfc909b745a05, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_962DC932_Out_0:
+        m_Texture: {fileID: 2800000, guid: aa7ecc0af1c83054d921a57f1cb5a2f9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_2C660256: 0
+    - Vector1_463DB8EF: 5
+    - Vector1_E94ABF62: 0.5
     - _AlphaBaseCutout: 1
     - _Compa: 4
     - _CustomLightDirectionFollowObjectRotation: 0
@@ -180,6 +208,7 @@ Material:
     - _SmoothObjectNormal: 0
     - _TEXMCOLINT: 1
     - _TexturePatternStyle: 0
+    - _TextureTransition: 0
     - _UseSecondaryCutout: 0
     - _UseTLB: 0
     - _VertexColorBlueAffectOutlineWitdh: 0
@@ -187,6 +216,7 @@ Material:
     - _VertexColorRedControlSmoothObjectNormal: 0
     - _XYZHardness: 14
     m_Colors:
+    - Color_9EDD6A26: {r: 1, g: 1, b: 1, a: 0.47058824}
     - _CustomLightDirection: {r: 0, g: 0, b: 10, a: 0}
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
