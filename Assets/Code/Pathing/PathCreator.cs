@@ -51,7 +51,8 @@ public class PathCreator : MonoBehaviour
             {
                 OnNewPathCreated(points);
                 pathDrawn = true;
-                pathStartPoint = pathPoints.ToArray()[0];
+                if (pathPoints.Count > 1)
+                    pathStartPoint = pathPoints.ToArray()[0];
             }
 
         }

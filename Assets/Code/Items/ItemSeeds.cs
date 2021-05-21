@@ -9,6 +9,8 @@ public class ItemSeeds : Item
     public GameObject sproutGrown;
     public GameObject halfGrown;
     public GameObject fullGrown;
+    public GameObject dead;
+    public float requiredWaterSat;
 
     public override void Use()
     {

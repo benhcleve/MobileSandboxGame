@@ -467,6 +467,7 @@ MonoBehaviour:
   radialMenu: {fileID: 888936662}
   waterSaturation: 0
   material: {fileID: 0}
+  cropHealth: 100
 --- !u!65 &1194337188488016826
 BoxCollider:
   m_ObjectHideFlags: 0

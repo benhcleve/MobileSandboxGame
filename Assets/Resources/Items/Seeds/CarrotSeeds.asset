@@ -31,3 +31,4 @@ MonoBehaviour:
     type: 3}
   fullGrown: {fileID: 2379491400458991796, guid: 84652cce8feadef41b27488e15d0783f,
     type: 3}
+  requiredWaterSat: 0.5

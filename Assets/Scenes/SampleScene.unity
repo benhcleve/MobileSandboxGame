@@ -2477,6 +2477,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1962446926245014487, guid: b686766ebe45724429e77f95aa344f4c,
+        type: 3}
+      propertyPath: cropHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4897923583957368189, guid: b686766ebe45724429e77f95aa344f4c,
         type: 3}
       propertyPath: m_Name

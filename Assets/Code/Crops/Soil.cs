@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Soil : Interactable
 {
-    public enum CropStatus { Vacant, Seeds, Sprout, HalfGrown, FullGrown }
+    public enum CropStatus { Vacant, Seeds, Sprout, HalfGrown, FullGrown, Dead }
     public CropStatus status = CropStatus.Vacant;
     public ItemSeeds itemSeeds;
     public GameObject currentCrop;
@@ -14,12 +14,14 @@ public class Soil : Interactable
     public float waterSaturation = 0f;
     public Material material;
     int last_Gametime;
+    public float cropHealth;
 
 
     public override void Interact()
     {
         base.Interact();
-        radialMenu.SetActive(true);
+        if (status == CropStatus.Vacant)
+            radialMenu.SetActive(true);
     }
 
     private void Start()
@@ -31,18 +33,26 @@ public class Soil : Interactable
     void Update()
     {
         if (status != CropStatus.Vacant)
+        {
             StatusChange();
+            if (status != CropStatus.FullGrown)
+                DamageWhenDry();
+        }
+
+        if (currentCrop == null && status != CropStatus.Vacant)
+        {
+            status = CropStatus.Vacant;
+            itemSeeds = null;
+            currentCrop = null;
+        }
 
         if (isInteracting && !radialMenu.activeInHierarchy)
             isInteracting = false;
 
-
         UpdateWaterSaturation();
 
+        last_Gametime = GameTime.instance.gameTime; //Keep at end up update
     }
-
-    Vector2 touchStartPos;
-
 
     public void PlantCrop()
     {
@@ -56,18 +66,29 @@ public class Soil : Interactable
     public float GrowthPercent()
     {
         int growingTime = GameTime.instance.gameTime - plantTime; //Time taken to grow so far
+
         float growthPercent = (((float)growingTime / (float)GameTime.instance.DurationToGametime(itemSeeds.growTime)));
         return growthPercent;
+    }
+
+    void DamageWhenDry()
+    {
+        if (itemSeeds.requiredWaterSat > waterSaturation && status != CropStatus.Dead)
+        {
+            if (GameTime.instance.gameTime != last_Gametime)
+                cropHealth -= (GameTime.instance.gameTime - last_Gametime) * .01f;
+
+            if (cropHealth <= 0f)
+                status = CropStatus.Dead;
+        }
     }
 
     void UpdateWaterSaturation()
     {
         if (GameTime.instance.gameTime != last_Gametime && waterSaturation > 0)
-            waterSaturation -= (GameTime.instance.gameTime - last_Gametime) * .01f;
+            waterSaturation -= (GameTime.instance.gameTime - last_Gametime) * .0005f;
 
         material.SetFloat("_TextureTransition", waterSaturation);
-
-        last_Gametime = GameTime.instance.gameTime;
     }
 
     void StatusChange()
@@ -83,6 +104,8 @@ public class Soil : Interactable
             status = CropStatus.HalfGrown;
         else if (growthPercent >= 1f && status != CropStatus.FullGrown)
             status = CropStatus.FullGrown;
+        else if (cropHealth <= 0 && status != CropStatus.Dead)
+            status = CropStatus.Dead;
         else statusDidChange = false; //If nothing triggered, status did not change
 
         if (statusDidChange) //If status changed, do something
@@ -98,6 +121,9 @@ public class Soil : Interactable
                     break;
                 case CropStatus.FullGrown:
                     currentCrop = Instantiate(itemSeeds.fullGrown, transform.root.position, transform.root.rotation);
+                    break;
+                case CropStatus.Dead:
+                    currentCrop = Instantiate(itemSeeds.dead, transform.root.position, transform.root.rotation);
                     break;
             }
         }
