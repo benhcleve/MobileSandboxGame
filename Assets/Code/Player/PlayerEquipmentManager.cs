@@ -14,6 +14,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     public GameObject backWorn;
     public Transform rightHand;
     public GameObject equippedItem;
+    public ItemSlot equippedItemSlot;
 
     private static PlayerEquipmentManager _instance;
     public static PlayerEquipmentManager instance { get { return _instance; } }
@@ -121,19 +122,22 @@ public class PlayerEquipmentManager : MonoBehaviour
     }
 
 
-    public void EquipToolToHand(GameObject prefab)
+    public void EquipToolToHand(Item item)
     {
+        equippedItemSlot = item.currentSlot;
+
         //Remove if another item is already equipped
         if (equippedItem != null)
             Destroy(equippedItem);
 
-        equippedItem = Instantiate(prefab, rightHand.position, rightHand.rotation);
-        equippedItem.name = prefab.name; //Removes '(clone)' from name.
+        equippedItem = Instantiate(item.prefab, rightHand.position, rightHand.rotation);
+        equippedItem.name = item.prefab.name; //Removes '(clone)' from name.
         equippedItem.transform.parent = rightHand;
     }
 
     public void UnequipTool()
     {
+        equippedItemSlot = null;
         if (equippedItem != null)
             Destroy(equippedItem);
         equippedItem = null;

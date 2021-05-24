@@ -6,7 +6,7 @@ using System.Linq;
 
 public class PathCreator : MonoBehaviour
 {
-    private LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
     private List<Vector3> points = new List<Vector3>();
     public Action<IEnumerable<Vector3>> OnNewPathCreated = delegate { };
     public LayerMask pathableLayer;
@@ -14,48 +14,60 @@ public class PathCreator : MonoBehaviour
     public bool pathDrawn;
     public bool onPath;
     Vector3 pathStartPoint;
+    public bool canDrawPath;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         OnNewPathCreated += SetPoints;
     }
 
     private void Update()
     {
-
-        UpdatePathing();
-        if (Input.touchCount == 1)
+        if (canDrawPath)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-                points.Clear();
-
-            if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            if (Input.touchCount == 1)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit hitInfo;
-
-                if (Physics.Raycast(ray, out hitInfo, pathableLayer))
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    if (DistanceToLastPoint(hitInfo.point) > 1f)
+                    points.Clear();
+                    lineRenderer.positionCount = 0;
+                    lineRenderer.enabled = true;
+                    lineRenderer.SetPositions(points.ToArray());
+                }
+
+
+                if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                    RaycastHit hitInfo;
+
+                    if (Physics.Raycast(ray, out hitInfo, pathableLayer))
                     {
-                        points.Add(hitInfo.point + new Vector3(0, .5f, 0));
+                        if (DistanceToLastPoint(hitInfo.point) > 1f)
+                        {
+                            points.Add(hitInfo.point + new Vector3(0, .5f, 0));
 
-                        lineRenderer.positionCount = points.Count;
-                        lineRenderer.SetPositions(points.ToArray());
+                            lineRenderer.positionCount = points.Count;
+                            lineRenderer.SetPositions(points.ToArray());
 
+                        }
                     }
                 }
+                if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    OnNewPathCreated(points);
+                    pathDrawn = true;
+                    if (pathPoints.Count > 1)
+                        pathStartPoint = pathPoints.ToArray()[0];
+                }
             }
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                OnNewPathCreated(points);
-                pathDrawn = true;
-                if (pathPoints.Count > 1)
-                    pathStartPoint = pathPoints.ToArray()[0];
-            }
-
+            UpdatePathing();
         }
+
+        if (pathDrawn && !canDrawPath)
+            EndPathing();
     }
 
     private float DistanceToLastPoint(Vector3 point)
@@ -85,6 +97,7 @@ public class PathCreator : MonoBehaviour
             {
                 pathDrawn = false;
                 onPath = false;
+                lineRenderer.enabled = false;
             }
         }
 
@@ -103,6 +116,17 @@ public class PathCreator : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    public void EndPathing()
+    {
+        points.Clear();
+        pathPoints.Clear();
+        onPath = false;
+        pathDrawn = false;
+        UpdatePathing();
+        lineRenderer.enabled = false;
+
     }
 
 

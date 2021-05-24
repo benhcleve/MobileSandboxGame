@@ -10,7 +10,9 @@ public class ItemSlot : MonoBehaviour
     public enum SlotType { Generic, Inventory, Hotbar, Shop }
     public SlotType slotType = SlotType.Generic;
     GameObject stackUI;
+    GameObject fillUI;
     TextMeshProUGUI stackCountText;
+    Image fillBar;
     Button button;
     Image icon;
     public Item currentItem;
@@ -22,6 +24,8 @@ public class ItemSlot : MonoBehaviour
         icon = transform.Find("Icon").GetComponent<Image>();
         stackUI = transform.Find("Stack UI").gameObject;
         stackCountText = stackUI.transform.Find("Stack Count").GetComponent<TextMeshProUGUI>();
+        fillUI = transform.Find("Fill UI").gameObject;
+        fillBar = fillUI.transform.Find("Fill Bar").GetComponent<Image>();
         icon.gameObject.SetActive(false);
 
         UpdateItemSlot();
@@ -35,14 +39,19 @@ public class ItemSlot : MonoBehaviour
         {
             icon.gameObject.SetActive(false);
             stackUI.SetActive(false);
+            fillUI.SetActive(false);
             return;
         }
 
+        currentItem.currentSlot = this;
         icon.gameObject.SetActive(true);
         icon.sprite = currentItem.icon;
         stackUI.SetActive(currentItem.stackable);
+        fillUI.SetActive(currentItem.usesFill);
         if (currentItem.stackable)
             stackCountText.text = currentItem.stackCount.ToString();
+        if (currentItem.usesFill)
+            fillBar.fillAmount = currentItem.fill;
 
         SwitchSlotFunction();
 

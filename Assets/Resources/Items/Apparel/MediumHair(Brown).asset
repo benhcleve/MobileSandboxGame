@@ -15,8 +15,13 @@ MonoBehaviour:
   ID: 2003
   itemName: Medium Hair (Brown)
   description: 
+  stackable: 0
+  stackCount: 1
+  usesFill: 0
+  fill: 0
   icon: {fileID: 0}
   prefab: {fileID: 5054691250819647769, guid: e919c4c00907f914f941c3c213686226, type: 3}
+  value: 0
   texture: {fileID: 0}
   color:
     serializedVersion: 2
