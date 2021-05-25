@@ -133,6 +133,16 @@ public class PlayerInventory : MonoBehaviour
         PlayerInventory.instance.UpdateSlots();
     }
 
+    public void UpdateInventory()
+    {
+        for (int i = 0; i < inventorySlots.Count; i++)
+        {
+            if (inventorySlots[i].currentItem != null)
+                inventory[i] = inventorySlots[i].currentItem;
+            else inventory[i] = null;
+        }
+    }
+
 
 }
 

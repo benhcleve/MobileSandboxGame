@@ -65,9 +65,9 @@ public class WateringCan : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsByWater() && !UI.activeInHierarchy)
+        if (IsByWater() && !UI.activeInHierarchy && item.fill < 1)
             UI.SetActive(true);
-        else if (!IsByWater() && UI.activeInHierarchy)
+        else if (!IsByWater() && UI.activeInHierarchy || item.fill >= 1 && UI.activeInHierarchy)
             UI.SetActive(false);
 
     }

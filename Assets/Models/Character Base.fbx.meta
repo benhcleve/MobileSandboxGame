@@ -54,7 +54,7 @@ ModelImporter:
       takeName: Armature|Idle
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

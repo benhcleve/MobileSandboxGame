@@ -14,7 +14,7 @@ public class ItemSlot : MonoBehaviour
     TextMeshProUGUI stackCountText;
     Image fillBar;
     Button button;
-    Image icon;
+    public Image icon;
     public Item currentItem;
 
     void Awake()
@@ -72,6 +72,7 @@ public class ItemSlot : MonoBehaviour
                 break;
             case SlotType.Shop:
                 stackUI.SetActive(false);
+                fillUI.SetActive(false);
                 break;
         }
     }
