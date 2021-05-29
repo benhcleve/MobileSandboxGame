@@ -50,21 +50,27 @@ public class PlayerMovement : MonoBehaviour
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 return;
 
-
             float touchMoveDist = 0;
-
             if (Input.touchCount >= 2) //If touch 2 is used
                 isTwoTouch = true;
 
-            if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
-                touchStartPos = Input.GetTouch(0).position;
-
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (!isTwoTouch)
             {
-                touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
+                if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
+                    touchStartPos = Input.GetTouch(0).position;
 
-                if (!isTwoTouch && touchMoveDist < 50) //If 1 touch tap, set destination
+                if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary) //Drag to move
                     SetDestination();
+
+                if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                {
+                    touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
+
+                    if (touchMoveDist < 50) //If tap to move, set destination
+                        SetDestination();
+                    else if (touchMoveDist >= 50) //If has been dragging to move, end destination
+                        navMeshAgent.destination = transform.position;
+                }
             }
         }
         else
