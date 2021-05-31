@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: CarrotSeeds
   m_EditorClassIdentifier: 
   ID: 7001
+  currentSlot: {fileID: 0}
   itemName: Carrot Seeds
   description: Add time to grow and other info here.
   stackable: 1
   stackCount: 1
+  usesFill: 0
+  fill: 0
   icon: {fileID: 21300000, guid: a41db8a5162e3504caad7e723f25cc10, type: 3}
   prefab: {fileID: 6194906302541299724, guid: 06b698a100177d042affb7c4ed690bd4, type: 3}
   value: 5
   growTime:
-    minutes: 10
+    minutes: 20
     hours: 0
     days: 0
     years: 0
@@ -31,4 +34,5 @@ MonoBehaviour:
     type: 3}
   fullGrown: {fileID: 2379491400458991796, guid: 84652cce8feadef41b27488e15d0783f,
     type: 3}
+  dead: {fileID: 925907699363034680, guid: f1bb42a13786888488d03f5f3368c22f, type: 3}
   requiredWaterSat: 0.5

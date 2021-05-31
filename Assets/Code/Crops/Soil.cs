@@ -73,10 +73,10 @@ public class Soil : Interactable
 
     void DamageWhenDry()
     {
-        if (itemSeeds.requiredWaterSat > waterSaturation && status != CropStatus.Dead)
+        if (waterSaturation < itemSeeds.requiredWaterSat && status != CropStatus.Dead)
         {
             if (GameTime.instance.gameTime != last_Gametime)
-                cropHealth -= (GameTime.instance.gameTime - last_Gametime) * .01f;
+                cropHealth -= (GameTime.instance.gameTime - last_Gametime) * .1f;
 
             if (cropHealth <= 0f)
                 status = CropStatus.Dead;
@@ -104,7 +104,7 @@ public class Soil : Interactable
             status = CropStatus.HalfGrown;
         else if (growthPercent >= 1f && status != CropStatus.FullGrown)
             status = CropStatus.FullGrown;
-        else if (cropHealth <= 0 && status != CropStatus.Dead)
+        else if (growthPercent < 1f && cropHealth <= 0 && status != CropStatus.Dead)
             status = CropStatus.Dead;
         else statusDidChange = false; //If nothing triggered, status did not change
 
@@ -115,15 +115,19 @@ public class Soil : Interactable
             {
                 case CropStatus.Sprout:
                     currentCrop = Instantiate(itemSeeds.sproutGrown, transform.root.position, transform.root.rotation);
+                    currentCrop.transform.parent = transform;
                     break;
                 case CropStatus.HalfGrown:
                     currentCrop = Instantiate(itemSeeds.halfGrown, transform.root.position, transform.root.rotation);
+                    currentCrop.transform.parent = transform;
                     break;
                 case CropStatus.FullGrown:
                     currentCrop = Instantiate(itemSeeds.fullGrown, transform.root.position, transform.root.rotation);
+                    currentCrop.transform.parent = transform;
                     break;
                 case CropStatus.Dead:
                     currentCrop = Instantiate(itemSeeds.dead, transform.root.position, transform.root.rotation);
+                    currentCrop.transform.parent = transform;
                     break;
             }
         }

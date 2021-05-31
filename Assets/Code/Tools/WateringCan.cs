@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class WateringCan : MonoBehaviour
 {
     Animator animator;
-    public PathCreator pathCreator;
     public GameObject waterParticles;
     Collider col;
-    public GameObject UI;
+    public GameObject fillButton;
     float waterFill;
-    public GameObject canWater;
+    public GameObject waterInCan;
     public Item item;
+    bool isWatering;
+    public Image isWateringIcon;
+    public Sprite x_Icon;
+    public Sprite check_Icon;
 
     private void Awake()
     {
@@ -29,11 +33,36 @@ public class WateringCan : MonoBehaviour
 
     private void Update()
     {
-        if (item.fill <= 0)
-            pathCreator.canDrawPath = false;
-        else pathCreator.canDrawPath = true;
+        item.currentSlot.UpdateItemSlot();
 
-        if (pathCreator.onPath)
+        if (item.fill <= 0 && isWatering)
+        {
+            waterInCan.SetActive(false);
+            ToggleWatering();
+        }
+
+
+        if (isWatering && item.fill > 0)
+            item.fill -= Time.deltaTime * 0.1f;
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsByWater() && !fillButton.activeInHierarchy && item.fill < 1)
+            fillButton.SetActive(true);
+        else if (!IsByWater() && fillButton.activeInHierarchy || item.fill >= 1 && fillButton.activeInHierarchy)
+            fillButton.SetActive(false);
+
+    }
+
+    public void ToggleWatering()
+    {
+        isWatering = !isWatering;
+
+        if (item.fill <= 0)
+            isWatering = false;
+
+        if (isWatering)
         {
             if (!waterParticles.activeInHierarchy)
             {
@@ -41,35 +70,20 @@ public class WateringCan : MonoBehaviour
                 col.enabled = true;
                 animator.SetBool("isWateringWaterCan", true);
                 animator.SetBool("isHoldingWaterCan", false);
-                PlayerMovement.instance.navMeshAgent.speed = 1;
+                PlayerMovement.instance.navMeshAgent.speed = 2;
+                isWateringIcon.sprite = x_Icon;
             }
-
-            if (item.fill > 0)
-                item.fill -= Time.deltaTime * 0.1f;
         }
 
-        if (!pathCreator.onPath && waterParticles.activeInHierarchy)
+        if (!isWatering)
         {
             waterParticles.SetActive(false);
             col.enabled = false;
             animator.SetBool("isWateringWaterCan", false);
             animator.SetBool("isHoldingWaterCan", true);
             PlayerMovement.instance.navMeshAgent.speed = 3.5f;
+            isWateringIcon.sprite = check_Icon;
         }
-
-        if (item.fill <= 0 && canWater.activeInHierarchy)
-            canWater.SetActive(false);
-
-        item.currentSlot.UpdateItemSlot();
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsByWater() && !UI.activeInHierarchy && item.fill < 1)
-            UI.SetActive(true);
-        else if (!IsByWater() && UI.activeInHierarchy || item.fill >= 1 && UI.activeInHierarchy)
-            UI.SetActive(false);
-
     }
 
     public bool IsByWater()
@@ -84,7 +98,7 @@ public class WateringCan : MonoBehaviour
     public void FillWateringCan()
     {
         item.fill = 1f;
-        canWater.SetActive(true);
+        waterInCan.SetActive(true);
     }
 
     private void OnDestroy()
