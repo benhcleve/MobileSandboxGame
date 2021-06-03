@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     //touch variables
     bool isTwoTouch = false;
     Vector2 touchStartPos;
+    bool beganTouchWalkable;
 
     private static PlayerMovement _instance;
     public static PlayerMovement instance { get { return _instance; } }
@@ -57,19 +58,35 @@ public class PlayerMovement : MonoBehaviour
             if (!isTwoTouch)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
+                {
                     touchStartPos = Input.GetTouch(0).position;
 
+                    Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                    // Save the info
+                    RaycastHit hit;
+                    // You successfully hit
+                    if (Physics.Raycast(ray, out hit))
+                        if (walkable == (walkable | (1 << hit.transform.gameObject.layer)))
+                            beganTouchWalkable = true;
+                        else beganTouchWalkable = false;
+                }
+
+
                 if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary) //Drag to move
-                    SetDestination();
+                {
+                    if (beganTouchWalkable)
+                        SetDestination();
+                }
 
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
                     touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
 
-                    if (touchMoveDist < 50) //If tap to move, set destination
+                    if (touchMoveDist < 50 && beganTouchWalkable) //If tap to move, set destination
                         SetDestination();
                     else if (touchMoveDist >= 50) //If has been dragging to move, end destination
                         navMeshAgent.destination = transform.position;
+                    beganTouchWalkable = false;
                 }
             }
         }
@@ -86,18 +103,15 @@ public class PlayerMovement : MonoBehaviour
         // You successfully hit
         if (Physics.Raycast(ray, out hit))
         {
-            if (walkable == (walkable | (1 << hit.transform.gameObject.layer)))
-            {
-                destination = hit.point;
-                touchMarker.transform.position = destination;
-                navMeshAgent.SetDestination(destination);
-
-            }
-
-            if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
-                GetComponent<PlayerInteraction>().target = null;
+            destination = hit.point;
+            touchMarker.transform.position = destination;
+            navMeshAgent.SetDestination(destination);
         }
+
+        if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
+            GetComponent<PlayerInteraction>().target = null;
     }
+
 
     public void StopMovement() => navMeshAgent.destination = transform.position;
 
