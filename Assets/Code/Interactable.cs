@@ -8,7 +8,13 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
+        SetInteractionFalse();
+    }
+
+    public void SetInteractionFalse()
+    {
         if (PlayerInteraction.instance.target != this.gameObject)
             isInteracting = false;
     }
+
 }
