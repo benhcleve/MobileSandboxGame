@@ -8,7 +8,6 @@ public class PlayerInteraction : MonoBehaviour
     public static PlayerInteraction instance { get { return _instance; } }
 
     public GameObject target;
-    public GameObject TouchMarker;
 
     Vector2 touchStartPos;
 

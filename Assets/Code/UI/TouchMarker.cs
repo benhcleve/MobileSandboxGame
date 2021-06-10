@@ -21,23 +21,22 @@ public class TouchMarker : MonoBehaviour
             }
             else targetMarker.gameObject.SetActive(false);
         }
+        else targetMarker.gameObject.SetActive(false);
+    }
 
-        void UpdateTargetMarker()
-        {
-            GameObject target = player.GetComponent<PlayerInteraction>().target;
+    void UpdateTargetMarker()
+    {
+        GameObject target = player.GetComponent<PlayerInteraction>().target;
 
-            // Calculate *screen* position (note, not a canvas/recttransform position)
-            Vector2 canvasPos;
-            Vector2 screenPoint = Camera.main.WorldToScreenPoint(target.transform.position);
+        // Calculate *screen* position (note, not a canvas/recttransform position)
+        Vector2 canvasPos;
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(target.transform.position);
 
-            // Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(screenPanel.rectTransform, screenPoint, null, out canvasPos);
+        // Convert screen position to Canvas / RectTransform space <- leave camera null if Screen Space Overlay
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(screenPanel.rectTransform, screenPoint, null, out canvasPos);
 
-            // Set
-            targetMarker.transform.localPosition = canvasPos;
-
-        }
-
+        // Set
+        targetMarker.transform.localPosition = canvasPos;
 
     }
 }

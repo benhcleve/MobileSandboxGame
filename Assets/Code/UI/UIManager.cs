@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject objectPlacementUI;
     public GameObject hotbar;
 
-    public enum UIState { Default, Default_NoMovement, Placement, Dialogue };
+    public enum UIState { Default, Default_NoMovement, Placement, Dialogue, Minigame };
     public UIState uiState = UIState.Default;
 
     private void Awake() => CreateInstance();
