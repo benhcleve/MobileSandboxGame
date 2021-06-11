@@ -89,6 +89,8 @@ public class Hatchet : MonoBehaviour
 
         while (true)
         {
+            if (PlayerInteraction.instance.target.GetComponent<TreeBase>().fallen) //End coroutine if tree is falling
+                EndChopping();
 
             timeElapsed = 0;
             hasTapped = false;

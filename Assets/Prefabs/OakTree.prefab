@@ -210,6 +210,8 @@ MonoBehaviour:
   hitpoints: 100
   treeSeed: {fileID: 0}
   woodDrop: {fileID: 0}
+  treeStump: {fileID: 3128669374656948121, guid: 5b007bb72accd1d46973e03652c413b8,
+    type: 3}
 --- !u!136 &2289927389237526917
 CapsuleCollider:
   m_ObjectHideFlags: 0

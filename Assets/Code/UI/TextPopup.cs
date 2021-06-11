@@ -19,14 +19,20 @@ public class TextPopup : MonoBehaviour
 
     void Start()
     {
+
         rect = GetComponent<RectTransform>();
         GetComponent<TextMeshProUGUI>().color = textColor;
         GetComponent<TextMeshProUGUI>().text = popupText;
 
         RunEffect();
+
     }
 
-    private void Update() => PositionUI();
+    private void Update()
+    {
+        if (target != null)
+            PositionUI();
+    }
 
     private void PositionUI()
     {
