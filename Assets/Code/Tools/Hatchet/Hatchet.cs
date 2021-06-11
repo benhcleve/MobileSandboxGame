@@ -8,6 +8,8 @@ public class Hatchet : MonoBehaviour
     public float damage = 5f;
     public GameObject hatchetUI;
     float damageMultiplier;
+    int damageType; //0 idle, 1 weak, 2 hit, 3 critical
+
 
     //Meter Props
     bool hasTapped;
@@ -28,7 +30,7 @@ public class Hatchet : MonoBehaviour
         {
             //if tree is within interaction range
             if (PlayerInteraction.instance.target.GetComponent<TreeBase>().isInteracting && !hatchetUI.activeInHierarchy)
-                StartCoroutine(Lerp());
+                StartCoroutine(Chop());
         }
         if (PlayerInteraction.instance.target == null || PlayerInteraction.instance.target.tag != "Tree")
             EndChopping();
@@ -55,12 +57,15 @@ public class Hatchet : MonoBehaviour
                     {
                         case HatchetSlider.State.WeakHitZone:
                             MeterPress(Random.Range(0.6f, 1f));
+                            damageType = 1;
                             break;
                         case HatchetSlider.State.HitZone:
                             MeterPress(Random.Range(1.1f, 1.5f));
+                            damageType = 2;
                             break;
                         case HatchetSlider.State.CriticalZone:
                             MeterPress(Random.Range(2f, 2.5f));
+                            damageType = 3;
                             break;
                     }
                     slider.gameObject.SetActive(false);
@@ -72,13 +77,11 @@ public class Hatchet : MonoBehaviour
 
     void MeterPress(float damageMult)
     {
-        Debug.Log("Called Meter Press");
         damageMultiplier = damageMult;
-        Debug.Log(Mathf.RoundToInt(damage * damageMultiplier));
         slider.gameObject.SetActive(false);
     }
 
-    IEnumerator Lerp()
+    IEnumerator Chop()
     {
         hatchetUI.SetActive(true);
         PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
@@ -90,7 +93,7 @@ public class Hatchet : MonoBehaviour
             timeElapsed = 0;
             hasTapped = false;
             slider.gameObject.SetActive(true);
-
+            damageType = 0;
 
             while (timeElapsed <= lerpDuration)
             {
@@ -105,18 +108,15 @@ public class Hatchet : MonoBehaviour
             if (timeElapsed >= lerpDuration && slider.gameObject.activeInHierarchy)
                 MeterPress(Random.Range(0.3f, 0.5f));
 
+            PlayerInteraction.instance.target.GetComponent<TreeBase>().TakeDamage((int)(damage * damageMultiplier), damageType);
+
             //If animation state "Chop" is at least 90% complete, then move forward
             yield return new WaitUntil(() =>
             PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") &&
             PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f);
-
-
         }
 
-
-
     }
-
 
 
 }
