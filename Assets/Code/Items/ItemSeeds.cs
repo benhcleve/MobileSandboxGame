@@ -6,6 +6,7 @@ public class ItemSeeds : Item
 {
 
     public Duration growTime;
+    public GameObject seeds;
     public GameObject sproutGrown;
     public GameObject halfGrown;
     public GameObject fullGrown;

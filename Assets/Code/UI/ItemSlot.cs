@@ -16,6 +16,7 @@ public class ItemSlot : MonoBehaviour
     Button button;
     public Image icon;
     public Item currentItem;
+    public int inventoryIndex;
 
     void Awake()
     {
@@ -27,13 +28,28 @@ public class ItemSlot : MonoBehaviour
         fillUI = transform.Find("Fill UI").gameObject;
         fillBar = fillUI.transform.Find("Fill Bar").GetComponent<Image>();
         icon.gameObject.SetActive(false);
+    }
 
+    private void Start()
+    {
         UpdateItemSlot();
+
+        //Set inventory index
+        if (slotType == SlotType.Inventory || slotType == SlotType.Hotbar)
+            inventoryIndex = PlayerInventory.instance.inventorySlots.IndexOf(this);
     }
 
     public void UpdateItemSlot()
     {
         button.onClick.RemoveAllListeners();
+
+        //Update current item to inventory instance value
+        if (slotType == SlotType.Inventory || slotType == SlotType.Hotbar)
+        {
+            int itemIndex = PlayerInventory.instance.inventorySlots.IndexOf(this);
+            Item invItem = PlayerInventory.instance.inventory[itemIndex];
+            currentItem = invItem;
+        }
 
         if (currentItem == null)
         {
@@ -54,7 +70,6 @@ public class ItemSlot : MonoBehaviour
             fillBar.fillAmount = currentItem.fill;
 
         SwitchSlotFunction();
-
     }
 
     void SwitchSlotFunction()
