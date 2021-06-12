@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 2289927389237526917}
   - component: {fileID: 4308279640856352220}
   m_Layer: 0
-  m_Name: Tree1
+  m_Name: OakTree
   m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,11 +207,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInteracting: 0
   interactDistance: 2
-  hitpoints: 100
+  hitpoints: 30
   treeSeed: {fileID: 0}
-  woodDrop: {fileID: 0}
+  woodDrop: {fileID: 5812618571035630856, guid: 825909e4e0c340445a156761f1ac1e69,
+    type: 3}
   treeStump: {fileID: 3128669374656948121, guid: 5b007bb72accd1d46973e03652c413b8,
     type: 3}
+  fallen: 0
 --- !u!136 &2289927389237526917
 CapsuleCollider:
   m_ObjectHideFlags: 0
