@@ -26,8 +26,8 @@ public class PlayerInventory : MonoBehaviour
     {
         CreateInventorySlots();
         UpdateSlots();
-        inventoryUI.SetActive(false);
     }
+
 
     public bool isInventoryFull()
     {
@@ -90,17 +90,17 @@ public class PlayerInventory : MonoBehaviour
     public void AddToInventory(Item selectedItem, GameObject destroyMe = null)
     {
         int freeInvSlotIndex = -1;
-        foreach (Item item in PlayerInventory.instance.inventory) //find first free slot index in inventory, or inventory is full
+        foreach (Item item in inventory) //find first free slot index in inventory, or inventory is full
         {
             if (item == null)
-                freeInvSlotIndex = PlayerInventory.instance.inventory.IndexOf(item);
+                freeInvSlotIndex = inventory.IndexOf(item);
         }
 
         //If item is not stackable and there is space, create new instance in inventory
         if (!selectedItem.stackable && freeInvSlotIndex != -1)
         {
             Item newItem = Object.Instantiate(selectedItem);
-            PlayerInventory.instance.inventory[freeInvSlotIndex] = newItem;
+            inventory[freeInvSlotIndex] = newItem;
         }
         else
         {
@@ -132,17 +132,6 @@ public class PlayerInventory : MonoBehaviour
 
         PlayerInventory.instance.UpdateSlots();
     }
-
-    public void UpdateInventory()
-    {
-        for (int i = 0; i < inventorySlots.Count; i++)
-        {
-            if (inventorySlots[i].currentItem != null)
-                inventory[i] = inventorySlots[i].currentItem;
-            else inventory[i] = null;
-        }
-    }
-
 
 }
 

@@ -64,15 +64,19 @@ public class TreeBase : Interactable
         for (int i = 0; i < dropCount; i++)
         {
             GameObject drop = Instantiate(woodDrop, transform.position, transform.rotation);
+
+            foreach (Transform child in drop.transform)
+                child.GetComponent<Rigidbody>().isKinematic = true;
+
+
             drop.transform.localScale = Vector3.zero;
             drop.transform.DOScale(Vector3.one, 0.7f).SetEase(Ease.OutBounce);
             drop.transform.DOMoveY((drop.transform.position.y + 3) + i, 0.3f);
             yield return new WaitForSeconds(0.5f);
 
             foreach (Transform child in drop.transform)
-            {
                 child.GetComponent<Rigidbody>().isKinematic = false;
-            }
+
 
         }
 

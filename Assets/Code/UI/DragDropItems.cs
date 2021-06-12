@@ -79,8 +79,14 @@ public class DragDropItems : MonoBehaviour
                                 toSlot = raycastResultsList[i].gameObject.GetComponent<ItemSlot>();
                             break; //End if found a toSlot
                         }
-
                     }
+
+                    //Drop item if dragged from inventory or hotbar, and not touching any UI
+                    if (fromSlot.currentItem != null && raycastResultsList.Count == 0)
+                        if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                            DropItem(Input.GetTouch(0).position);
+
+
                     if (fromSlot != null) //Turn off dragged icon and return icon to itemslot
                         fromSlot.icon.enabled = true;
                     draggedIcon.sprite = null;
@@ -106,13 +112,45 @@ public class DragDropItems : MonoBehaviour
                         }
                     }
 
+
                     fromSlot = null;
                     toSlot = null;
 
-                    PlayerInventory.instance.UpdateInventory(); //Update placement of items in Inventory instance
+                    // PlayerInventory.instance.UpdateInventory(); //Update placement of items in Inventory instance
                 }
             }
         }
     }
+
+    public void DropItem(Vector3 touchPos)
+    {
+        // Cast a ray from screen point
+        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+        // Save the info
+        RaycastHit hit;
+        // You successfully hit
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject drop = Instantiate(fromSlot.currentItem.prefab, hit.point + new Vector3(0, 1, 0), Quaternion.identity);
+
+            if (fromSlot.currentItem.stackable)
+                fromSlot.currentItem.stackCount--;
+
+            else if (!fromSlot.currentItem.stackable)
+            {
+                //Get index of dragged item and remove it from inventory instance
+                int itemIndex = PlayerInventory.instance.inventory.IndexOf(fromSlot.currentItem);
+                PlayerInventory.instance.inventory[itemIndex] = null;
+
+                fromSlot.currentItem = null;
+            }
+
+            if (drop.GetComponent<Pickupable>())
+                drop.GetComponent<Pickupable>().playerMagnet = false;
+
+            PlayerInventory.instance.UpdateSlots();
+        }
+    }
+
 
 }
