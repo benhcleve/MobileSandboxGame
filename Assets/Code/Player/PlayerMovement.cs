@@ -70,11 +70,10 @@ public class PlayerMovement : MonoBehaviour
                             beganTouchWalkable = true;
                         else beganTouchWalkable = false;
                 }
-
-
                 if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary) //Drag to move
                 {
-                    if (beganTouchWalkable)
+                    touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
+                    if (beganTouchWalkable && touchMoveDist >= 50)
                         SetDestination();
                 }
 

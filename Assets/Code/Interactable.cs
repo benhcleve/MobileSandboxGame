@@ -13,7 +13,8 @@ public class Interactable : MonoBehaviour
 
     public void SetInteractionFalse()
     {
-        if (PlayerInteraction.instance.target != this.gameObject)
+        if (PlayerInteraction.instance.target != this.gameObject ||
+        Vector3.Distance(PlayerInteraction.instance.transform.position, transform.position) > interactDistance)
             isInteracting = false;
     }
 
