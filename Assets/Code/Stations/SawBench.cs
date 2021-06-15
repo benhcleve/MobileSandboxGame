@@ -6,10 +6,18 @@ using UnityEngine.UI;
 public class SawBench : Interactable
 {
     [SerializeField] Image progressBar;
+    [SerializeField] GameObject exitButton;
+    [SerializeField] GameObject SawButton;
+    [SerializeField] GameObject selectionOutline;
     Animator animator;
-    public ItemSlot inputslot;
     public ItemSlot outputSlot;
     public GameObject sawBenchUI;
+
+    public GameObject[] selectionButtons;
+    public Item selectedCraftable;
+
+
+
     bool isSawing;
 
     void Start()
@@ -41,6 +49,9 @@ public class SawBench : Interactable
     IEnumerator Saw()
     {
         float sawProgress = 0;
+        exitButton.SetActive(false);
+        SawButton.SetActive(false);
+
 
         while (sawProgress < 1f)
         {
@@ -48,7 +59,32 @@ public class SawBench : Interactable
             progressBar.fillAmount = sawProgress;
             yield return new WaitForEndOfFrame();
         }
+        exitButton.SetActive(true);
+        SawButton.SetActive(true);
 
+    }
+
+    public void SelectCraftable(string itemName)
+    {
+        switch (itemName)
+        {
+            case "Oak":
+                selectionOutline.transform.position = selectionButtons[0].transform.position;
+                // ** Make plank of tree type selectedCraftable
+                break;
+            case "Pine":
+                selectionOutline.transform.position = selectionButtons[1].transform.position;
+                // ** Make plank of tree type selectedCraftable
+                break;
+            case "Cedar":
+                selectionOutline.transform.position = selectionButtons[2].transform.position;
+                // ** Make plank of tree type selectedCraftable
+                break;
+            case "Birch":
+                selectionOutline.transform.position = selectionButtons[3].transform.position;
+                // ** Make plank of tree type selectedCraftable
+                break;
+        }
     }
 
     public void ExitSawBench()
