@@ -39,6 +39,8 @@ public class ItemSlot : MonoBehaviour
             inventoryIndex = PlayerInventory.instance.inventorySlots.IndexOf(this);
     }
 
+
+
     public void UpdateItemSlot()
     {
         button.onClick.RemoveAllListeners();
