@@ -7,7 +7,7 @@ using TMPro;
 
 public class ItemSlot : MonoBehaviour
 {
-    public enum SlotType { Generic, Inventory, Hotbar, Shop }
+    public enum SlotType { Generic, Inventory, Hotbar, Storage, Shop }
     public SlotType slotType = SlotType.Generic;
     GameObject stackUI;
     GameObject fillUI;
@@ -88,6 +88,8 @@ public class ItemSlot : MonoBehaviour
             case SlotType.Shop:
                 stackUI.SetActive(false);
                 fillUI.SetActive(false);
+                break;
+            case SlotType.Storage:
                 break;
         }
     }

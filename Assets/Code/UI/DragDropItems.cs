@@ -28,10 +28,10 @@ public class DragDropItems : MonoBehaviour
         float touchMoveDist = 0;
         if (Input.touchCount > 0)
         {
-            if (Input.touchCount >= 2) //If touch 2 is used
+            if (Input.touchCount >= 2) // If touch 2 is used
                 isTwoTouch = true;
 
-            if (Input.GetTouch(0).phase == TouchPhase.Began) //Get the slot that is being dragged
+            if (Input.GetTouch(0).phase == TouchPhase.Began) // Get the slot that is being dragged
             {
                 touchStartPos = Input.GetTouch(0).position;
                 if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
@@ -39,7 +39,7 @@ public class DragDropItems : MonoBehaviour
                     if (EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>())
                     {
                         ItemSlot dragSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
-                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar)
+                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage)
                             fromSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
                         else return;
                     }
@@ -47,7 +47,7 @@ public class DragDropItems : MonoBehaviour
                 }
             }
 
-            //Drag the icon of the fromSlot with the touch drag
+            // Drag the icon of the fromSlot with the touch drag
             if (fromSlot != null && fromSlot.currentItem != null)
             {
                 touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
@@ -65,7 +65,7 @@ public class DragDropItems : MonoBehaviour
                 }
             }
 
-            //Drop the dragged item
+            // Drop the dragged item
             if (fromSlot != null)
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -77,7 +77,7 @@ public class DragDropItems : MonoBehaviour
                     draggedIcon.sprite = null;
                     draggedIcon.gameObject.SetActive(false);
 
-                    //Raycast at the point of the touch end and get itemslot as toSlot if exists
+                    // Raycast at the point of the touch end and get itemslot as toSlot if exists
                     PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
                     pointerEventData.position = Input.GetTouch(0).position;
                     List<RaycastResult> raycastResultsList = new List<RaycastResult>();
@@ -88,50 +88,63 @@ public class DragDropItems : MonoBehaviour
                         if (raycastResultsList[i].gameObject.GetComponent<ItemSlot>())
                         {
                             var slot = raycastResultsList[i].gameObject.GetComponent<ItemSlot>();
-                            if (slot.slotType == ItemSlot.SlotType.Inventory || slot.slotType == ItemSlot.SlotType.Hotbar)
+                            if (slot.slotType == ItemSlot.SlotType.Inventory || slot.slotType == ItemSlot.SlotType.Hotbar || slot.slotType == ItemSlot.SlotType.Storage)
                                 toSlot = raycastResultsList[i].gameObject.GetComponent<ItemSlot>();
                             break; //End if found a toSlot
                         }
                     }
 
-                    //Drop item if dragged from inventory or hotbar, and not touching any UI
+                    // Drop item if dragged from inventory or hotbar, and not touching any UI
                     if (fromSlot.currentItem != null && raycastResultsList.Count == 0)
                         if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
                             DropItem(Input.GetTouch(0).position);
 
 
 
-                    //Item placement logic
+                    // Item placement logic
                     if (toSlot != null)
                     {
+
                         if (toSlot.currentItem == null)
                         {
-                            //Get actual item from inventory instance
-                            Item fromSlotItem = PlayerInventory.instance.inventory[fromSlot.inventoryIndex];
-                            Item toSlotItem = PlayerInventory.instance.inventory[toSlot.inventoryIndex];
+                            // Get actual item from inventory instance
+                            Item fromSlotItem = fromSlot.currentItem;
+                            Item toSlotItem = toSlot.currentItem;
+
+                            if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
+                            if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
 
                             //Place fromSlot Item on toSlot and remove reference to item on fromSlot
-                            PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
-                            PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
+                            toSlot.currentItem = fromSlotItem;
+                            fromSlot.currentItem = null;
 
-                            //Update slot UI
+                            // Update slot UI
                             toSlot.UpdateItemSlot();
                             fromSlot.UpdateItemSlot();
                         }
                         else if (toSlot.currentItem != null)
                         {
 
-                            //Get actual item from inventory instance
-                            Item fromSlotItem = PlayerInventory.instance.inventory[fromSlot.inventoryIndex];
-                            Item toSlotItem = PlayerInventory.instance.inventory[toSlot.inventoryIndex];
+                            // Get actual item from inventory instance
+                            Item fromSlotItem = fromSlot.currentItem;
+                            Item toSlotItem = toSlot.currentItem;
 
-                            //Place fromSlot Item on toSlot and visa versa
-                            PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
-                            PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = toSlotItem;
+                            // Update Inventory/Hotbar Items in inventory instance if exist
+                            if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = toSlotItem;
+                            if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
+
+                            //Place fromSlot Item on toSlot and remove reference to item on fromSlot
+                            toSlot.currentItem = fromSlotItem;
+                            fromSlot.currentItem = toSlotItem;
 
                             //Update slot UI
                             toSlot.UpdateItemSlot();
                             fromSlot.UpdateItemSlot();
+
 
                         }
                     }
@@ -139,8 +152,6 @@ public class DragDropItems : MonoBehaviour
 
                     fromSlot = null;
                     toSlot = null;
-
-                    // PlayerInventory.instance.UpdateInventory(); //Update placement of items in Inventory instance
                 }
             }
         }
