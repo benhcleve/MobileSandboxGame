@@ -15,6 +15,11 @@ public class Item : ScriptableObject
     public Sprite icon;
     public GameObject prefab;
     public int value;
+    public bool craftable;
+    public int craftOutputStackCount = 1;  //If stackable, how many are output when crafted?
+    public Item[] craftingRecipeItems; //Item in array is associated with craftingRecipeItemCount (How many items are needed for recipe)
+    public int[] craftingRecipeItemCount;
+
 
     public Item()
     {

@@ -11,16 +11,9 @@ public class DragDropItems : MonoBehaviour
     public ItemSlot toSlot;
     Vector3 touchStartPos;
     public Image draggedIcon;
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
-    void Update()
-    {
-        DetectTouch();
-    }
+    void Update() => DetectTouch();
 
     void DetectTouch()
     {
@@ -39,7 +32,7 @@ public class DragDropItems : MonoBehaviour
                     if (EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>())
                     {
                         ItemSlot dragSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
-                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage)
+                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage || dragSlot.slotType == ItemSlot.SlotType.CraftOutput)
                             fromSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
                         else return;
                     }
@@ -104,8 +97,22 @@ public class DragDropItems : MonoBehaviour
                     // Item placement logic
                     if (toSlot != null)
                     {
+                        //If moving stackable item to a stackable item with same item ID
+                        if (fromSlot.currentItem != null && toSlot.currentItem != null
+                         && toSlot.currentItem.stackable && fromSlot.currentItem.stackable && toSlot.currentItem.ID == fromSlot.currentItem.ID)
+                        {
+                            if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                PlayerInventory.instance.inventory[toSlot.inventoryIndex].stackCount += fromSlot.currentItem.stackCount;
+                            else toSlot.currentItem.stackCount += fromSlot.currentItem.stackCount;
+                            if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
+                            else fromSlot.currentItem = null;
 
-                        if (toSlot.currentItem == null)
+                            toSlot.UpdateItemSlot();
+                            fromSlot.UpdateItemSlot();
+
+                        }
+                        else if (toSlot.currentItem == null)
                         {
                             // Get actual item from inventory instance
                             Item fromSlotItem = fromSlot.currentItem;
@@ -170,8 +177,6 @@ public class DragDropItems : MonoBehaviour
 
             if (fromSlot.currentItem.stackable)
                 fromSlot.currentItem.stackCount--;
-
-
 
             else if (!fromSlot.currentItem.stackable)
             {
