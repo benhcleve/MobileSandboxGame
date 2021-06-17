@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d1c98b15aba64d818a5c77690cc25, type: 3}
+  m_Name: CabbageSeeds
+  m_EditorClassIdentifier: 
+  ID: 7002
+  currentSlot: {fileID: 0}
+  itemName: Cabbage Seeds
+  description: Add time to grow and other info here.
+  stackable: 1
+  stackCount: 1
+  usesFill: 0
+  fill: 0
+  icon: {fileID: 0}
+  prefab: {fileID: 0}
+  value: 0
+  craftable: 0
+  craftOutputStackCount: 1
+  craftingRecipeItems: []
+  craftingRecipeItemCount: 
+  growTime:
+    minutes: 20
+    hours: 0
+    days: 0
+    years: 0
+  seeds: {fileID: 0}
+  sproutGrown: {fileID: 6962874101446621343, guid: 3129f3e0f53322643afb5e2f0b5f85c3,
+    type: 3}
+  halfGrown: {fileID: 4465922029711396979, guid: 37949ffd7d7c3a64abe3d25a35367553,
+    type: 3}
+  fullGrown: {fileID: 6698798078011704227, guid: 6508dc8472817654490263bf9e48a24c,
+    type: 3}
+  dead: {fileID: 925907699363034680, guid: f1bb42a13786888488d03f5f3368c22f, type: 3}
+  requiredWaterSat: 0.6
