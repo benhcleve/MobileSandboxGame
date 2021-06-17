@@ -38,9 +38,58 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (UIManager.instance.uiState == UIManager.UIState.Default)
+        {
+            DetectMouse();
             DetectTouch();
+        }
 
+    }
 
+    void DetectMouse()
+    {
+        if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
+        {
+            //Prevents moving when clicking UI elements
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            float mouseMoveDist = 0;
+            if (!Input.GetMouseButton(1))
+            {
+                if (Input.GetMouseButtonDown(0)) //Set starting position of touch 1
+                {
+                    touchStartPos = Input.mousePosition;
+
+                    Ray ray = Camera.main.ScreenPointToRay(touchStartPos);
+                    // Save the info
+                    RaycastHit hit;
+                    // You successfully hit
+                    if (Physics.Raycast(ray, out hit))
+                        if (walkable == (walkable | (1 << hit.transform.gameObject.layer)))
+                            beganTouchWalkable = true;
+                        else beganTouchWalkable = false;
+
+                }
+
+                if (Input.GetMouseButton(0)) //Drag to move
+                {
+                    mouseMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
+                    if (beganTouchWalkable && mouseMoveDist >= 50)
+                        SetDestination(Input.mousePosition);
+                }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    mouseMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
+
+                    if (mouseMoveDist < 50 && beganTouchWalkable) //If tap to move, set destination
+                        SetDestination(Input.mousePosition);
+                    else if (mouseMoveDist >= 50) //If has been dragging to move, end destination
+                        navMeshAgent.destination = transform.position;
+                    beganTouchWalkable = false;
+                }
+            }
+        }
     }
 
     void DetectTouch()
@@ -74,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
                     if (beganTouchWalkable && touchMoveDist >= 50)
-                        SetDestination();
+                        SetDestination(Input.GetTouch(0).position);
                 }
 
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -82,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
                     touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
 
                     if (touchMoveDist < 50 && beganTouchWalkable) //If tap to move, set destination
-                        SetDestination();
+                        SetDestination(Input.GetTouch(0).position);
                     else if (touchMoveDist >= 50) //If has been dragging to move, end destination
                         navMeshAgent.destination = transform.position;
                     beganTouchWalkable = false;
@@ -93,10 +142,10 @@ public class PlayerMovement : MonoBehaviour
             isTwoTouch = false; //Set to false when not touching screen
     }
 
-    void SetDestination()
+    void SetDestination(Vector3 position)
     {
         // Cast a ray from screen point
-        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+        Ray ray = Camera.main.ScreenPointToRay(position);
         // Save the info
         RaycastHit hit;
         // You successfully hit

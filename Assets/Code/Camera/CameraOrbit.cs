@@ -49,14 +49,17 @@ public class CameraOrbit : MonoBehaviour
 #if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
-            _LocalRotation.x += Input.GetAxis("Mouse X") * (OrbitSensitivity * 5); //Multiply for desktop;
-            _LocalRotation.y -= Input.GetAxis("Mouse Y") * (OrbitSensitivity * 5); //Multiply for desktop;
+            if (Input.GetMouseButton(1))
+            {
+                _LocalRotation.x += Input.GetAxis("Mouse X") * (OrbitSensitivity * 5); //Multiply for desktop;
+                _LocalRotation.y -= Input.GetAxis("Mouse Y") * (OrbitSensitivity * 5); //Multiply for desktop;
 
-            //Clamp the y Rotation to horizon and not flipping over at the top
-            if (_LocalRotation.y < 0f)
-                _LocalRotation.y = 0f;
-            else if (_LocalRotation.y > 90f)
-                _LocalRotation.y = 90f;
+                //Clamp the y Rotation to horizon and not flipping over at the top
+                if (_LocalRotation.y < 25f)
+                    _LocalRotation.y = 25f;
+                else if (_LocalRotation.y > 90f)
+                    _LocalRotation.y = 90f;
+            }
         }
 #endif
         //MOBILE
@@ -91,7 +94,7 @@ public class CameraOrbit : MonoBehaviour
 
             this._CameraDistance += zoomAmount * -1f;
 
-            this._CameraDistance = Mathf.Clamp(this._CameraDistance, 1.5f, 100f);
+            this._CameraDistance = Mathf.Clamp(this._CameraDistance, 1.5f, 15f);
 
 
         }
@@ -123,4 +126,5 @@ public class CameraOrbit : MonoBehaviour
 #endif
 
 
+    }
 }

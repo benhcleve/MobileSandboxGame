@@ -45,35 +45,6 @@ public class Hatchet : MonoBehaviour
         UIManager.instance.uiState = UIManager.UIState.Default;
     }
 
-    void DetectChopTouch()
-    {
-        if (UIManager.instance.uiState == UIManager.UIState.Minigame)
-        {
-            if (Input.touchCount > 0 && !hasTapped)
-            {
-                if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
-                {
-                    switch (slider.state)
-                    {
-                        case HatchetSlider.State.WeakHitZone:
-                            MeterPress(Random.Range(0.6f, 1f));
-                            damageType = 1;
-                            break;
-                        case HatchetSlider.State.HitZone:
-                            MeterPress(Random.Range(1.1f, 1.5f));
-                            damageType = 2;
-                            break;
-                        case HatchetSlider.State.CriticalZone:
-                            MeterPress(Random.Range(2f, 2.5f));
-                            damageType = 3;
-                            break;
-                    }
-                    slider.gameObject.SetActive(false);
-                }
-                hasTapped = true;
-            }
-        }
-    }
 
     void MeterPress(float damageMult)
     {
@@ -103,7 +74,9 @@ public class Hatchet : MonoBehaviour
                 slider.transform.position = Vector2.Lerp(sliderStart.position, sliderEnd.position, timeElapsed / lerpDuration);
                 timeElapsed += Time.deltaTime;
 
+                DetectChopMouse();
                 DetectChopTouch();
+
                 yield return new WaitForEndOfFrame();
 
             }
@@ -119,6 +92,65 @@ public class Hatchet : MonoBehaviour
         }
 
     }
+    void DetectChopTouch()
+    {
+        if (UIManager.instance.uiState == UIManager.UIState.Minigame)
+        {
+            if (Input.touchCount > 0 && !hasTapped)
+            {
+                if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
+                {
+                    switch (slider.state)
+                    {
+                        case HatchetSlider.State.WeakHitZone:
+                            MeterPress(Random.Range(0.6f, 1f));
+                            damageType = 1;
+                            break;
+                        case HatchetSlider.State.HitZone:
+                            MeterPress(Random.Range(1.1f, 1.5f));
+                            damageType = 2;
+                            break;
+                        case HatchetSlider.State.CriticalZone:
+                            MeterPress(Random.Range(2f, 2.5f));
+                            damageType = 3;
+                            break;
+                    }
+                    slider.gameObject.SetActive(false);
+                    hasTapped = true;
+                }
+
+            }
+        }
+    }
+
+    void DetectChopMouse()
+    {
+        if (UIManager.instance.uiState == UIManager.UIState.Minigame)
+        {
+            if (Input.GetMouseButton(0) && !hasTapped)
+            {
+
+                switch (slider.state)
+                {
+                    case HatchetSlider.State.WeakHitZone:
+                        MeterPress(Random.Range(0.6f, 1f));
+                        damageType = 1;
+                        break;
+                    case HatchetSlider.State.HitZone:
+                        MeterPress(Random.Range(1.1f, 1.5f));
+                        damageType = 2;
+                        break;
+                    case HatchetSlider.State.CriticalZone:
+                        MeterPress(Random.Range(2f, 2.5f));
+                        damageType = 3;
+                        break;
+                }
+                slider.gameObject.SetActive(false);
+                hasTapped = true;
+            }
+        }
+    }
+
 
 
 }

@@ -22,11 +22,12 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        selectTarget();
+        selectTargetTouch();
+        selectTargetMouse();
         InteractWithTarget();
     }
 
-    void selectTarget()
+    void selectTargetTouch()
     {
         if (UIManager.instance.uiState == UIManager.UIState.Default)
         {
@@ -64,6 +65,30 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
+
+    void selectTargetMouse()
+    {
+        if (UIManager.instance.uiState == UIManager.UIState.Default)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                // You successfully hit
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.gameObject.GetComponent<Interactable>())
+                    {
+                        target = hit.transform.gameObject;
+                        PlayerMovement.instance.navMeshAgent.destination = target.transform.position; //Move to interactable object
+                    }
+
+                }
+
+            }
+        }
+    }
+
 
 
     void InteractWithTarget()
