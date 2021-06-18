@@ -145,6 +145,7 @@ public class StoreUI : Interactable
         allSlots.Clear();
         transform.Find("Store Canvas").gameObject.SetActive(false);
         UIManager.instance.uiState = UIManager.UIState.Default;
+        PlayerInteraction.instance.target = null;
 
     }
 }

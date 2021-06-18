@@ -6610,9 +6610,9 @@ MonoBehaviour:
   slotPrefab: {fileID: 7475483163758233508, guid: 4cae888cd8f2eed41ab14ac592c9fcf1,
     type: 3}
   inventory:
-  - {fileID: 11400000, guid: 14bcf599b532c764aa83862c27ae3ad2, type: 2}
-  - {fileID: 11400000, guid: 0c964e63ed71a144a870074ed0a4cf79, type: 2}
-  - {fileID: 11400000, guid: 0c964e63ed71a144a870074ed0a4cf79, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   inventorySlots:
   - {fileID: 146751630}
@@ -10952,6 +10952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BuildingHammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279767843689329026, guid: 959f96e00af9b214e816f64125568cfa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6660233658394585912, guid: 959f96e00af9b214e816f64125568cfa,
         type: 3}
