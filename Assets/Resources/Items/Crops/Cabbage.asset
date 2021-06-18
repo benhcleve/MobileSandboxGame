@@ -20,9 +20,9 @@ MonoBehaviour:
   stackCount: 1
   usesFill: 0
   fill: 0
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
-  value: 0
+  icon: {fileID: 21300000, guid: a15c152d671d82e4da9cbefb199a97d5, type: 3}
+  prefab: {fileID: 8609627709143721772, guid: c9db3b12d712c55449f94fbec73adfd5, type: 3}
+  value: 12
   craftable: 0
   craftOutputStackCount: 1
   craftingRecipeItems: []

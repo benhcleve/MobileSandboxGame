@@ -12,7 +12,7 @@ public class Crop : MonoBehaviour
     Vector2 touchStartPos;
     Vector3 spawnPos;
     bool isSelected;
-    bool isPlanted = true;
+    public bool isPlanted;
 
 
     private void Start()
@@ -27,6 +27,7 @@ public class Crop : MonoBehaviour
     private void Update()
     {
         DetectTouch();
+        DetectMouse();
         PlayerMagnet();
     }
 
@@ -44,7 +45,7 @@ public class Crop : MonoBehaviour
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 touchStartPos = Input.GetTouch(0).position; //Set starting position of touch 1
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                Ray ray = Camera.main.ScreenPointToRay(touchStartPos);
                 RaycastHit hit;
                 // You successfully hit
                 if (Physics.Raycast(ray, out hit))
@@ -81,6 +82,69 @@ public class Crop : MonoBehaviour
 
             //Dropping crop after pulling up
             if (Input.GetTouch(0).phase == TouchPhase.Ended && isSelected)
+            {
+                SetOutline(false); //Get rid of selected outline
+                isSelected = false;
+                if (!isPlanted)
+                {
+                    col.isTrigger = false;
+                    rb.isKinematic = false;
+                    rb.angularVelocity = rb.transform.right * 5;
+                }
+            }
+        }
+        else
+            isTwoTouch = false; //Set to false when not touching screen
+    }
+
+    void DetectMouse()
+    {
+        if (Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
+        {
+            //Prevents moving when clicking UI elements
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                touchStartPos = Input.mousePosition; //Set starting position of touch 1
+                Ray ray = Camera.main.ScreenPointToRay(touchStartPos);
+                RaycastHit hit;
+                // You successfully hit
+                if (Physics.Raycast(ray, out hit))
+                    if (hit.transform == this.transform) //If not interactable, set target to null
+                        isSelected = true;
+
+                if (isSelected && GetComponent<Outline>() == null)
+                    SetOutline(true);
+
+            }
+
+            //Pulling crop up
+            if (isSelected)
+            {
+                float yTouchDist = Input.mousePosition.y - touchStartPos.y;
+                if (yTouchDist > 100)
+                {
+                    transform.position = Vector3.Lerp(transform.position, spawnPos + Vector3.up, Time.deltaTime * 5);
+                    transform.Rotate(Vector3.up * (Time.deltaTime * 100));
+                    isPlanted = false;
+                }
+                else if (yTouchDist < 100 && isPlanted)
+                {
+                    transform.position = spawnPos;
+                    float x = transform.position.x + Random.Range(-0.05f, 0.05f);
+                    float y = transform.position.y;
+                    float z = transform.position.z + Random.Range(-0.05f, 0.05f);
+
+                    transform.position = new Vector3(x, y, z);
+                }
+
+            }
+
+            //Dropping crop after pulling up
+            if (Input.GetMouseButtonUp(0))
             {
                 SetOutline(false); //Get rid of selected outline
                 isSelected = false;

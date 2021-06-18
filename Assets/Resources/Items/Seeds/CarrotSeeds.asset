@@ -23,6 +23,10 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a41db8a5162e3504caad7e723f25cc10, type: 3}
   prefab: {fileID: 7089794944364043753, guid: 2576069903c33314e802d5a982a766cc, type: 3}
   value: 5
+  craftable: 0
+  craftOutputStackCount: 1
+  craftingRecipeItems: []
+  craftingRecipeItemCount: 
   growTime:
     minutes: 20
     hours: 0

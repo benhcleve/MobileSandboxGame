@@ -20,9 +20,9 @@ MonoBehaviour:
   stackCount: 1
   usesFill: 0
   fill: 0
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
-  value: 0
+  icon: {fileID: 21300000, guid: ffd6099ae54d8aa47a50a432e13066a9, type: 3}
+  prefab: {fileID: 4841226776675375055, guid: f47b156fd04d44a4eae756b6126ffb1c, type: 3}
+  value: 8
   craftable: 0
   craftOutputStackCount: 1
   craftingRecipeItems: []
@@ -32,7 +32,7 @@ MonoBehaviour:
     hours: 0
     days: 0
     years: 0
-  seeds: {fileID: 0}
+  seeds: {fileID: 6194906302541299724, guid: 06b698a100177d042affb7c4ed690bd4, type: 3}
   sproutGrown: {fileID: 6962874101446621343, guid: 3129f3e0f53322643afb5e2f0b5f85c3,
     type: 3}
   halfGrown: {fileID: 4465922029711396979, guid: 37949ffd7d7c3a64abe3d25a35367553,

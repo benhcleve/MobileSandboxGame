@@ -57,7 +57,7 @@ public class Soil : Interactable
     public void PlantCrop()
     {
         plantTime = GameTime.instance.gameTime;
-        GameObject seedPrefab = Instantiate(itemSeeds.prefab, transform.root.position, transform.root.rotation);
+        GameObject seedPrefab = Instantiate(itemSeeds.seeds, transform.root.position, transform.root.rotation);
         seedPrefab.transform.parent = transform.root;
         currentCrop = seedPrefab;
         status = CropStatus.Seeds;
@@ -123,6 +123,12 @@ public class Soil : Interactable
                     break;
                 case CropStatus.FullGrown:
                     currentCrop = Instantiate(itemSeeds.fullGrown, transform.root.position, transform.root.rotation);
+                    foreach (Transform child in currentCrop.transform)
+                    {
+                        child.GetComponent<Rigidbody>().isKinematic = true;
+                        child.GetComponent<Collider>().isTrigger = true;
+                        child.GetComponent<Crop>().isPlanted = true;
+                    }
                     currentCrop.transform.parent = transform;
                     break;
                 case CropStatus.Dead:

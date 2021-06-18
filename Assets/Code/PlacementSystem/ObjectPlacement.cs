@@ -63,25 +63,49 @@ public class ObjectPlacement : MonoBehaviour
             SetPlacementeColor();
         }
 
-        if (Input.touchCount > 0)
+        //IF MOBILE
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            //Prevents moving when clicking UI elements
-            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                return;
-
-            float touchMoveDist = 0;
-            if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
-                touchStartPos = Input.GetTouch(0).position;
-
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (Input.touchCount > 0)
             {
-                touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
-                if (touchMoveDist < 50) //If 1 touch tap
+                //Prevents moving when clicking UI elements
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                    return;
+
+                float touchMoveDist = 0;
+                if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
+                    touchStartPos = Input.GetTouch(0).position;
+
+                if (Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    MoveObjectInstance(Input.GetTouch(0).position);
+                    touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
+                    if (touchMoveDist < 50) //If 1 touch tap
+                    {
+                        MoveObjectInstance(Input.GetTouch(0).position);
+                    }
                 }
             }
         }
+        else //IF PC
+        {
+            //Prevents moving when clicking UI elements
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            float touchMoveDist = 0;
+            if (Input.GetMouseButtonDown(0)) //Set starting position of touch 1
+                touchStartPos = Input.mousePosition;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                touchMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
+                if (touchMoveDist < 50) //If 1 touch tap
+                {
+                    MoveObjectInstance(Input.mousePosition);
+                }
+            }
+        }
+
     }
     void MoveObjectInstance(Vector3 movePos)
     {

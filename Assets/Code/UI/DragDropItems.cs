@@ -100,6 +100,12 @@ public class DragDropItems : MonoBehaviour
 
 
                     // Item placement logic
+                    if (fromSlot == toSlot)
+                    {
+                        fromSlot = null;
+                        toSlot = null;
+                        return;
+                    }
                     if (toSlot != null)
                     {
                         //If moving stackable item to a stackable item with same item ID
@@ -246,6 +252,13 @@ public class DragDropItems : MonoBehaviour
 
 
                     // Item placement logic
+                    if (fromSlot == toSlot)
+                    {
+                        fromSlot = null;
+                        toSlot = null;
+                        return;
+                    }
+
                     if (toSlot != null)
                     {
                         //If moving stackable item to a stackable item with same item ID

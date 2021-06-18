@@ -34,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
             if (Input.touchCount == 1)
             {
                 //Prevents moving when clicking UI elements
-                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) || EventSystem.current.IsPointerOverGameObject())
                     return;
 
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -72,6 +72,10 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                //Prevents moving when clicking UI elements
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 // You successfully hit
