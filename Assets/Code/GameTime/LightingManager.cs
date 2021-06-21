@@ -6,7 +6,6 @@ public class LightingManager : MonoBehaviour
 {
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
-    bool DirectionalLightLerping = false;
     public float hour;
 
 
@@ -22,23 +21,10 @@ public class LightingManager : MonoBehaviour
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent);
 
 
-        DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);
-        var newDirectionalLightRot = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
-        if (!DirectionalLightLerping)
-            StartCoroutine(LerpDirectionalLight(DirectionalLight.transform.localRotation, newDirectionalLightRot, 1));
+        // DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);
+
     }
 
-    IEnumerator LerpDirectionalLight(Quaternion fromRot, Quaternion toRot, float timeToMove)
-    {
-        DirectionalLightLerping = true;
-        var t = 0f;
-        while (t < 1)
-        {
-            t += Time.deltaTime / timeToMove;
-            DirectionalLight.transform.localRotation = Quaternion.Lerp(fromRot, toRot, t);
-            yield return null;
-        }
-        DirectionalLightLerping = false;
-    }
+
 
 }
