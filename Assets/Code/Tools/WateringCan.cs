@@ -70,7 +70,7 @@ public class WateringCan : MonoBehaviour
                 col.enabled = true;
                 animator.SetBool("isWateringWaterCan", true);
                 animator.SetBool("isHoldingWaterCan", false);
-                PlayerMovement.instance.navMeshAgent.speed = 2;
+                PlayerMovement.instance.navMeshAgent.speed = PlayerMovement.instance.moveSpeed / 2;
                 isWateringIcon.sprite = x_Icon;
             }
         }
@@ -81,7 +81,7 @@ public class WateringCan : MonoBehaviour
             col.enabled = false;
             animator.SetBool("isWateringWaterCan", false);
             animator.SetBool("isHoldingWaterCan", true);
-            PlayerMovement.instance.navMeshAgent.speed = 3.5f;
+            PlayerMovement.instance.navMeshAgent.speed = PlayerMovement.instance.moveSpeed;
             isWateringIcon.sprite = check_Icon;
         }
     }

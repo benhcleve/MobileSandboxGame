@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject touchMarker;
 
     public LayerMask walkable;
+    public float moveSpeed;
 
     //touch variables
     bool isTwoTouch = false;
