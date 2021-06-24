@@ -39,11 +39,13 @@ public class UIManager : MonoBehaviour
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
                 hotbar.SetActive(true);
+                PlayerInventory.instance.UpdateSlots();
                 break;
             case UIState.Default_NoMovement:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
                 hotbar.SetActive(true);
+                PlayerInventory.instance.UpdateSlots();
                 break;
             case UIState.Placement:
                 dialogueUI.SetActive(false);

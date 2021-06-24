@@ -11,6 +11,7 @@ public class DragDropItems : MonoBehaviour
     public ItemSlot toSlot;
     Vector3 touchStartPos;
     public Image draggedIcon;
+    public GameObject placeableBoxPrefab;
 
     // Update is called once per frame
     void Update()
@@ -339,6 +340,13 @@ public class DragDropItems : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             GameObject drop = Instantiate(fromSlot.currentItem.prefab, hit.point + new Vector3(0, 1, 0), Quaternion.identity);
+
+            if (fromSlot.currentItem.prefab == placeableBoxPrefab)
+            {
+                Debug.Log(fromSlot.currentItem.prefab);
+                drop.GetComponent<Pickupable>().item = fromSlot.currentItem;
+            }
+
 
             if (fromSlot.currentItem.stackable)
                 fromSlot.currentItem.stackCount--;

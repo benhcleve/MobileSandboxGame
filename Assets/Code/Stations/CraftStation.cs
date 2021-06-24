@@ -162,6 +162,17 @@ public class CraftStation : Interactable
                         }
                         else if (playerInv[n].stackable)
                         {
+                            if (playerInv[n].stackCount > itemsNeeded)
+                            {
+                                playerInv[n].stackCount -= itemsNeeded;
+                                itemsNeeded = 0;
+                            }
+                            else if (playerInv[n].stackCount <= itemsNeeded)
+                            {
+                                itemsNeeded -= playerInv[n].stackCount;
+                                playerInv[n].stackCount = 0;
+                            }
+
 
                         }
                     }

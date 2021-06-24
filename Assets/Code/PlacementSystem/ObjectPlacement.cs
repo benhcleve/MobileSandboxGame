@@ -13,6 +13,7 @@ public class ObjectPlacement : MonoBehaviour
 
     public GameObject placedObjectPrefab;
     public GameObject placedObjectInstance;
+    public Item placedObjectItem;
     public float buildTimer;
     public Material placementGlowMat;
 
@@ -166,6 +167,17 @@ public class ObjectPlacement : MonoBehaviour
         GameObject placedObj = Instantiate(placedObjectPrefab, placementPos, placementRot);
         placedObj.name = placedObjectPrefab.name;
 
+        //If the placed object comes from inventory
+        if (placedObjectItem != null)
+        {
+            if (!placedObjectItem.stackable)
+            {
+                Destroy(placedObjectItem);
+            }
+            else if (placedObjectItem.stackable)
+                placedObjectItem.stackCount--;
+        }
+
         PlayerAnimation.instance.animator.SetBool("isBuilding", false);
 
         ExitPlacement();
@@ -197,6 +209,7 @@ public class ObjectPlacement : MonoBehaviour
         if (PlayerEquipmentManager.instance.equippedItem != null)
             Destroy(PlayerEquipmentManager.instance.equippedItem);
 
+        placedObjectItem = null;
         placeButton.SetActive(true);
         rotateButton.SetActive(true);
         PlayerAnimation.instance.animator.SetBool("isBuilding", false);
@@ -204,6 +217,7 @@ public class ObjectPlacement : MonoBehaviour
         buildTimer = 0;
         isObjectPlaced = false;
         UIManager.instance.UpdateUIManager(UIManager.UIState.Default);
+        PlayerInventory.instance.UpdateSlots();
         gameObject.SetActive(false);
     }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3161f77decb5d4492125ee9c1130be, type: 3}
   m_Name: OakPlank
   m_EditorClassIdentifier: 
-  ID: 10001
+  ID: 11001
   currentSlot: {fileID: 0}
   itemName: Oak Plank
   description: Used for crafting.

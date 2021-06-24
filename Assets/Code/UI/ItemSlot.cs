@@ -38,6 +38,12 @@ public class ItemSlot : MonoBehaviour
         if (slotType == SlotType.Inventory || slotType == SlotType.Hotbar)
             inventoryIndex = PlayerInventory.instance.inventorySlots.IndexOf(this);
     }
+    private void Update()
+    {
+        if (slotType == SlotType.Inventory || slotType == SlotType.Hotbar)
+            if (currentItem != PlayerInventory.instance.inventory[inventoryIndex] || PlayerInventory.instance.inventory[inventoryIndex] == null && icon.gameObject.activeInHierarchy)
+                UpdateItemSlot();
+    }
 
 
 
