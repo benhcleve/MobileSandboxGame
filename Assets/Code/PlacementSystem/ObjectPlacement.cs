@@ -1,12 +1,17 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
+using UnityEditor.AI;
+
+
 
 public class ObjectPlacement : MonoBehaviour
 {
     Transform player;
     bool isObjectPlaced = false;
+    public GameObject terrain;
     public LayerMask cannotBuildLayer;
     GameObject rotateButton;
     GameObject placeButton;
@@ -52,7 +57,6 @@ public class ObjectPlacement : MonoBehaviour
             //Instantiates initial prefab to position in front of player
             Vector3 nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
             placedObjectInstance = Instantiate(placedObjectPrefab, nearPlayerPos, Quaternion.identity);
-            placedObjectInstance.layer = LayerMask.NameToLayer("Ground");
             //Adds glow material
             var prefabTxtr = placedObjectInstance.GetComponent<MeshRenderer>().material.mainTexture;
             placedObjectInstance.GetComponent<MeshRenderer>().material = placementGlowMat;
@@ -172,6 +176,7 @@ public class ObjectPlacement : MonoBehaviour
         {
             if (!placedObjectItem.stackable)
             {
+
                 Destroy(placedObjectItem);
             }
             else if (placedObjectItem.stackable)
@@ -179,6 +184,9 @@ public class ObjectPlacement : MonoBehaviour
         }
 
         PlayerAnimation.instance.animator.SetBool("isBuilding", false);
+
+        //Rebuild navmesh after placing object
+        terrain.GetComponent<NavMeshSurface>().BuildNavMesh();
 
         ExitPlacement();
     }
