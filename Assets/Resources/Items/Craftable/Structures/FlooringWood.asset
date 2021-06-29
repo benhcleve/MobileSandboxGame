@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8834363c28f89cf4c9389f42f80f132d, type: 3}
-  m_Name: Foundation
+  m_Name: FlooringWood
   m_EditorClassIdentifier: 
-  ID: 10001
+  ID: 10003
   currentSlot: {fileID: 0}
-  itemName: Foundation
-  description: The grounding of any building.
+  itemName: Flooring (Wood)
+  description: 
   stackable: 0
   stackCount: 1
   usesFill: 0
   fill: 0
-  icon: {fileID: 21300000, guid: 91edf45a223a3744db8924bc1be7b581, type: 3}
+  icon: {fileID: 21300000, guid: 89c974cebff5c564a89709b388873639, type: 3}
   prefab: {fileID: 4129831256449210280, guid: 428e2eda8e73d6241be40dd27a8e7ec1, type: 3}
   value: 0
   craftable: 1
@@ -28,5 +28,5 @@ MonoBehaviour:
   craftingRecipeItems:
   - {fileID: 11400000, guid: 01807a9378379af4e8937bdd727333aa, type: 2}
   craftingRecipeItemCount: 01000000
-  placementPrefab: {fileID: 2185961521966087303, guid: 8a9ec25d41e884d4c931f886ddef36e4,
+  placementPrefab: {fileID: 7019336751185664763, guid: 84f5b9de58d4aba46ab454ef633ea4d9,
     type: 3}

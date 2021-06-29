@@ -6131,12 +6131,14 @@ MonoBehaviour:
   terrain: {fileID: 1787976750}
   cannotBuildLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 257
   placedObjectPrefab: {fileID: 0}
-  placedObjectInstance: {fileID: 0}
+  placedObjectPlaceholder: {fileID: 0}
   placedObjectItem: {fileID: 0}
   buildTimer: 0
   placementGlowMat: {fileID: 2100000, guid: 36cb779fd8174e9448effd13a5c6fb7d, type: 2}
+  buildSmoke: {fileID: 4909241018891456043, guid: 1818ae35ef362df43b203efab0fb1723,
+    type: 3}
 --- !u!4 &804393154 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2937425890199245676, guid: 5506c1b8e6117c548bd8fe1383e62910,
@@ -9319,7 +9321,7 @@ MonoBehaviour:
   touchMarker: {fileID: 2004906684}
   walkable:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 264
   moveSpeed: 5
 --- !u!114 &1169823717
 MonoBehaviour:
@@ -10582,7 +10584,7 @@ Transform:
   - {fileID: 1166067638}
   - {fileID: 1018048023}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1374761457
 PrefabInstance:
@@ -13263,7 +13265,7 @@ Transform:
   - {fileID: 1457591303}
   - {fileID: 1208199964}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1661031673
 PrefabInstance:
@@ -13933,7 +13935,7 @@ GameObject:
   - component: {fileID: 1787976752}
   - component: {fileID: 1787976751}
   - component: {fileID: 1787976754}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13950,7 +13952,7 @@ TerrainCollider:
   m_Material: {fileID: 0}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: 62619c4c0d6828744a9ad655f6ff611a, type: 2}
-  m_EnableTreeColliders: 1
+  m_EnableTreeColliders: 0
 --- !u!218 &1787976752
 Terrain:
   m_ObjectHideFlags: 0
@@ -14016,7 +14018,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 264
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -14026,7 +14028,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 0ec54961ae693c240aadb3cbb1f1bf74, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: fa61f45eba87acc40ac0eef2f2abcd94, type: 2}
 --- !u!1001 &1793338476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15281,7 +15283,7 @@ Transform:
   - {fileID: 433293851}
   - {fileID: 193657268}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1983877816
 PrefabInstance:
@@ -16218,7 +16220,7 @@ PrefabInstance:
     - target: {fileID: 2680783655616649717, guid: 3fa161e7b4af40f458d293c3f9a20078,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2680783655616649717, guid: 3fa161e7b4af40f458d293c3f9a20078,
         type: 3}
@@ -16292,7 +16294,7 @@ PrefabInstance:
     - target: {fileID: 3085797384581626039, guid: 26198567e6fb4934e87fd20f22bb56b9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3085797384581626039, guid: 26198567e6fb4934e87fd20f22bb56b9,
         type: 3}
@@ -16673,7 +16675,7 @@ PrefabInstance:
     - target: {fileID: 4991770320626590836, guid: c8bc925b9af332c4fb7b708aab72f06f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4991770320626590836, guid: c8bc925b9af332c4fb7b708aab72f06f,
         type: 3}

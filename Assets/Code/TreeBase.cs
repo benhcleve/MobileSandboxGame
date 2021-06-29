@@ -80,12 +80,6 @@ public class TreeBase : Interactable
 
         }
 
-
-
-
-
-
-
         Destroy(this.gameObject, 3.5f);
     }
 

@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using UnityEditor.AI;
+using DG.Tweening;
 
 
 
 public class ObjectPlacement : MonoBehaviour
 {
+
     Transform player;
     bool isObjectPlaced = false;
     public GameObject terrain;
@@ -17,10 +19,11 @@ public class ObjectPlacement : MonoBehaviour
     GameObject placeButton;
 
     public GameObject placedObjectPrefab;
-    public GameObject placedObjectInstance;
+    public GameObject placedObjectPlaceholder;
     public Item placedObjectItem;
     public float buildTimer;
     public Material placementGlowMat;
+    public GameObject buildSmoke;
 
     private static ObjectPlacement _instance;
     public static ObjectPlacement instance { get { return _instance; } }
@@ -52,17 +55,19 @@ public class ObjectPlacement : MonoBehaviour
         if (UIManager.instance.uiState != UIManager.UIState.Placement)
             UIManager.instance.UpdateUIManager(UIManager.UIState.Placement);
 
-        if (placedObjectInstance == null && !isObjectPlaced) //If object instance has not been instantiated
+        if (placedObjectPlaceholder == null && !isObjectPlaced) //If object instance has not been instantiated
         {
             //Instantiates initial prefab to position in front of player
             Vector3 nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
-            placedObjectInstance = Instantiate(placedObjectPrefab, nearPlayerPos, Quaternion.identity);
+            placedObjectPlaceholder = Instantiate(placedObjectPrefab, nearPlayerPos, Quaternion.identity);
+            placedObjectPlaceholder.layer = 2; //Sets layer to ignore raycast so canPlace doesnt check self
+
             //Adds glow material
-            var prefabTxtr = placedObjectInstance.GetComponent<MeshRenderer>().material.mainTexture;
-            placedObjectInstance.GetComponent<MeshRenderer>().material = placementGlowMat;
+            var prefabTxtr = placedObjectPlaceholder.GetComponent<MeshRenderer>().material.mainTexture;
+            placedObjectPlaceholder.GetComponent<MeshRenderer>().material = placementGlowMat;
             placementGlowMat.SetTexture("_Texture", prefabTxtr);
             //Adds silouette when behind other gameobjects
-            var outline = placedObjectInstance.AddComponent<Outline>();
+            var outline = placedObjectPlaceholder.AddComponent<Outline>();
             outline.OutlineMode = Outline.Mode.SilhouetteOnly;
             outline.OutlineColor = placementGlowMat.GetColor("_GlowColor");
             SetPlacementeColor();
@@ -120,16 +125,32 @@ public class ObjectPlacement : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
-            placedObjectInstance.transform.position = placementPos;
+            placedObjectPlaceholder.transform.position = placementPos;
             SetPlacementeColor();
         }
     }
-    public bool canPlace()
+    public bool canPlace() //Detect if object can be placed here
     {
-        //Detect if object can be placed here
-        if (Physics.CheckSphere(placedObjectInstance.transform.position, 1, cannotBuildLayer))
+        // FLOOR
+        if (placedObjectPlaceholder.GetComponent<Flooring>())
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
+            {
+                Debug.Log(hit.transform.gameObject);
+                if (hit.transform.gameObject.GetComponent<Foundation>())
+                    return true;
+                else return false;
+            }
+        }
+        //DEFAULT
+        else if (Physics.CheckSphere(placedObjectPlaceholder.transform.position, 1, cannotBuildLayer))
             return false;
         else return true;
+
+
+        return false;
+
     }
 
     void SetPlacementeColor()
@@ -137,13 +158,13 @@ public class ObjectPlacement : MonoBehaviour
         //Detect if object can be placed here
         if (canPlace())
         {
-            placedObjectInstance.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.green);
-            placedObjectInstance.GetComponent<Outline>().OutlineColor = new Color(0, 1, 0, .5f);
+            placedObjectPlaceholder.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.green);
+            placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(0, 1, 0, .5f);
         }
         else
         {
-            placedObjectInstance.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.red);
-            placedObjectInstance.GetComponent<Outline>().OutlineColor = new Color(1, 0, 0, .5f);
+            placedObjectPlaceholder.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.red);
+            placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(1, 0, 0, .5f);
         }
     }
 
@@ -152,13 +173,13 @@ public class ObjectPlacement : MonoBehaviour
         isObjectPlaced = true;
         placeButton.SetActive(false);
         rotateButton.SetActive(false);
-        Vector3 placementPos = placedObjectInstance.transform.position;
-        Quaternion placementRot = placedObjectInstance.transform.rotation;
+        Vector3 placementPos = placedObjectPlaceholder.transform.position;
+        Quaternion placementRot = placedObjectPlaceholder.transform.rotation;
 
-        PlayerMovement.instance.navMeshAgent.SetDestination(placedObjectInstance.transform.position);
+        PlayerMovement.instance.navMeshAgent.SetDestination(placedObjectPlaceholder.transform.position);
 
-        Destroy(placedObjectInstance);
-        placedObjectInstance = null;
+        Destroy(placedObjectPlaceholder);
+        placedObjectPlaceholder = null;
 
         yield return new WaitUntil(() => Vector3.Distance(player.position, placementPos) < 2);
         PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
@@ -169,7 +190,6 @@ public class ObjectPlacement : MonoBehaviour
         yield return new WaitForSeconds(buildTimer);
 
         GameObject placedObj = Instantiate(placedObjectPrefab, placementPos, placementRot);
-        placedObj.name = placedObjectPrefab.name;
 
         //If the placed object comes from inventory
         if (placedObjectItem != null)
@@ -188,6 +208,15 @@ public class ObjectPlacement : MonoBehaviour
         //Rebuild navmesh after placing object
         terrain.GetComponent<NavMeshSurface>().BuildNavMesh();
 
+        placedObj.name = placedObjectPrefab.name;
+        placedObj.transform.localScale = Vector3.zero;
+        placedObj.transform.DOScale(Vector3.one, 0.7f).SetEase(Ease.OutBounce);
+        placedObj.transform.DOJump(placedObj.transform.position, 2, 1, .5f);
+        var smoke = Instantiate(buildSmoke, placedObj.transform.position, Quaternion.identity);
+        Destroy(smoke, 1);
+
+
+
         ExitPlacement();
     }
 
@@ -199,7 +228,7 @@ public class ObjectPlacement : MonoBehaviour
     }
 
     //BUTTONS
-    public void RotatePlacementObjInstance() => placedObjectInstance.transform.Rotate(0, 90, 0);
+    public void RotatePlacementObjInstance() => placedObjectPlaceholder.transform.Rotate(0, 90, 0);
 
     public void PlaceObjInstance()
     {
@@ -210,8 +239,8 @@ public class ObjectPlacement : MonoBehaviour
     public void ExitPlacement()
     {
         PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
-        if (placedObjectInstance != null)
-            Destroy(placedObjectInstance);
+        if (placedObjectPlaceholder != null)
+            Destroy(placedObjectPlaceholder);
         if (placedObjectPrefab != null)
             placedObjectPrefab = null;
         if (PlayerEquipmentManager.instance.equippedItem != null)
