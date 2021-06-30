@@ -137,10 +137,35 @@ public class ObjectPlacement : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
             {
-                Debug.Log(hit.transform.gameObject);
                 if (hit.transform.gameObject.GetComponent<Foundation>())
                     return true;
                 else return false;
+            }
+        }
+        // WALL
+        else if (placedObjectPlaceholder.GetComponent<Wall>())
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
+            {
+                if (hit.transform.gameObject.GetComponent<Flooring>())
+                {
+                    Collider[] colliders;
+                    if ((colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f)).Length >= 1) //Presuming the object you are testing also has a collider 0 otherwise
+                    {
+                        foreach (var collider in colliders)
+                        {
+                            if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<Wall>() &&
+                            collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
+                            {
+                                Debug.Log(collider.transform.gameObject);
+                                return false;
+                            }
+
+                        }
+                    }
+                    return true;
+                }
             }
         }
         //DEFAULT
@@ -148,9 +173,7 @@ public class ObjectPlacement : MonoBehaviour
             return false;
         else return true;
 
-
         return false;
-
     }
 
     void SetPlacementeColor()
@@ -228,7 +251,11 @@ public class ObjectPlacement : MonoBehaviour
     }
 
     //BUTTONS
-    public void RotatePlacementObjInstance() => placedObjectPlaceholder.transform.Rotate(0, 90, 0);
+    public void RotatePlacementObjInstance()
+    {
+        placedObjectPlaceholder.transform.Rotate(0, 90, 0);
+        SetPlacementeColor();
+    }
 
     public void PlaceObjInstance()
     {

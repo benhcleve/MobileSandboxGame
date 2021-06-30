@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8834363c28f89cf4c9389f42f80f132d, type: 3}
-  m_Name: FlooringWood
+  m_Name: CottageWallDoorway
   m_EditorClassIdentifier: 
-  ID: 10003
+  ID: 10006
   currentSlot: {fileID: 0}
-  itemName: Flooring (Wood)
+  itemName: Cottage Wall (Doorway)
   description: 
   stackable: 0
   stackCount: 1
   usesFill: 0
   fill: 0
-  icon: {fileID: 21300000, guid: 89c974cebff5c564a89709b388873639, type: 3}
+  icon: {fileID: 21300000, guid: 9bbf038736bb8fe4b9e08292fe36aa72, type: 3}
   prefab: {fileID: 4129831256449210280, guid: 428e2eda8e73d6241be40dd27a8e7ec1, type: 3}
   value: 0
   craftable: 1
@@ -28,6 +28,6 @@ MonoBehaviour:
   craftingRecipeItems:
   - {fileID: 11400000, guid: 01807a9378379af4e8937bdd727333aa, type: 2}
   craftingRecipeItemCount: 00000000
-  placementPrefab: {fileID: 7019336751185664763, guid: 84f5b9de58d4aba46ab454ef633ea4d9,
+  placementPrefab: {fileID: 5710172418700127472, guid: f33d53a71a0be95458331595c792a3ef,
     type: 3}
   buildtime: 1

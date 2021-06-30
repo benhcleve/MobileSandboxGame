@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4932931580624303690}
   - component: {fileID: 8348143971757062639}
   - component: {fileID: 6070403695482572069}
+  - component: {fileID: -6293854321189310919}
+  - component: {fileID: -3107212413172460695}
   m_Layer: 0
   m_Name: CottageDoorWay
   m_TagString: Untagged
@@ -81,3 +83,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-6293854321189310919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710172418700127472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e20b914ac089f45a7e6d7bd6d0ba6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!64 &-3107212413172460695
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710172418700127472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8531183661014857891, guid: 55cd8033c6cc14c48a3ee3777ffbd760, type: 3}

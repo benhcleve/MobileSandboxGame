@@ -27,6 +27,7 @@ MonoBehaviour:
   craftOutputStackCount: 1
   craftingRecipeItems:
   - {fileID: 11400000, guid: 01807a9378379af4e8937bdd727333aa, type: 2}
-  craftingRecipeItemCount: 01000000
+  craftingRecipeItemCount: 00000000
   placementPrefab: {fileID: 5311978460692936247, guid: 74e2fe1609d22c943b3b7955dfdde360,
     type: 3}
+  buildtime: 1

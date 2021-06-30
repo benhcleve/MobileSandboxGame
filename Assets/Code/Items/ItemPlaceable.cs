@@ -7,11 +7,12 @@ using UnityEngine;
 public class ItemPlaceable : Item
 {
     public GameObject placementPrefab;
+    public float buildtime;
     public override void Use()
     {
         ObjectPlacement.instance.gameObject.SetActive(true);
         ObjectPlacement.instance.placedObjectPrefab = placementPrefab;
-        ObjectPlacement.instance.buildTimer = 5;
+        ObjectPlacement.instance.buildTimer = buildtime;
         ObjectPlacement.instance.placedObjectItem = this;
     }
 }
