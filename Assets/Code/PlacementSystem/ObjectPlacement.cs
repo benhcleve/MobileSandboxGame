@@ -63,9 +63,20 @@ public class ObjectPlacement : MonoBehaviour
             placedObjectPlaceholder.layer = 2; //Sets layer to ignore raycast so canPlace doesnt check self
 
             //Adds glow material
-            var prefabTxtr = placedObjectPlaceholder.GetComponent<MeshRenderer>().material.mainTexture;
-            placedObjectPlaceholder.GetComponent<MeshRenderer>().material = placementGlowMat;
-            placementGlowMat.SetTexture("_Texture", prefabTxtr);
+            if (placedObjectPlaceholder.GetComponent<MeshRenderer>())
+            {
+                var prefabTxtr = placedObjectPlaceholder.GetComponent<MeshRenderer>().material.mainTexture;
+                placedObjectPlaceholder.GetComponent<MeshRenderer>().material = placementGlowMat;
+                placementGlowMat.SetTexture("_Texture", prefabTxtr);
+            }
+            if (placedObjectPlaceholder.GetComponent<Door>())
+            {
+                SkinnedMeshRenderer doorSkin = placedObjectPlaceholder.transform.Find("CottageDoor").GetComponent<SkinnedMeshRenderer>();
+                var prefabTxtr = doorSkin.material.mainTexture;
+                doorSkin.material = placementGlowMat;
+                placementGlowMat.SetTexture("_Texture", prefabTxtr);
+
+            }
             //Adds silouette when behind other gameobjects
             var outline = placedObjectPlaceholder.AddComponent<Outline>();
             outline.OutlineMode = Outline.Mode.SilhouetteOnly;
@@ -150,22 +161,40 @@ public class ObjectPlacement : MonoBehaviour
             {
                 if (hit.transform.gameObject.GetComponent<Flooring>())
                 {
-                    Collider[] colliders;
-                    if ((colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f)).Length >= 1) //Presuming the object you are testing also has a collider 0 otherwise
+                    Collider[] colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f);
+                    if (colliders.Length >= 1)
                     {
                         foreach (var collider in colliders)
                         {
                             if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<Wall>() &&
                             collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
                             {
-                                Debug.Log(collider.transform.gameObject);
                                 return false;
                             }
-
                         }
                     }
                     return true;
                 }
+            }
+        }
+        // DOOR
+        else if (placedObjectPlaceholder.GetComponent<Door>())
+        {
+            Collider[] colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f);
+            if (colliders.Length >= 1)
+            {
+                foreach (var collider in colliders)
+                {
+                    //If in doorway
+                    if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<WallDoorway>() &&
+                    collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
+                    {
+                        Debug.Log("In Doorway");
+                        return true;
+                    }
+                }
+                Debug.Log("Default False");
+                return false;
             }
         }
         //DEFAULT
@@ -181,13 +210,35 @@ public class ObjectPlacement : MonoBehaviour
         //Detect if object can be placed here
         if (canPlace())
         {
-            placedObjectPlaceholder.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.green);
-            placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(0, 1, 0, .5f);
+            if (placedObjectPlaceholder.GetComponent<MeshRenderer>())
+            {
+                placedObjectPlaceholder.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.green);
+                placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(0, 1, 0, .5f);
+            }
+
+            //Door mesh renderer is on child
+            if (placedObjectPlaceholder.GetComponent<Door>())
+            {
+                SkinnedMeshRenderer doorSkin = placedObjectPlaceholder.transform.Find("CottageDoor").GetComponent<SkinnedMeshRenderer>();
+                doorSkin.material.SetColor("_GlowColor", Color.green);
+                placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(0, 1, 0, .5f);
+            }
         }
         else
         {
-            placedObjectPlaceholder.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.red);
-            placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(1, 0, 0, .5f);
+            if (placedObjectPlaceholder.GetComponent<MeshRenderer>())
+            {
+                placedObjectPlaceholder.GetComponent<MeshRenderer>().material.SetColor("_GlowColor", Color.red);
+                placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(1, 0, 0, .5f);
+            }
+
+            //Door mesh renderer is on child
+            if (placedObjectPlaceholder.GetComponent<Door>())
+            {
+                SkinnedMeshRenderer doorSkin = placedObjectPlaceholder.transform.Find("CottageDoor").GetComponent<SkinnedMeshRenderer>();
+                doorSkin.material.SetColor("_GlowColor", Color.red);
+                placedObjectPlaceholder.GetComponent<Outline>().OutlineColor = new Color(1, 0, 0, .5f);
+            }
         }
     }
 
@@ -214,12 +265,14 @@ public class ObjectPlacement : MonoBehaviour
 
         GameObject placedObj = Instantiate(placedObjectPrefab, placementPos, placementRot);
 
+        if (placedObj.GetComponent<Door>())
+            placedObj.GetComponent<Door>().isPlaced = true;
+
         //If the placed object comes from inventory
         if (placedObjectItem != null)
         {
             if (!placedObjectItem.stackable)
             {
-
                 Destroy(placedObjectItem);
             }
             else if (placedObjectItem.stackable)

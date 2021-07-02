@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
 {
     Animator animator;
     Transform player;
+    public bool isPlaced;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -21,10 +22,13 @@ public class Door : MonoBehaviour
         }
         else
         {
-            if (Vector3.Distance(transform.position, player.position) < 2 && !animator.GetBool("isOpen"))
-                animator.SetBool("isOpen", true);
-            if (Vector3.Distance(transform.position, player.position) >= 2 && animator.GetBool("isOpen"))
-                animator.SetBool("isOpen", false);
+            if (isPlaced)
+            {
+                if (Vector3.Distance(transform.position, player.position) < 2 && !animator.GetBool("isOpen"))
+                    animator.SetBool("isOpen", true);
+                if (Vector3.Distance(transform.position, player.position) >= 2 && animator.GetBool("isOpen"))
+                    animator.SetBool("isOpen", false);
+            }
         }
 
     }
