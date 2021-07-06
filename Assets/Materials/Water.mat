@@ -32,15 +32,28 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_54682833: 1
+    - Vector1_54682833: 0.5
     - Vector1_8DCD8BC4: 20
-    - Vector1_94F85E90: 0.5
-    - Vector1_C89AF4A3: 0.05
-    - Vector1_E67C647A: 0.3
+    - Vector1_94F85E90: 0.8
+    - Vector1_C89AF4A3: 0.03
+    - Vector1_E67C647A: 0.5
     - Vector1_EDEF3058: 5
     m_Colors:
-    - Color_C8298F02: {r: 0, g: 0.5339251, b: 0.8301887, a: 1}
-    - Color_DB4DAB35: {r: 0.1819153, g: 0.6837398, b: 0.6886792, a: 0.3921569}
-    - Color_DE85AF4F: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.1960784}
+    - Color_C8298F02: {r: 0, g: 0.24970154, b: 0.38679248, a: 1}
+    - Color_DB4DAB35: {r: 0, g: 0, b: 0, a: 0.3921569}
+    - Color_DE85AF4F: {r: 1, g: 1, b: 1, a: 0.1960784}
+  m_BuildTextureStacks: []
