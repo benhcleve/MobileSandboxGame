@@ -8952,8 +8952,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a827ba43897774484637c89a5f3acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSize: 0
-  zSize: 0
+  showDebug: 1
+  surfacePoints: []
+  groundPoints: []
   groundMask:
     serializedVersion: 2
     m_Bits: 8
