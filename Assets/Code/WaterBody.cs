@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterColliderGen : MonoBehaviour
+public class WaterBody : MonoBehaviour
 {
     //THIS SCRIPT ONLY WORKS IF USING WATER MESH
     public bool showDebug;
@@ -22,7 +22,8 @@ public class WaterColliderGen : MonoBehaviour
 
     private void Update()
     {
-        DetectGround();
+        if (showDebug)
+            DebugLines();
     }
 
     void GenerateSurfacePoints()
@@ -39,6 +40,21 @@ public class WaterColliderGen : MonoBehaviour
 
     void GenerateGroundPoints()
     {
+        //Loop to get rid of surface points that dont make contact with ground.
+        for (int i = 0; i < surfacePoints.Count; i++)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(surfacePoints[i] + transform.position, Vector3.down, out hit, 10, groundMask))
+            {
+                Debug.Log(" Surface Point: " + (surfacePoints[i] + transform.position) + " Ground Point: " + hit.point);
+            }
+            else
+            {
+                surfacePoints.Remove(surfacePoints[i]);
+                i--; //Go back one due to item being removed from list.
+            }
+        }
+        //Loop again to add ground points.
         for (int i = 0; i < surfacePoints.Count; i++)
         {
             RaycastHit hit;
@@ -47,23 +63,17 @@ public class WaterColliderGen : MonoBehaviour
                 groundPoints.Add(hit.point);
             }
         }
+
     }
 
-    void DetectGround()
+    void DebugLines()
     {
-        for (int i = 0; i < surfacePoints.Count - 1; i++)
+        for (int i = 0; i < surfacePoints.Count; i++)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(surfacePoints[i] + transform.position, Vector3.down, out hit, 10, groundMask))
-            {
-                if (showDebug)
-                    Debug.DrawLine(surfacePoints[i] + transform.position, hit.point, Color.black);
-            }
-            else
-            {
-                surfacePoints.Remove(surfacePoints[i]);
-                Debug.Log("Removed " + surfacePoints[i]);
-            }
+
+            if (showDebug)
+                Debug.DrawLine(surfacePoints[i] + transform.position, groundPoints[i], Color.black);
+
         }
     }
 
@@ -72,9 +82,9 @@ public class WaterColliderGen : MonoBehaviour
         if (surfacePoints == null || groundPoints == null || !showDebug)
             return;
 
-        Gizmos.color = Color.blue;
         for (int i = 0; i < surfacePoints.Count; i++)
         {
+            Gizmos.color = Color.blue;
             Gizmos.DrawSphere(surfacePoints[i] + transform.position, 0.05f);
         }
         for (int i = 0; i < groundPoints.Count; i++)
