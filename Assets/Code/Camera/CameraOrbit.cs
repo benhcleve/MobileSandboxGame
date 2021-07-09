@@ -8,7 +8,7 @@ public class CameraOrbit : MonoBehaviour
     protected Transform _XForm_Parent;
 
     protected Vector3 _LocalRotation;
-    protected Quaternion lastRotation;
+    public Quaternion lastRotation;
     protected float _CameraDistance = 10f;
 
     public float OrbitSensitivity = .2f;
@@ -26,15 +26,11 @@ public class CameraOrbit : MonoBehaviour
         this._XForm_Parent = this.transform.parent;
     }
 
-    private void OnEnable() //Restore rotation
+    private void OnEnable()  //Reset camera on enable
     {
-        CameraManager.instance.cam.transform.rotation = lastRotation;
+        if (CameraManager.instance != null)
+            CameraManager.instance.cam.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
-    private void OnDisable() //Store rotation
-    {
-        CameraManager.instance.cam.transform.rotation = transform.rotation;
-    }
-
 
     void LateUpdate()
     {
