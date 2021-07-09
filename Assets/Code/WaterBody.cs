@@ -32,7 +32,7 @@ public class WaterBody : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++, i++)
             {
-                Vector3 localPoint = new Vector3(x, .5f, z);
+                Vector3 localPoint = new Vector3(x, 0, z);
                 surfacePoints.Insert(i, localPoint);
             }
         }
@@ -46,7 +46,7 @@ public class WaterBody : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(surfacePoints[i] + transform.position, Vector3.down, out hit, 10, groundMask))
             {
-                Debug.Log(" Surface Point: " + (surfacePoints[i] + transform.position) + " Ground Point: " + hit.point);
+                //Do nothing
             }
             else
             {
