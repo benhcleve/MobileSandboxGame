@@ -61,7 +61,7 @@ public class FishingRod : MonoBehaviour
             if (castTarget.transform.parent == this.transform)
                 castTarget.transform.parent = null;
 
-            castTarget.transform.position = PlayerMovement.instance.transform.position + (PlayerMovement.instance.transform.forward * (powerSlider.value + 1));
+            castTarget.transform.position = PlayerMovement.instance.transform.position + (PlayerMovement.instance.transform.forward * (powerSlider.value + 2));
             castTarget.transform.rotation = PlayerMovement.instance.transform.rotation;
             castTargetSprite.color = Color.red;
             canCast = false;

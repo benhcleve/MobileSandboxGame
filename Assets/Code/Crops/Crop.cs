@@ -13,6 +13,7 @@ public class Crop : MonoBehaviour
     Vector3 spawnPos;
     bool isSelected;
     public bool isPlanted;
+    bool wormSpawn;
 
 
     private void Start()
@@ -67,6 +68,9 @@ public class Crop : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, spawnPos + Vector3.up, Time.deltaTime * 5);
                     transform.Rotate(Vector3.up * (Time.deltaTime * 100));
                     isPlanted = false;
+
+                    if (!wormSpawn)
+                        spawnWorm();
                 }
                 else if (!isTwoTouch && yTouchDist < 100 && isPlanted)
                 {
@@ -83,14 +87,14 @@ public class Crop : MonoBehaviour
             //Dropping crop after pulling up
             if (Input.GetTouch(0).phase == TouchPhase.Ended && isSelected)
             {
-                SetOutline(false); //Get rid of selected outline
-                isSelected = false;
-                if (!isPlanted)
+                if (!isPlanted && isSelected)
                 {
                     col.isTrigger = false;
                     rb.isKinematic = false;
                     rb.angularVelocity = rb.transform.right * 5;
                 }
+                SetOutline(false); //Get rid of selected outline
+                isSelected = false;
             }
         }
         else
@@ -130,6 +134,9 @@ public class Crop : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, spawnPos + Vector3.up, Time.deltaTime * 5);
                     transform.Rotate(Vector3.up * (Time.deltaTime * 100));
                     isPlanted = false;
+
+                    if (!wormSpawn)
+                        spawnWorm();
                 }
                 else if (yTouchDist < 100 && isPlanted)
                 {
@@ -146,14 +153,15 @@ public class Crop : MonoBehaviour
             //Dropping crop after pulling up
             if (Input.GetMouseButtonUp(0))
             {
-                SetOutline(false); //Get rid of selected outline
-                isSelected = false;
-                if (!isPlanted)
+                if (!isPlanted && isSelected)
                 {
                     col.isTrigger = false;
                     rb.isKinematic = false;
                     rb.angularVelocity = rb.transform.right * 5;
                 }
+
+                SetOutline(false); //Get rid of selected outline
+                isSelected = false;
             }
         }
         else
@@ -185,6 +193,18 @@ public class Crop : MonoBehaviour
                 if (distFromPlayer < .5f && !isSelected && !isPlanted)
                     PlayerInventory.instance.AddToInventory(item, gameObject);
             }
+    }
+
+    public void spawnWorm()
+    {
+        int spawnChance = Random.Range(0, 2);
+
+        if (spawnChance == 0)
+        {
+            ItemBait worm = Resources.Load("Items/Gathered/Worm") as ItemBait;
+            Instantiate(worm.prefab, transform.position + Vector3.up, Quaternion.identity);
+        }
+        wormSpawn = true;
     }
 
 

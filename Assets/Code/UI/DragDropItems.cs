@@ -38,7 +38,8 @@ public class DragDropItems : MonoBehaviour
                     if (EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>())
                     {
                         ItemSlot dragSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
-                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage || dragSlot.slotType == ItemSlot.SlotType.CraftOutput)
+                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage
+                        || dragSlot.slotType == ItemSlot.SlotType.CraftOutput || dragSlot.slotType == ItemSlot.SlotType.BaitSlot)
                             fromSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
                         else return;
                     }
@@ -98,8 +99,6 @@ public class DragDropItems : MonoBehaviour
                         if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
                             DropItem(Input.GetTouch(0).position);
 
-
-
                     // Item placement logic
                     if (fromSlot == toSlot)
                     {
@@ -167,8 +166,6 @@ public class DragDropItems : MonoBehaviour
 
                         }
                     }
-
-
                     fromSlot = null;
                     toSlot = null;
                 }
@@ -190,7 +187,8 @@ public class DragDropItems : MonoBehaviour
                     if (EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>())
                     {
                         ItemSlot dragSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
-                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage || dragSlot.slotType == ItemSlot.SlotType.CraftOutput)
+                        if (dragSlot.slotType == ItemSlot.SlotType.Inventory || dragSlot.slotType == ItemSlot.SlotType.Hotbar || dragSlot.slotType == ItemSlot.SlotType.Storage
+                        || dragSlot.slotType == ItemSlot.SlotType.CraftOutput || dragSlot.slotType == ItemSlot.SlotType.BaitSlot)
                             fromSlot = EventSystem.current.currentSelectedGameObject.GetComponent<ItemSlot>();
                         else return;
                     }
@@ -239,8 +237,12 @@ public class DragDropItems : MonoBehaviour
                         if (raycastResultsList[i].gameObject.GetComponent<ItemSlot>())
                         {
                             var slot = raycastResultsList[i].gameObject.GetComponent<ItemSlot>();
-                            if (slot.slotType == ItemSlot.SlotType.Inventory || slot.slotType == ItemSlot.SlotType.Hotbar || slot.slotType == ItemSlot.SlotType.Storage)
+                            if (slot.slotType == ItemSlot.SlotType.Inventory || slot.slotType == ItemSlot.SlotType.Hotbar
+                            || slot.slotType == ItemSlot.SlotType.Storage)
                                 toSlot = raycastResultsList[i].gameObject.GetComponent<ItemSlot>();
+                            if (slot.slotType == ItemSlot.SlotType.BaitSlot && fromSlot.currentItem.GetType() == typeof(ItemBait))
+                                toSlot = raycastResultsList[i].gameObject.GetComponent<ItemSlot>();
+
                             break; //End if found a toSlot
                         }
                     }
@@ -266,12 +268,19 @@ public class DragDropItems : MonoBehaviour
                         if (fromSlot.currentItem != null && toSlot.currentItem != null
                          && toSlot.currentItem.stackable && fromSlot.currentItem.stackable && toSlot.currentItem.ID == fromSlot.currentItem.ID)
                         {
-                            if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
-                                PlayerInventory.instance.inventory[toSlot.inventoryIndex].stackCount += fromSlot.currentItem.stackCount;
-                            else toSlot.currentItem.stackCount += fromSlot.currentItem.stackCount;
-                            if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
-                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
-                            else fromSlot.currentItem = null;
+                            if (toSlot.slotType == ItemSlot.SlotType.BaitSlot)
+                            {
+                                //Do not allow stacking bait on bait slot.
+                            }
+                            else
+                            {
+                                if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                    PlayerInventory.instance.inventory[toSlot.inventoryIndex].stackCount += fromSlot.currentItem.stackCount;
+                                else toSlot.currentItem.stackCount += fromSlot.currentItem.stackCount;
+                                if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                    PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
+                                else fromSlot.currentItem = null;
+                            }
 
                             toSlot.UpdateItemSlot();
                             fromSlot.UpdateItemSlot();
@@ -279,18 +288,28 @@ public class DragDropItems : MonoBehaviour
                         }
                         else if (toSlot.currentItem == null)
                         {
-                            // Get actual item from inventory instance
-                            Item fromSlotItem = fromSlot.currentItem;
-                            Item toSlotItem = toSlot.currentItem;
+                            if (toSlot.slotType == ItemSlot.SlotType.BaitSlot)
+                            {
+                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex].stackCount--;
+                                toSlot.currentItem = Object.Instantiate(fromSlot.currentItem);
+                                toSlot.currentItem.stackCount = 1;
+                            }
+                            else
+                            {
 
-                            if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
-                                PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
-                            if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
-                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
+                                // Get actual item from inventory instance
+                                Item fromSlotItem = fromSlot.currentItem;
+                                Item toSlotItem = toSlot.currentItem;
 
-                            //Place fromSlot Item on toSlot and remove reference to item on fromSlot
-                            toSlot.currentItem = fromSlotItem;
-                            fromSlot.currentItem = null;
+                                if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                    PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
+                                if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                    PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
+
+                                //Place fromSlot Item on toSlot and remove reference to item on fromSlot
+                                toSlot.currentItem = fromSlotItem;
+                                fromSlot.currentItem = null;
+                            }
 
                             // Update slot UI
                             toSlot.UpdateItemSlot();
@@ -298,26 +317,30 @@ public class DragDropItems : MonoBehaviour
                         }
                         else if (toSlot.currentItem != null)
                         {
+                            if (toSlot.slotType == ItemSlot.SlotType.BaitSlot || toSlot.slotType == ItemSlot.SlotType.CraftOutput)
+                            {
+                                //Dont allow swapping in these slot types
+                            }
+                            else
+                            {
+                                // Get actual item from inventory instance
+                                Item fromSlotItem = fromSlot.currentItem;
+                                Item toSlotItem = toSlot.currentItem;
 
-                            // Get actual item from inventory instance
-                            Item fromSlotItem = fromSlot.currentItem;
-                            Item toSlotItem = toSlot.currentItem;
+                                // Update Inventory/Hotbar Items in inventory instance if exist
+                                if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                    PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = toSlotItem;
+                                if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
+                                    PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
 
-                            // Update Inventory/Hotbar Items in inventory instance if exist
-                            if (fromSlot.slotType == ItemSlot.SlotType.Inventory || fromSlot.slotType == ItemSlot.SlotType.Hotbar)
-                                PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = toSlotItem;
-                            if (toSlot.slotType == ItemSlot.SlotType.Inventory || toSlot.slotType == ItemSlot.SlotType.Hotbar)
-                                PlayerInventory.instance.inventory[toSlot.inventoryIndex] = fromSlotItem;
-
-                            //Place fromSlot Item on toSlot and remove reference to item on fromSlot
-                            toSlot.currentItem = fromSlotItem;
-                            fromSlot.currentItem = toSlotItem;
+                                //Place fromSlot Item on toSlot and remove reference to item on fromSlot
+                                toSlot.currentItem = fromSlotItem;
+                                fromSlot.currentItem = toSlotItem;
+                            }
 
                             //Update slot UI
                             toSlot.UpdateItemSlot();
                             fromSlot.UpdateItemSlot();
-
-
                         }
                     }
 

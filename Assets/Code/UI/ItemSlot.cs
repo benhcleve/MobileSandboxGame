@@ -7,7 +7,7 @@ using TMPro;
 
 public class ItemSlot : MonoBehaviour
 {
-    public enum SlotType { Generic, Inventory, Hotbar, Storage, Shop, CraftOutput }
+    public enum SlotType { Generic, Inventory, Hotbar, Storage, Shop, CraftOutput, BaitSlot }
     public SlotType slotType = SlotType.Generic;
     GameObject stackUI;
     GameObject fillUI;
@@ -94,6 +94,10 @@ public class ItemSlot : MonoBehaviour
                 button.onClick.AddListener(delegate { currentItem.Use(); });
                 break;
             case SlotType.Shop:
+                stackUI.SetActive(false);
+                fillUI.SetActive(false);
+                break;
+            case SlotType.BaitSlot:
                 stackUI.SetActive(false);
                 fillUI.SetActive(false);
                 break;
