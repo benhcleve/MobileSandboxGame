@@ -8,17 +8,22 @@ public class Fish : MonoBehaviour
     public float speed = 1;
     Vector3 navPoint;
     public bool showDebug;
+    public GameObject bait;
+    public bool isHooked;
 
     void Start()
     {
         StartCoroutine(FishWander());
         navPoint = transform.position;
+
     }
 
     void Update()
     {
+        AttractToBait();
         transform.position = Vector3.MoveTowards(transform.position, navPoint, speed * Time.deltaTime);
         transform.LookAt(navPoint, Vector3.up);
+
     }
 
     IEnumerator FishWander()
@@ -35,6 +40,29 @@ public class Fish : MonoBehaviour
 
         }
     }
+
+    public void AttractToBait()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + (transform.forward * .5f), 1);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.transform.GetComponent<Bait>() && !hitCollider.transform.GetComponent<Bait>().beingNibbled)
+            {
+                navPoint = hitCollider.transform.position + (-hitCollider.transform.up * .25f);
+
+                if (Vector3.Distance(transform.position, navPoint) < .2f && bait != hitCollider.gameObject)
+                {
+                    StopAllCoroutines();
+                    navPoint = transform.position;
+                    bait = hitCollider.gameObject;
+                    bait.GetComponent<Bait>().ReactToNibble(gameObject);
+                }
+            }
+        }
+    }
+
+
+
 
     private void OnDrawGizmos()
     {

@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Bait : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public FishingBobber bobber;
+    public bool beingNibbled;
 
-    // Update is called once per frame
-    void Update()
+    public void ReactToNibble(GameObject fish)
     {
-        
+        bobber.hookedFish = fish;
+        beingNibbled = true;
+        StartCoroutine(bobber.FishNibbleNotify());
     }
 }
