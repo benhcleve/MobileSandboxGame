@@ -114,6 +114,12 @@ public class FishingRod : MonoBehaviour
     public void IsReeling(bool reeling) => isReeling = reeling;
     public void ReelIn()
     {
+        if (fishingBobber.hookedFish != null && !fishingBobber.hookedFish.GetComponent<Fish>().isHooked)
+        {
+            fishingBobber.hookedFish.GetComponent<Fish>().isHooked = true;
+            fishingBobber.bait.GetComponent<Bait>().beingNibbled = false;
+        }
+
         Vector3 reelPos = new Vector3(fishingLine.poleEnd.position.x, bobber.transform.position.y, fishingLine.poleEnd.position.z);
         bobber.transform.position = Vector3.MoveTowards(bobber.transform.position, reelPos, Time.deltaTime * reelSpeed);
 

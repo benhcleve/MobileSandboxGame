@@ -50,7 +50,7 @@ public class Fish : MonoBehaviour
             {
                 navPoint = hitCollider.transform.position + (-hitCollider.transform.up * .25f);
 
-                if (Vector3.Distance(transform.position, navPoint) < .2f && bait != hitCollider.gameObject)
+                if (Vector3.Distance(transform.position, navPoint) < .2f && bait != hitCollider.gameObject && !isHooked)
                 {
                     StopAllCoroutines();
                     navPoint = transform.position;

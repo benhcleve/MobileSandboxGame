@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class FishingBobber : MonoBehaviour
 {
-    public bool isBeingNibbled;
     public GameObject hook;
     public GameObject bait;
     public GameObject hookedFish; //Fish that is hooked, if any
@@ -38,7 +37,7 @@ public class FishingBobber : MonoBehaviour
 
     public IEnumerator FishNibbleNotify()
     {
-        while (true)
+        while (bait != null && bait.GetComponent<Bait>().beingNibbled)
         {
             yield return new WaitForSeconds(1);
             gameObject.transform.DOShakeScale(1, .5f, 10);
