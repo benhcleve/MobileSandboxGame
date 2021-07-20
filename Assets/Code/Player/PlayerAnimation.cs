@@ -31,7 +31,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void HandleMovementAnimation()
     {
-        if (!animator.GetBool("isBuilding"))
+        if (!animator.GetBool("isBuilding") || !animator.GetBool("isFishing"))
         {
             if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero && !animator.GetBool("isRunning"))
                 SetAnimation("isRunning");

@@ -30,6 +30,7 @@ public class FishingRod : MonoBehaviour
         fishingBobber = bobber.GetComponent<FishingBobber>();
         powerSlider.maxValue = castPower; //Sets the power of the rod to the slider
         castTarget.SetActive(true);
+        PlayerAnimation.instance.animator.SetBool("isFishing", true);
     }
 
     private void OnDestroy()
@@ -38,6 +39,7 @@ public class FishingRod : MonoBehaviour
         Destroy(bobber);
         CameraManager.instance.state = CameraManager.State.Default;
         UIManager.instance.uiState = UIManager.UIState.Default;
+        PlayerAnimation.instance.animator.SetBool("isFishing", false);
     }
 
     private void Update()
@@ -90,25 +92,33 @@ public class FishingRod : MonoBehaviour
         if (canCast)
         {
             castUI.SetActive(false);
-            bobber.transform.parent = null;
-            bobber.transform.eulerAngles = Vector3.zero;
             StartCoroutine(CastRodCo());
         }
     }
     IEnumerator CastRodCo()
     {
         float castTime = 0;
+        Vector3 polePos = fishingLine.poleEnd.position;
         Vector3 targetPos = castTarget.transform.position;
         castTarget.SetActive(false);
+
+        PlayerAnimation.instance.animator.SetBool("isFishingCast", true);
+        yield return new WaitForSeconds(1.2f);
+        polePos = fishingLine.poleEnd.position;
+
+        bobber.transform.parent = null;
+        bobber.transform.eulerAngles = Vector3.zero;
 
         while (castTime < 1f)
         {
             fishingLine.tension = 0;
             castTime += Time.deltaTime;
-            bobber.transform.position = Parabola(fishingLine.poleEnd.position, targetPos, 1, castTime);
+            bobber.transform.position = Parabola(polePos, targetPos, 3, castTime);
             yield return new WaitForEndOfFrame();
         }
         reelUI.SetActive(true);
+        PlayerAnimation.instance.animator.SetBool("isFishingCast", false);
+        bobber.GetComponent<ParticleSystem>().Play();
     }
 
     public void IsReeling(bool reeling) => isReeling = reeling;
