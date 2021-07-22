@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HatchetSlider : MonoBehaviour
+public class HitSlider : MonoBehaviour
 {
     public enum State { WeakHitZone, HitZone, CriticalZone }
     public State state = State.WeakHitZone;

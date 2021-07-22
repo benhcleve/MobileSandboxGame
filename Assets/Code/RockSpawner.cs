@@ -39,7 +39,7 @@ public class RockSpawner : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(localPoint + randomness, Vector3.down, out hit, 10, groundMask))
             {
-                GameObject rock = Instantiate(RockObjs[Random.Range(0, 2)], hit.point, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                GameObject rock = Instantiate(RockObjs[Random.Range(0, 3)], hit.point, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
                 rock.transform.rotation = Quaternion.LookRotation(rock.transform.forward, hit.normal);
                 rock.transform.parent = transform;
             }
