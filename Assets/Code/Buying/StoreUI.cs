@@ -18,18 +18,27 @@ public class StoreUI : Interactable
     public GameObject itemButton;
     public Item selectedItem;
     List<GameObject> allSlots = new List<GameObject>();
+    public Dialogue.AfterDialogue openStoreUI;
 
     Vector2 touchStartPos;
+
+    private void Start()
+    {
+        openStoreUI = OpenStoreUI;
+    }
     public override void Interact()
     {
         isInteracting = true;
+        UIManager.instance.WriteDialogue(new string[] { "I got everything you need." }, OpenStoreUI);
+
+    }
+
+    public void OpenStoreUI()
+    {
         transform.Find("Store Canvas").gameObject.SetActive(true);
         UIManager.instance.uiState = UIManager.UIState.Default_NoMovement;
         GenerateStock();
     }
-
-
-
 
     void GenerateStock()
     {

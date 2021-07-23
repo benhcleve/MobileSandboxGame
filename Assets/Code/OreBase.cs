@@ -49,7 +49,21 @@ public class OreBase : Interactable
 
                     break;
             }
-            Destroy(this.gameObject);
+
+
+            GameObject ore = Instantiate(oreDrop, transform.position + Vector3.up, Quaternion.identity);
+            ore.GetComponent<Pickupable>().playerMagnet = true;
+            ore = Instantiate(oreDrop, transform.position + (Vector3.up * 1.5f), Quaternion.identity);
+            ore.GetComponent<Pickupable>().playerMagnet = true;
+            ore = Instantiate(oreDrop, transform.position + (Vector3.up * 2f), Quaternion.identity);
+            ore.GetComponent<Pickupable>().playerMagnet = true;
+
+            PlayerInteraction.instance.target = null;
+
+            transform.DOScale(Vector3.zero, .5f);
+            transform.DOShakePosition(.5f, .1f, 20, 90);
+
+            Destroy(this.gameObject, 1);
 
         }
 

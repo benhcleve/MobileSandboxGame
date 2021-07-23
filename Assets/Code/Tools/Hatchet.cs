@@ -31,8 +31,9 @@ public class Hatchet : MonoBehaviour
             //if tree is within interaction range
             if (PlayerInteraction.instance.target.GetComponent<TreeBase>().isInteracting && !hatchetUI.activeInHierarchy)
                 StartCoroutine(Chop());
+
         }
-        if (PlayerInteraction.instance.target == null || !PlayerInteraction.instance.target.GetComponent<TreeBase>())
+        if (PlayerInteraction.instance.target == null && UIManager.instance.uiState == UIManager.UIState.Minigame)
             EndChopping();
     }
 
@@ -41,6 +42,7 @@ public class Hatchet : MonoBehaviour
         StopAllCoroutines();
         PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", false);
         PlayerInteraction.instance.target = null;
+        slider.gameObject.SetActive(true);
         hatchetUI.SetActive(false);
         UIManager.instance.uiState = UIManager.UIState.Default;
     }
@@ -54,9 +56,11 @@ public class Hatchet : MonoBehaviour
 
     IEnumerator Chop()
     {
-        hatchetUI.SetActive(true);
-        PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
+
         UIManager.instance.uiState = UIManager.UIState.Minigame;
+        hatchetUI.SetActive(true);
+        slider.gameObject.SetActive(true);
+        PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
 
         while (true)
         {
@@ -115,7 +119,6 @@ public class Hatchet : MonoBehaviour
                             damageType = 3;
                             break;
                     }
-                    slider.gameObject.SetActive(false);
                     hasTapped = true;
                 }
 
@@ -145,7 +148,6 @@ public class Hatchet : MonoBehaviour
                         damageType = 3;
                         break;
                 }
-                slider.gameObject.SetActive(false);
                 hasTapped = true;
             }
         }

@@ -9,20 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01134f810179ed6428ef9b3a873a4cec, type: 3}
-  m_Name: Worm
+  m_Script: {fileID: 11500000, guid: 2c3161f77decb5d4492125ee9c1130be, type: 3}
+  m_Name: StoneRock
   m_EditorClassIdentifier: 
-  ID: 8700
+  ID: 8600
   currentSlot: {fileID: 0}
-  itemName: Worm
-  description: Most well known fishing bait.
+  itemName: Stone Rock
+  description: A large common rock. Can be used for crafting.
   stackable: 1
   stackCount: 1
   usesFill: 0
   fill: 0
-  icon: {fileID: 21300000, guid: 78c429e50fa54dc4694794e692de7b60, type: 3}
-  prefab: {fileID: 6802316907181245461, guid: 259c03180ff2d2c4287b51de71819a66, type: 3}
-  value: 1
+  icon: {fileID: 21300000, guid: 66d370289b8073942b1cfc78a71e4856, type: 3}
+  prefab: {fileID: 6590493798019771707, guid: 150b232c783d47244b36bd239c3f97ce, type: 3}
+  value: 10
   craftable: 0
   craftOutputStackCount: 1
   craftingRecipeItems: []

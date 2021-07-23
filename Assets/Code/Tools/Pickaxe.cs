@@ -32,7 +32,7 @@ public class Pickaxe : MonoBehaviour
             if (PlayerInteraction.instance.target.GetComponent<OreBase>().isInteracting && !pickaxeUI.activeInHierarchy)
                 StartCoroutine(Mine());
         }
-        if (PlayerInteraction.instance.target == null || !PlayerInteraction.instance.target.GetComponent<OreBase>())
+        if (PlayerInteraction.instance.target == null && UIManager.instance.uiState == UIManager.UIState.Minigame)
             EndMining();
     }
 
@@ -41,6 +41,7 @@ public class Pickaxe : MonoBehaviour
         StopAllCoroutines();
         PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", false);
         PlayerInteraction.instance.target = null;
+        slider.gameObject.SetActive(true);
         pickaxeUI.SetActive(false);
         UIManager.instance.uiState = UIManager.UIState.Default;
     }
@@ -54,7 +55,10 @@ public class Pickaxe : MonoBehaviour
 
     IEnumerator Mine()
     {
+        hasTapped = false;
+        timeElapsed = 0;
         pickaxeUI.SetActive(true);
+        slider.gameObject.SetActive(true);
         PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
         UIManager.instance.uiState = UIManager.UIState.Minigame;
 
@@ -63,8 +67,8 @@ public class Pickaxe : MonoBehaviour
             if (PlayerInteraction.instance.target == null) //End coroutine if tree is falling
                 EndMining();
 
-            timeElapsed = 0;
             hasTapped = false;
+            timeElapsed = 0;
             slider.gameObject.SetActive(true);
             damageType = 0;
 
@@ -80,11 +84,10 @@ public class Pickaxe : MonoBehaviour
                 yield return new WaitForEndOfFrame();
 
             }
-            if (timeElapsed >= lerpDuration && slider.gameObject.activeInHierarchy)
-                MeterPress(Random.Range(0.3f, 0.5f));
+            if (timeElapsed >= lerpDuration && slider.gameObject.activeInHierarchy) //If nothing pressed
+                MeterPress(Random.Range(0.3f, 0.5f)); //Give small damage number for idle hit
 
             PlayerInteraction.instance.target.GetComponent<OreBase>().TakeDamage((int)(damage * damageMultiplier), damageType);
-
             //If animation state "Chop" is at least 90% complete, then move forward
             yield return new WaitUntil(() =>
             PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") &&

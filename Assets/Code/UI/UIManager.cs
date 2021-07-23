@@ -24,10 +24,10 @@ public class UIManager : MonoBehaviour
         else
             _instance = this;
     }
-    public void WriteDialogue(string[] dialogue)
+    public void WriteDialogue(string[] dialogue, Dialogue.AfterDialogue afterDialogue = null)
     {
         dialogueUI.SetActive(true);
-        dialogueUI.GetComponent<Dialogue>().Write(dialogue);
+        dialogueUI.GetComponent<Dialogue>().Write(dialogue, afterDialogue);
     }
 
     public void UpdateUIManager(UIState state)
