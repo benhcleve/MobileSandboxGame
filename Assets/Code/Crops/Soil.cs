@@ -49,6 +49,7 @@ public class Soil : Interactable
         if (isInteracting && !radialMenu.activeInHierarchy)
             isInteracting = false;
 
+        WeatherEffect();
         UpdateWaterSaturation();
 
         last_Gametime = GameTime.instance.gameTime; //Keep at end up update
@@ -140,8 +141,23 @@ public class Soil : Interactable
 
     }
 
+    void WeatherEffect()
+    {
+        switch (WeatherManager.instance.currentWeather)
+        {
+            case WeatherManager.Weather.LightRain:
+                waterSaturation += Time.deltaTime / 50;
+                break;
+            case WeatherManager.Weather.Rain:
+                waterSaturation += Time.deltaTime / 30;
+                break;
+            case WeatherManager.Weather.HeavyRain:
+                waterSaturation += Time.deltaTime / 10;
+                break;
+        }
 
 
+    }
 
 
 
