@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
+    public LayerMask clickableLayers;
     public Camera cam;
     public Vector3 destination;
     public GameObject touchMarker;
@@ -65,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
                     // Save the info
                     RaycastHit hit;
                     // You successfully hit
-                    if (Physics.Raycast(ray, out hit))
+                    if (Physics.Raycast(ray, out hit, 100, clickableLayers))
                         if (walkable == (walkable | (1 << hit.transform.gameObject.layer)))
                             beganTouchWalkable = true;
                         else beganTouchWalkable = false;
@@ -115,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
                     // Save the info
                     RaycastHit hit;
                     // You successfully hit
-                    if (Physics.Raycast(ray, out hit))
+                    if (Physics.Raycast(ray, out hit, 100, clickableLayers))
                         if (walkable == (walkable | (1 << hit.transform.gameObject.layer)))
                             beganTouchWalkable = true;
                         else beganTouchWalkable = false;
@@ -150,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         // Save the info
         RaycastHit hit;
         // You successfully hit
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 100, clickableLayers))
         {
             destination = hit.point;
             touchMarker.transform.position = destination;

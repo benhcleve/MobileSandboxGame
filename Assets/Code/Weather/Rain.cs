@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Rain : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Rain : MonoBehaviour
     {
         part = GetComponent<ParticleSystem>();
         collisionEvents = new List<ParticleCollisionEvent>();
+        DOTween.SetTweensCapacity(500, 50); //Set tween capacity higher for rain splashes.
     }
 
     private void Update()

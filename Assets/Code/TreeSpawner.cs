@@ -39,6 +39,7 @@ public class TreeSpawner : MonoBehaviour
 
             GameObject tree = Instantiate(TreeObj, spawnPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
             spawnLocs.Add(spawnPos);
+            tree.transform.parent = transform;
         }
     }
 

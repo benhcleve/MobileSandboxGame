@@ -6,9 +6,8 @@ public class PlayerInteraction : MonoBehaviour
 {
     private static PlayerInteraction _instance;
     public static PlayerInteraction instance { get { return _instance; } }
-
+    public LayerMask clickableLayers;
     public GameObject target;
-
     Vector2 touchStartPos;
 
     private void Awake() => CreateInstance();
@@ -49,7 +48,7 @@ public class PlayerInteraction : MonoBehaviour
                         Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         RaycastHit hit;
                         // You successfully hit
-                        if (Physics.Raycast(ray, out hit))
+                        if (Physics.Raycast(ray, out hit, 100, clickableLayers))
                         {
                             if (hit.transform.gameObject.GetComponent<Interactable>())
                             {
@@ -79,7 +78,7 @@ public class PlayerInteraction : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 // You successfully hit
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, 100, clickableLayers))
                 {
                     if (hit.transform.gameObject.GetComponent<Interactable>())
                     {
