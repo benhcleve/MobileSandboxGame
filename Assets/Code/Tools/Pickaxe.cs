@@ -39,7 +39,7 @@ public class Pickaxe : MonoBehaviour
     public void EndMining()
     {
         StopAllCoroutines();
-        PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", false);
+        PlayerAnimation.instance.animator.SetBool("isMiningOre", false);
         PlayerInteraction.instance.target = null;
         slider.gameObject.SetActive(true);
         pickaxeUI.SetActive(false);
@@ -59,7 +59,7 @@ public class Pickaxe : MonoBehaviour
         timeElapsed = 0;
         pickaxeUI.SetActive(true);
         slider.gameObject.SetActive(true);
-        PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
+        PlayerAnimation.instance.animator.SetBool("isMiningOre", true);
         UIManager.instance.uiState = UIManager.UIState.Minigame;
 
         while (true)
@@ -88,9 +88,9 @@ public class Pickaxe : MonoBehaviour
                 MeterPress(Random.Range(0.3f, 0.5f)); //Give small damage number for idle hit
 
             PlayerInteraction.instance.target.GetComponent<OreBase>().TakeDamage((int)(damage * damageMultiplier), damageType);
-            //If animation state "Chop" is at least 90% complete, then move forward
+            //If animation state "Mine" is at least 90% complete, then move forward
             yield return new WaitUntil(() =>
-            PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") &&
+            PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).IsName("Mine") &&
             PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f);
         }
 

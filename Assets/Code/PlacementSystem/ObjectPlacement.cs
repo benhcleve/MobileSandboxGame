@@ -255,10 +255,12 @@ public class ObjectPlacement : MonoBehaviour
         placedObjectPlaceholder = null;
 
         yield return new WaitUntil(() => Vector3.Distance(player.position, placementPos) < 2);
+
         PlayerMovement.instance.navMeshAgent.SetDestination(player.position);
         player.LookAt(new Vector3(placementPos.x, player.position.y, placementPos.z));
 
-        PlayerAnimation.instance.animator.SetBool("isBuilding", true);
+        PlayerAnimation.instance.SetBuildAnimation(1);
+        PlayerAnimation.instance.SetAnimation("isBuilding");
 
         yield return new WaitForSeconds(buildTimer);
 
@@ -277,8 +279,6 @@ public class ObjectPlacement : MonoBehaviour
             else if (placedObjectItem.stackable)
                 placedObjectItem.stackCount--;
         }
-
-        PlayerAnimation.instance.animator.SetBool("isBuilding", false);
 
         //Rebuild navmesh after placing object
         terrain.GetComponent<NavMeshSurface>().BuildNavMesh();

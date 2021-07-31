@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     public Animator animator;
-
     private static PlayerAnimation _instance;
     public static PlayerAnimation instance { get { return _instance; } }
 
@@ -31,19 +30,28 @@ public class PlayerAnimation : MonoBehaviour
 
     void HandleMovementAnimation()
     {
-        if (!animator.GetBool("isBuilding") || !animator.GetBool("isFishing"))
+        if (!animator.GetBool("isBuilding") && !animator.GetBool("isFishing") && !animator.GetBool("isMiningOre") && !animator.GetBool("isChoppingHatchet"))
         {
             if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero && !animator.GetBool("isRunning"))
                 SetAnimation("isRunning");
             else if (GetComponent<PlayerMovement>().navMeshAgent.velocity == Vector3.zero && !animator.GetBool("isIdle"))
                 SetAnimation("isIdle");
         }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isIdle", false);
+        }
     }
 
     public void SetBuildAnimation(int animID) => animator.SetInteger("buildAnim", animID);
 
-    void SetAnimation(string animName = null)
+    public void SetAnimation(string animName = null)
     {
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isIdle", false);
+
+
         //Add any base animations here:
         string[] baseLayerBools = new string[] { "isRunning", "isIdle", "isBuilding" };
 
