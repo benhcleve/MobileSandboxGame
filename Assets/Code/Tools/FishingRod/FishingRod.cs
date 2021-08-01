@@ -30,7 +30,7 @@ public class FishingRod : MonoBehaviour
         fishingBobber = bobber.GetComponent<FishingBobber>();
         powerSlider.maxValue = castPower; //Sets the power of the rod to the slider
         castTarget.SetActive(true);
-        PlayerAnimation.instance.animator.SetBool("isFishing", true);
+        PlayerAnimation.instance.SetAnimation("isFishing");
     }
 
     private void OnDestroy()
@@ -103,7 +103,7 @@ public class FishingRod : MonoBehaviour
         castTarget.SetActive(false);
 
         PlayerAnimation.instance.animator.SetBool("isFishingCast", true);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(.9f);
         polePos = fishingLine.poleEnd.position;
 
         bobber.transform.parent = null;

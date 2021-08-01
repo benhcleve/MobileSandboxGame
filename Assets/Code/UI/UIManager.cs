@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject dialogueUI;
     public GameObject objectPlacementUI;
     public GameObject hotbar;
+    public GameObject DateTimeUI;
 
     public enum UIState { Default, Default_NoMovement, Placement, Dialogue, Minigame };
     public UIState uiState = UIState.Default;
@@ -39,23 +40,27 @@ public class UIManager : MonoBehaviour
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
                 hotbar.SetActive(true);
+                DateTimeUI.SetActive(true);
                 PlayerInventory.instance.UpdateSlots();
                 break;
             case UIState.Default_NoMovement:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(false);
                 hotbar.SetActive(true);
+                DateTimeUI.SetActive(true);
                 PlayerInventory.instance.UpdateSlots();
                 break;
             case UIState.Placement:
                 dialogueUI.SetActive(false);
                 objectPlacementUI.SetActive(true);
                 hotbar.SetActive(false);
+                DateTimeUI.SetActive(true);
                 break;
             case UIState.Dialogue:
                 dialogueUI.SetActive(true);
                 objectPlacementUI.SetActive(false);
                 hotbar.SetActive(false);
+                DateTimeUI.SetActive(false);
                 break;
         }
     }

@@ -2613,6 +2613,7 @@ MonoBehaviour:
   dialogueUI: {fileID: 792474133}
   objectPlacementUI: {fileID: 803106165}
   hotbar: {fileID: 1467514309}
+  DateTimeUI: {fileID: 132162150}
   uiState: 0
 --- !u!114 &617833374
 MonoBehaviour:
@@ -4724,7 +4725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a827ba43897774484637c89a5f3acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebug: 1
+  showDebug: 0
   surfacePoints: []
   groundPoints: []
   groundMask:
@@ -14372,6 +14373,21 @@ PrefabInstance:
         type: 3}
       propertyPath: orthographic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565529250101498745, guid: 70869c8e32847224fb4aa801c38da887,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.745283
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565529250101498745, guid: 70869c8e32847224fb4aa801c38da887,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.6947044
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565529250101498745, guid: 70869c8e32847224fb4aa801c38da887,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.45466948
       objectReference: {fileID: 0}
     - target: {fileID: 6565529250101498750, guid: 70869c8e32847224fb4aa801c38da887,
         type: 3}
