@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GrassMeshTxtr
+  m_Name: GrassMesh
   m_Shader: {fileID: -6465566751694194690, guid: 73022c62ee01993468785fb8587d781c,
     type: 3}
   m_ShaderKeywords: N_F_CO_ON N_F_EAL_ON N_F_RELGI_ON
@@ -35,6 +35,10 @@ Material:
     m_TexEnvs:
     - Texture2D_AE84AAFA:
         m_Texture: {fileID: 2800000, guid: eb585a2d7de6f1e4a84f8e283adf1a89, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_782825fa5a254a0ba253050029353b27_Texture_1:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -53,6 +57,10 @@ Material:
     - Vector1_25D2E9A: 1
     - Vector1_F276FD35: 1
     m_Colors:
-    - Color_13578187: {r: 0.060697734, g: 0.31132078, b: 0.092900045, a: 0}
+    - Color_13578187: {r: 0.09063127, g: 0.4433962, b: 0.14102624, a: 0}
+    - Color_37ab662ec2c543c98b2146d115850fe2: {r: 0.8584906, g: 0.8584906, b: 0.8584906,
+        a: 0}
     - Vector2_E2D864: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - Vector3_6015f437903e4b4bae320073c7d5e506: {r: 0, g: 1, b: 0, a: 0}
+    - _LightColor: {r: 1, g: 0.9972082, b: 0.93497276, a: 1}
   m_BuildTextureStacks: []
