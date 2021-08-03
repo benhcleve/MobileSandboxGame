@@ -143,15 +143,15 @@ public class Soil : Interactable
 
     void WeatherEffect()
     {
-        switch (WeatherManager.instance.currentWeather)
+        switch (GlobalWeatherManager.instance.currentWeather)
         {
-            case WeatherManager.Weather.LightRain:
+            case GlobalWeatherManager.Weather.LightRain:
                 waterSaturation += Time.deltaTime / 50;
                 break;
-            case WeatherManager.Weather.Rain:
+            case GlobalWeatherManager.Weather.Rain:
                 waterSaturation += Time.deltaTime / 30;
                 break;
-            case WeatherManager.Weather.HeavyRain:
+            case GlobalWeatherManager.Weather.HeavyRain:
                 waterSaturation += Time.deltaTime / 10;
                 break;
         }

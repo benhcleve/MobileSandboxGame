@@ -4,48 +4,34 @@ using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
-    public enum Weather { Sunny, Cloudy, LightRain, Rain, HeavyRain }
-    public Weather currentWeather;
+    public GlobalWeatherManager.Weather currentWeather;
     public Rain rain;
 
-
-
-    private static WeatherManager _instance;
-    public static WeatherManager instance { get { return _instance; } }
-    void CreateInstance() //Make this an instance (Or destroy if already exists)
-    {
-        if (_instance != null && _instance != this)
-            Destroy(this.gameObject);
-        else
-            _instance = this;
-    }
-    public void Awake() => CreateInstance();
-
-
+    private void Start() => SwitchWeather();
     void Update()
     {
-        SwitchWeather();
+        if (currentWeather != GlobalWeatherManager.instance.currentWeather)
+            SwitchWeather();
     }
 
     void SwitchWeather()
     {
+        currentWeather = GlobalWeatherManager.instance.currentWeather;
+
         switch (currentWeather)
         {
-            case Weather.Sunny:
+            case GlobalWeatherManager.Weather.Sunny:
                 RainOn(false);
                 break;
-            case Weather.Cloudy:
-                RainOn(false);
-                break;
-            case Weather.LightRain:
+            case GlobalWeatherManager.Weather.LightRain:
                 RainOn(true);
                 rain.rainIntensity = 1;
                 break;
-            case Weather.Rain:
+            case GlobalWeatherManager.Weather.Rain:
                 RainOn(true);
                 rain.rainIntensity = 5;
                 break;
-            case Weather.HeavyRain:
+            case GlobalWeatherManager.Weather.HeavyRain:
                 RainOn(true);
                 rain.rainIntensity = 10;
                 break;
