@@ -5,7 +5,7 @@ using System.Linq;
 
 public class GlobalWeatherManager : MonoBehaviour
 {
-    public enum Weather { Sunny, LightRain, Rain, HeavyRain }
+    public enum Weather { Sunny, Cloudy, LightRain, Rain, HeavyRain }
     public Weather currentWeather;
     public int lastWeatherUpdateTime = 0;
     int minutesInDay = 1440;
@@ -29,6 +29,18 @@ public class GlobalWeatherManager : MonoBehaviour
     {
         GenerateWeather();
         ChangeWeather();
+
+        DebugTimeSpeed();
+    }
+
+    void DebugTimeSpeed()
+    {
+        if (Input.GetKey(KeyCode.Keypad1))
+            Time.timeScale = 1;
+        if (Input.GetKey(KeyCode.Keypad2))
+            Time.timeScale = 10;
+        if (Input.GetKey(KeyCode.Keypad3))
+            Time.timeScale = 20;
     }
 
     void GenerateWeather()
@@ -37,7 +49,7 @@ public class GlobalWeatherManager : MonoBehaviour
         {
             lastWeatherUpdateTime = GameTime.instance.gameTime;
 
-            int weatherChangeCount = Random.Range(1, 100); //Random times weather changes next day
+            int weatherChangeCount = Random.Range(1, 5); //Random times weather changes next day
 
             //Add random time weather changes between beginning and end of next day
             for (int x = 0; x < weatherChangeCount; x++)

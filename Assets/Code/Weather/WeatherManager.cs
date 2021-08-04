@@ -23,6 +23,9 @@ public class WeatherManager : MonoBehaviour
             case GlobalWeatherManager.Weather.Sunny:
                 RainOn(false);
                 break;
+            case GlobalWeatherManager.Weather.Cloudy:
+                RainOn(false);
+                break;
             case GlobalWeatherManager.Weather.LightRain:
                 RainOn(true);
                 rain.rainIntensity = 1;
