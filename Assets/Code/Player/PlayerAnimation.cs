@@ -30,7 +30,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void HandleMovementAnimation()
     {
-        if (!animator.GetBool("isBuilding") && !animator.GetBool("isFishing") && !animator.GetBool("isMiningOre") && !animator.GetBool("isChoppingHatchet"))
+        if (!animator.GetBool("isBuilding") && !animator.GetBool("isFishing") && !animator.GetBool("isMiningOre") && !animator.GetBool("isChoppingHatchet") && !animator.GetBool("isSleeping"))
         {
             if (GetComponent<PlayerMovement>().navMeshAgent.velocity != Vector3.zero && !animator.GetBool("isRunning"))
                 SetAnimation("isRunning");
@@ -50,6 +50,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool("isRunning", false);
         animator.SetBool("isIdle", false);
+        animator.SetBool("isSleeping", false);
 
 
         //Add any base animations here:

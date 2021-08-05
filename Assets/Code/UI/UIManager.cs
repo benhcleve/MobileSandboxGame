@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject hotbar;
     public GameObject DateTimeUI;
 
-    public enum UIState { Default, Default_NoMovement, Placement, Dialogue, Minigame };
+    public enum UIState { Default, Default_NoMovement, Placement, Dialogue, Minigame, Sleeping };
     public UIState uiState = UIState.Default;
 
     private void Awake() => CreateInstance();
@@ -61,6 +61,12 @@ public class UIManager : MonoBehaviour
                 objectPlacementUI.SetActive(false);
                 hotbar.SetActive(false);
                 DateTimeUI.SetActive(false);
+                break;
+            case UIState.Sleeping:
+                dialogueUI.SetActive(false);
+                objectPlacementUI.SetActive(false);
+                hotbar.SetActive(false);
+                DateTimeUI.SetActive(true);
                 break;
         }
     }

@@ -214,16 +214,14 @@ public class ObjectPlacement : MonoBehaviour
                     if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<WallDoorway>() &&
                     collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
                     {
-                        Debug.Log("In Doorway");
                         return true;
                     }
                 }
-                Debug.Log("Default False");
                 return false;
             }
         }
-        // FLOOR
-        if (placedObjectPlaceholder.GetComponent<Furniture>())
+        // INSIDE FURNITURE
+        if (placedObjectItem.placeableType == ItemPlaceable.PlaceableType.InsideFurniture)
         {
             RaycastHit hit;
             if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))

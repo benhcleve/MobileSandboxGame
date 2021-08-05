@@ -32,6 +32,18 @@ public class GameTime : MonoBehaviour
         StartCoroutine(UpdateTime());
     }
 
+    private void Update() => DebugTimeSpeed();
+
+    void DebugTimeSpeed()
+    {
+        if (Input.GetKey(KeyCode.Keypad1))
+            Time.timeScale = 1;
+        if (Input.GetKey(KeyCode.Keypad2))
+            Time.timeScale = 10;
+        if (Input.GetKey(KeyCode.Keypad3))
+            Time.timeScale = 20;
+    }
+
     IEnumerator UpdateTime()
     {
         while (true)

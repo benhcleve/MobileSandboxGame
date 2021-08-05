@@ -21,8 +21,10 @@ public class Rain : MonoBehaviour
     private void Update()
     {
         var emission = part.emission;
-        if (part.emission.rateOverTime.constant != rainIntensity * 100)
-            emission.rateOverTime = rainIntensity * 100;
+        if (part.emission.rateOverTime.constant != (rainIntensity * 100) / Time.timeScale)
+            emission.rateOverTime = (rainIntensity * 100) / Time.timeScale; //Divide by timescale to prevent too many particles
+
+
     }
 
     void OnParticleCollision(GameObject other)

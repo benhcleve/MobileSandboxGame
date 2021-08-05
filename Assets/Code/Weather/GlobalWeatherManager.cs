@@ -29,19 +29,8 @@ public class GlobalWeatherManager : MonoBehaviour
     {
         GenerateWeather();
         ChangeWeather();
-
-        DebugTimeSpeed();
     }
 
-    void DebugTimeSpeed()
-    {
-        if (Input.GetKey(KeyCode.Keypad1))
-            Time.timeScale = 1;
-        if (Input.GetKey(KeyCode.Keypad2))
-            Time.timeScale = 10;
-        if (Input.GetKey(KeyCode.Keypad3))
-            Time.timeScale = 20;
-    }
 
     void GenerateWeather()
     {

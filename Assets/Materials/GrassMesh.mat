@@ -62,5 +62,5 @@ Material:
         a: 0}
     - Vector2_E2D864: {r: 0.5, g: 0.5, b: 0, a: 0}
     - Vector3_6015f437903e4b4bae320073c7d5e506: {r: 0, g: 1, b: 0, a: 0}
-    - _LightColor: {r: 1, g: 0.9980814, b: 0.95451474, a: 1}
+    - _LightColor: {r: 0.84480315, g: 0.9150738, b: 0.97215444, a: 1}
   m_BuildTextureStacks: []
