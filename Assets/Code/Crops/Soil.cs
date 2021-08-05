@@ -68,7 +68,7 @@ public class Soil : Interactable
     {
         int growingTime = GameTime.instance.gameTime - plantTime; //Time taken to grow so far
 
-        float growthPercent = (((float)growingTime / (float)GameTime.instance.DurationToGametime(itemSeeds.growTime)));
+        float growthPercent = (((float)growingTime / (float)GameTime.instance.DateTimeToGametime(itemSeeds.growTime)));
         return growthPercent;
     }
 

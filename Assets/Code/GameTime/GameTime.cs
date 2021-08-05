@@ -61,10 +61,29 @@ public class GameTime : MonoBehaviour
         }
     }
 
-    public int DurationToGametime(Duration duration)
+    public int DateTimeToGametime(DateTime dateTime)
     {
-        int gameTimeDuration = duration.minutes + (duration.hours * 60) + (duration.days * 1440) + (duration.years * 40320);
-        return gameTimeDuration;
+        int gameTimedateTime = dateTime.minutes + (dateTime.hours * 60) + (dateTime.days * 1440) + (dateTime.years * 40320);
+        return gameTimedateTime;
+    }
+
+    public DateTime GameTimeToDateTime(int gameTime)
+    {
+        DateTime dateTime = new DateTime(0, 0, 0, 0);
+        //There are 40320 minutes in 28 Days. 4 Seasons (7 days per seasons) in a game year.
+        dateTime.years = (int)Mathf.Floor(gameTime / 40320);
+        //Current year's minutes
+        var yearMinutes = gameTime - (dateTime.years * 40320);
+
+        //There are 1440 minutes in a day
+        dateTime.days = (int)Mathf.Floor((yearMinutes / 1440));
+        //Current days's minutes
+        var dayMinutes = yearMinutes - (dateTime.days * 1440);
+
+        dateTime.hours = (int)Mathf.Floor(dayMinutes / 60);
+        dateTime.minutes = dayMinutes - (dateTime.hours * 60);
+
+        return dateTime;
     }
 
 

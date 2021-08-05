@@ -6,12 +6,12 @@ using System;
 [Serializable]
 public class WeatherChange
 {
-    public int gameTime;
+    public DateTime dateTime;
     public GlobalWeatherManager.Weather weather;
 
-    public WeatherChange(int gameTime, GlobalWeatherManager.Weather weather)
+    public WeatherChange(DateTime dateTime, GlobalWeatherManager.Weather weather)
     {
-        this.gameTime = gameTime;
+        this.dateTime = dateTime;
         this.weather = weather;
     }
 }

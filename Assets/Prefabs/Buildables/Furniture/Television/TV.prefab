@@ -1231,7 +1231,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.41082764, b: 1, a: 1}
+  m_Color: {r: 0.3372549, g: 0.49803922, b: 1, a: 1}
   m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 179
@@ -2209,8 +2209,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad7320643522274faad6004e726646a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  todayWeatherCards: []
-  tomorrowWeatherCards: []
+  WeatherCards:
+  - {fileID: 6767027496490451485}
+  - {fileID: 1954031438133912462}
+  - {fileID: 1954031437356364971}
+  - {fileID: 1954031436542245890}
+  - {fileID: 1954031436972854824}
+  - {fileID: 1954031438014192528}
+  - {fileID: 1954031438189670458}
+  - {fileID: 1954031437622386415}
+  - {fileID: 1954031436339154277}
+  - {fileID: 1954031436399927057}
+  - {fileID: 1954031437492638243}
+  - {fileID: 1954031437640092357}
+  weatherIcons:
+  - {fileID: 21300000, guid: 056e03a204dc44842875ce84a0c326b3, type: 3}
+  - {fileID: 21300000, guid: d04554d762a8b4546baba924e5c0b3a6, type: 3}
+  - {fileID: 21300000, guid: 01743f89eb38cc9418611e206fd42c3d, type: 3}
+  - {fileID: 21300000, guid: c5b566866e72bdf42b8d0e41d75403ea, type: 3}
+  - {fileID: 21300000, guid: 09d75831cba92704da52625e84494ab5, type: 3}
 --- !u!1 &6943250340943464817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,7 +2255,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6943250340943464817}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.39}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 6943250340719433116}
@@ -2247,7 +2264,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.895}
+  m_AnchoredPosition: {x: 0, y: 0.9}
   m_SizeDelta: {x: 190, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6943250340943464717
@@ -2322,8 +2339,9 @@ GameObject:
   - component: {fileID: 7480998055814979315}
   - component: {fileID: 5800077277516681558}
   - component: {fileID: 8618469960351655324}
-  - component: {fileID: 6943250340827813066}
   - component: {fileID: 919132147939378949}
+  - component: {fileID: 9091519767072793630}
+  - component: {fileID: 1966118158241887341}
   m_Layer: 0
   m_Name: TV
   m_TagString: Untagged
@@ -2395,19 +2413,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6943250340827813066
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7825576872108688457}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.9789236, y: 1.5577183, z: 0.4589396}
-  m_Center: {x: 0, y: 0.76143694, z: 0.23329282}
 --- !u!114 &919132147939378949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2422,6 +2427,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentChannel: 0
   weatherChannel: {fileID: 6943250340719433117}
+--- !u!114 &9091519767072793630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825576872108688457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3540804c0ea4c4590f89746c2e3ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1966118158241887341
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825576872108688457}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9789236, y: 1.5577183, z: 0.4589396}
+  m_Center: {x: 0, y: 0.76143694, z: -0.058454484}
 --- !u!1001 &2786659441443776595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2432,7 +2462,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card
+      value: Weather Card 4AM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -2539,6 +2569,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 240
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
 --- !u!224 &7448956884620361170 stripped
@@ -2547,6 +2582,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2786659441443776595}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6767027496490451485 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2786659441443776595}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6943250339142409957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2557,13 +2604,13 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (2)
+      value: Weather Card 12PM
       objectReference: {fileID: 0}
     - target: {fileID: 3628758658151378778, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 01743f89eb38cc9418611e206fd42c3d,
+      objectReference: {fileID: 21300000, guid: 056e03a204dc44842875ce84a0c326b3,
         type: 3}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -2670,8 +2717,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 720
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031437356364971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250339142409957}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491608206084964 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -2688,7 +2752,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (4)
+      value: Weather Card 8PM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -2795,6 +2859,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 2640
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
 --- !u!224 &2420491608070008300 stripped
@@ -2803,6 +2872,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6943250339274569837}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954031437492638243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250339274569837}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6943250339421123745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2813,7 +2894,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (1)
+      value: Weather Card 8AM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -2920,8 +3001,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 1920
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031437622386415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250339421123745}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491607922958624 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -2938,7 +3036,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (5)
+      value: Weather Card 12AM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3045,8 +3143,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 2880
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031437640092357 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250339572752523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491607906825482 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -3063,13 +3178,13 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (5)
+      value: Weather Card 12AM
       objectReference: {fileID: 0}
     - target: {fileID: 3628758658151378778, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 09d75831cba92704da52625e84494ab5,
+      objectReference: {fileID: 21300000, guid: 056e03a204dc44842875ce84a0c326b3,
         type: 3}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3176,6 +3291,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 1440
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
 --- !u!224 &2420491608620950623 stripped
@@ -3184,6 +3304,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6943250339800543710}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954031438014192528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250339800543710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6943250339915696576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3194,13 +3326,13 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (1)
+      value: Weather Card 8AM
       objectReference: {fileID: 0}
     - target: {fileID: 3628758658151378778, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d04554d762a8b4546baba924e5c0b3a6,
+      objectReference: {fileID: 21300000, guid: 056e03a204dc44842875ce84a0c326b3,
         type: 3}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3307,6 +3439,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 480
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
 --- !u!224 &2420491608501296193 stripped
@@ -3315,6 +3452,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6943250339915696576}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954031438133912462 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250339915696576}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6943250340122614388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3325,7 +3474,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card
+      value: Weather Card 4AM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3432,8 +3581,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 1680
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031438189670458 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250340122614388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491608431513589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -3450,7 +3616,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (3)
+      value: Weather Card 4PM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3557,8 +3723,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 2400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031436399927057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250340333729119}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491609162522846 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -3575,7 +3758,7 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (2)
+      value: Weather Card 12PM
       objectReference: {fileID: 0}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3682,8 +3865,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 2160
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031436339154277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250340402882347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491609223426730 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -3700,13 +3900,13 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (3)
+      value: Weather Card 4PM
       objectReference: {fileID: 0}
     - target: {fileID: 3628758658151378778, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c5b566866e72bdf42b8d0e41d75403ea,
+      objectReference: {fileID: 21300000, guid: 056e03a204dc44842875ce84a0c326b3,
         type: 3}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3813,8 +4013,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 960
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031436542245890 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250340492351052}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491609002574797 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
@@ -3831,13 +4048,13 @@ PrefabInstance:
     - target: {fileID: 2053254321017834304, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Name
-      value: Weather Card (4)
+      value: Weather Card 8PM
       objectReference: {fileID: 0}
     - target: {fileID: 3628758658151378778, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 09d75831cba92704da52625e84494ab5,
+      objectReference: {fileID: 21300000, guid: 056e03a204dc44842875ce84a0c326b3,
         type: 3}
     - target: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,
         type: 3}
@@ -3944,8 +4161,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+        type: 3}
+      propertyPath: dayTime
+      value: 1200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83e4f5523037de8439f8ed2dc21e05b5, type: 3}
+--- !u!114 &1954031436972854824 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8882642560756214350, guid: 83e4f5523037de8439f8ed2dc21e05b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6943250341036385382}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d7898a7992e8d48a7f30e73796bac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2420491609663926759 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4741218583965701505, guid: 83e4f5523037de8439f8ed2dc21e05b5,

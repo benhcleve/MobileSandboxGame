@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8834363c28f89cf4c9389f42f80f132d, type: 3}
+  m_Name: Television
+  m_EditorClassIdentifier: 
+  ID: 20001
+  currentSlot: {fileID: 0}
+  itemName: Television
+  description: Watch local news and see the weather!
+  stackable: 0
+  stackCount: 1
+  usesFill: 0
+  fill: 0
+  icon: {fileID: 21300000, guid: 994a22249a18463419dd0f82bbadd6d7, type: 3}
+  prefab: {fileID: 4129831256449210280, guid: 428e2eda8e73d6241be40dd27a8e7ec1, type: 3}
+  value: 0
+  craftable: 0
+  craftOutputStackCount: 1
+  craftingRecipeItems: []
+  craftingRecipeItemCount: 
+  placeableType: 1
+  placementPrefab: {fileID: 7825576872108688457, guid: 135a3e19c859c73469bbf0599274d189,
+    type: 3}
+  buildtime: 1

@@ -56,9 +56,9 @@ public class GlobalWeatherManager : MonoBehaviour
             {
 
                 int newTime = Random.Range(GameTime.instance.gameTime + minutesInDay, GameTime.instance.gameTime + (minutesInDay * 2));
-                int newWeatherInt = Random.Range(0, 4);
+                int newWeatherInt = Random.Range(0, 5);
                 Weather newWeather = (Weather)newWeatherInt;
-                weatherChanges.Add(new WeatherChange(newTime, newWeather));
+                weatherChanges.Add(new WeatherChange(GameTime.instance.GameTimeToDateTime(newTime), newWeather));
             }
 
             weatherChanges.Sort(SortByTime);
@@ -67,18 +67,22 @@ public class GlobalWeatherManager : MonoBehaviour
 
     static int SortByTime(WeatherChange w1, WeatherChange w2)
     {
-        return w1.gameTime.CompareTo(w2.gameTime);
+        return GameTime.instance.DateTimeToGametime(w1.dateTime).CompareTo(GameTime.instance.DateTimeToGametime(w2.dateTime));
     }
 
     void ChangeWeather()
     {
         if (weatherChanges.Count() > 1)
-            if (GameTime.instance.gameTime == weatherChanges[0].gameTime)
+        {
+            for (int i = 0; i < weatherChanges.Count(); i++)
             {
-                currentWeather = weatherChanges[0].weather;
+                if (GameTime.instance.DateTimeToGametime(weatherChanges[i].dateTime) == GameTime.instance.gameTime) //If weather change time == gameTime
+                    currentWeather = weatherChanges[i].weather;
 
-                weatherChanges.Remove(weatherChanges[0]);
+                if (weatherChanges[i].dateTime.days < GameTime.instance.day - 2) //Remove weather changes that are 2 days old
+                    weatherChanges.Remove(weatherChanges[i]);
             }
+        }
     }
 
 

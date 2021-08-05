@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemSeeds : Item
 {
 
-    public Duration growTime;
+    public DateTime growTime;
     public GameObject seeds;
     public GameObject sproutGrown;
     public GameObject halfGrown;

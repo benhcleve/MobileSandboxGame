@@ -6,6 +6,7 @@ using TMPro;
 
 public class WeatherCard : MonoBehaviour
 {
+    public int dayTime;
     public Image weatherIcon;
     public TextMeshProUGUI weatherText;
     public TextMeshProUGUI TempuratureText;
