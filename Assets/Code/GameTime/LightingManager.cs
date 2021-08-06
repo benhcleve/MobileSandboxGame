@@ -19,6 +19,7 @@ public class LightingManager : MonoBehaviour
     private void UpdateLighting(float timePercent)
     {
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent);
+        CameraManager.instance.cam.backgroundColor = Preset.SkyColor.Evaluate(timePercent);
 
 
         // DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);

@@ -8,6 +8,6 @@ using UnityEngine;
 public class LightingPreset : ScriptableObject
 {
     public Gradient AmbientColor;
-    public Gradient DirectionalColor;
+    public Gradient SkyColor;
 
 }

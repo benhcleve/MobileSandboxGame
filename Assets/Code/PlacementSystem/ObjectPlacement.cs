@@ -33,8 +33,8 @@ public class ObjectPlacement : MonoBehaviour
         player = PlayerMovement.instance.transform;
         placeButton = transform.Find("Place Button").gameObject;
         rotateButton = transform.Find("Rotate Button").gameObject;
-
     }
+
     void CreateInstance() //Make this an instance (Or destroy if already exists)
     {
         if (_instance != null && _instance != this)
