@@ -11,6 +11,8 @@ public class GlobalWeatherManager : MonoBehaviour
     int minutesInDay = 1440;
     public List<WeatherChange> weatherChanges = new List<WeatherChange>();
 
+    public CloudsManager cloudsManager;
+
 
 
 
@@ -29,6 +31,7 @@ public class GlobalWeatherManager : MonoBehaviour
     {
         GenerateWeather();
         ChangeWeather();
+        UpdateClouds();
     }
 
 
@@ -64,13 +67,39 @@ public class GlobalWeatherManager : MonoBehaviour
         if (weatherChanges.Count() > 1)
         {
             for (int i = 0; i < weatherChanges.Count(); i++)
-            {
-                if (GameTime.instance.DateTimeToGametime(weatherChanges[i].dateTime) == GameTime.instance.gameTime) //If weather change time == gameTime
+            {//If weather change time == gameTime
+                if (GameTime.instance.DateTimeToGametime(weatherChanges[i].dateTime) == GameTime.instance.gameTime)
+                {
                     currentWeather = weatherChanges[i].weather;
+                    UpdateClouds();
+                }
+
 
                 if (weatherChanges[i].dateTime.days < GameTime.instance.day - 2) //Remove weather changes that are 2 days old
                     weatherChanges.Remove(weatherChanges[i]);
             }
+        }
+    }
+
+    void UpdateClouds()
+    {
+        switch (currentWeather)
+        {
+            case GlobalWeatherManager.Weather.Sunny:
+                cloudsManager.UpdateClouds(5, 60, 50, new Color32(255, 255, 255, 255));
+                break;
+            case GlobalWeatherManager.Weather.Cloudy:
+                cloudsManager.UpdateClouds(20, 30, 100, new Color32(200, 200, 200, 255));
+                break;
+            case GlobalWeatherManager.Weather.LightRain:
+                cloudsManager.UpdateClouds(20, 30, 100, new Color32(180, 180, 180, 255));
+                break;
+            case GlobalWeatherManager.Weather.Rain:
+                cloudsManager.UpdateClouds(30, 30, 150, new Color32(150, 150, 150, 255));
+                break;
+            case GlobalWeatherManager.Weather.HeavyRain:
+                cloudsManager.UpdateClouds(30, 30, 150, new Color32(50, 50, 50, 255));
+                break;
         }
     }
 
