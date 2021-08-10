@@ -18674,12 +18674,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1697662452749922950, guid: 5b007bb72accd1d46973e03652c413b8,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -5535058199132310003, guid: 28b7461953f02e84f8e12fcce4368fea,
-        type: 3}
     - target: {fileID: 2315013575378369827, guid: 5b007bb72accd1d46973e03652c413b8,
         type: 3}
       propertyPath: m_RootOrder
@@ -18735,27 +18729,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2677199301167035148, guid: 5b007bb72accd1d46973e03652c413b8,
-        type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3128669374656948121, guid: 5b007bb72accd1d46973e03652c413b8,
         type: 3}
       propertyPath: m_Name
       value: OakTreeStump
       objectReference: {fileID: 0}
-    - target: {fileID: 3128669374656948121, guid: 5b007bb72accd1d46973e03652c413b8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4965887186408325153, guid: 5b007bb72accd1d46973e03652c413b8,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -5535058199132310003, guid: 28b7461953f02e84f8e12fcce4368fea,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b007bb72accd1d46973e03652c413b8, type: 3}
 --- !u!1 &1078205088
