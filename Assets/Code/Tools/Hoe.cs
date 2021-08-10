@@ -7,8 +7,8 @@ public class Hoe : MonoBehaviour
     public GameObject tilledSoil;
     private void OnEnable()
     {
-        ObjectPlacement.instance.gameObject.SetActive(true);
         ObjectPlacement.instance.placedObjectPrefab = tilledSoil;
+        ObjectPlacement.instance.gameObject.SetActive(true);
         ObjectPlacement.instance.buildTimer = 5;
         PlayerAnimation.instance.SetBuildAnimation(1);
     }

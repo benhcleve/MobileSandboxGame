@@ -58,15 +58,17 @@ public class ObjectPlacement : MonoBehaviour
         {
             Vector3 nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
             //Instantiates initial prefab to position in front of player
-            switch (placedObjectItem.placeableType)
-            {
-                case ItemPlaceable.PlaceableType.InsideFurniture:
-                    nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 1.2f, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
-                    break;
-                default:
-                    nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
-                    break;
-            }
+            if (placedObjectItem != null)
+                switch (placedObjectItem.placeableType)
+                {
+                    case ItemPlaceable.PlaceableType.InsideFurniture:
+                        nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 1.2f, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
+                        break;
+                    default:
+                        nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
+                        break;
+                }
+            else nearPlayerPos = new Vector3(RoundToNearestMultiple(player.position.x + (player.forward.x * 2), 2), 0, RoundToNearestMultiple(player.position.z + (player.forward.z * 2), 2));
 
             placedObjectPlaceholder = Instantiate(placedObjectPrefab, nearPlayerPos, Quaternion.identity);
             placedObjectPlaceholder.layer = 2; //Sets layer to ignore raycast so canPlace doesnt check self
@@ -146,21 +148,23 @@ public class ObjectPlacement : MonoBehaviour
         {
             Vector3 placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
 
-            switch (placedObjectItem.placeableType)
-            {
-                case ItemPlaceable.PlaceableType.Structure:
-                    placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
-                    break;
-                case ItemPlaceable.PlaceableType.OutsideFurniture:
-                    placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
-                    break;
-                case ItemPlaceable.PlaceableType.InsideFurniture:
-                    placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 1.2f, RoundToNearestMultiple(hit.point.z, 2));
-                    break;
-                default:
-                    placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
-                    break;
-            }
+            if (placedObjectItem != null)
+                switch (placedObjectItem.placeableType)
+                {
+                    case ItemPlaceable.PlaceableType.Structure:
+                        placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
+                        break;
+                    case ItemPlaceable.PlaceableType.OutsideFurniture:
+                        placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
+                        break;
+                    case ItemPlaceable.PlaceableType.InsideFurniture:
+                        placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 1.2f, RoundToNearestMultiple(hit.point.z, 2));
+                        break;
+                    default:
+                        placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
+                        break;
+                }
+            else placementPos = new Vector3(RoundToNearestMultiple(hit.point.x, 2), 0, RoundToNearestMultiple(hit.point.z, 2));
             placedObjectPlaceholder.transform.position = placementPos;
             SetPlacementeColor();
         }
@@ -221,7 +225,7 @@ public class ObjectPlacement : MonoBehaviour
             }
         }
         // INSIDE FURNITURE
-        if (placedObjectItem.placeableType == ItemPlaceable.PlaceableType.InsideFurniture)
+        if (placedObjectItem != null && placedObjectItem.placeableType == ItemPlaceable.PlaceableType.InsideFurniture)
         {
             RaycastHit hit;
             if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))

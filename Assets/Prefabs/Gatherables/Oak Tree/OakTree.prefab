@@ -51,7 +51,7 @@ MonoBehaviour:
   isInteracting: 0
   interactDistance: 2
   hitpoints: 30
-  treeSeed: {fileID: 0}
+  treeSeed: {fileID: 6079870161998767429}
   woodDrop: {fileID: 5812618571035630856, guid: 825909e4e0c340445a156761f1ac1e69,
     type: 3}
   treeStump: {fileID: 3128669374656948121, guid: 5b007bb72accd1d46973e03652c413b8,
@@ -148,4 +148,4 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6079870161998767429}
-  m_Mesh: {fileID: 2494185979427425891, guid: 75f9a013f3f393249a25d650e1416c49, type: 3}
+  m_Mesh: {fileID: 6193004489318787115, guid: 75f9a013f3f393249a25d650e1416c49, type: 3}

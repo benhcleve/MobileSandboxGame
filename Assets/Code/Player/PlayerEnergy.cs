@@ -23,7 +23,12 @@ public class PlayerEnergy : MonoBehaviour
         if (energy <= 100 && !PlayerAnimation.instance.animator.GetBool("isSleeping")) //If awake
             energy -= Time.deltaTime / 12;
         if (energy < 100 && PlayerAnimation.instance.animator.GetBool("isSleeping")) //If sleeping
-            energy += Time.deltaTime / 8;
+        {
+            if (GameTime.instance.hour >= 20 || GameTime.instance.hour < 7) // If time is between 8PM and 7AM , get good rest
+                energy += Time.deltaTime / 8;
+            else energy += Time.deltaTime / 16; //Else rest is cut in half. Sleeping in day increases energy significantly slower to encourage good sleep cycle.
+        }
+
 
         if (energy > 100)
             energy = 100;
