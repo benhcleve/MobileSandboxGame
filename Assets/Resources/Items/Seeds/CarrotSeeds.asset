@@ -28,9 +28,9 @@ MonoBehaviour:
   craftingRecipeItems: []
   craftingRecipeItemCount: 
   growTime:
-    minutes: 20
+    minutes: 0
     hours: 0
-    days: 0
+    days: 1
     years: 0
   seeds: {fileID: 6194906302541299724, guid: 06b698a100177d042affb7c4ed690bd4, type: 3}
   sproutGrown: {fileID: 2662793116656487911, guid: 8951d01657035904cacdb86f1021b1cc,

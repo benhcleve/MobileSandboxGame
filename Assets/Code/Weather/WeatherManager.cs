@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
+    public GameObject plot;
     public GlobalWeatherManager.Weather currentWeather;
     public Rain rain;
 
     private void Start() => SwitchWeather();
     void Update()
     {
+        if (PlotManager.instance.activePlot != plot && rain.enabled)
+            RainOn(false);
+        if (PlotManager.instance.activePlot == plot && !rain.enabled)
+            SwitchWeather();
+
         if (currentWeather != GlobalWeatherManager.instance.currentWeather)
             SwitchWeather();
     }

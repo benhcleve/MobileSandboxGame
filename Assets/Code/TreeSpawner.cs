@@ -31,11 +31,6 @@ public class TreeSpawner : MonoBehaviour
                 while (spawnLocs.Contains(spawnPos)) //Loops until tree is in spot not taken by another tree.
                     spawnPos = GenerateSpawnPosition(xSize, zSize);
             }
-            while (plotTerrain.SampleHeight(spawnPos) != plotTerrain.terrainData.size.y) //Only spawn on flat default height terrain
-            {
-                spawnPos = GenerateSpawnPosition(xSize, zSize);
-                Debug.Log("Moving due to height");
-            }
 
             GameObject tree = Instantiate(TreeObj, spawnPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
             spawnLocs.Add(spawnPos);
@@ -45,8 +40,15 @@ public class TreeSpawner : MonoBehaviour
 
     Vector3 GenerateSpawnPosition(int x, int z)
     {
-        Vector3 spawnLoc = new Vector3(Random.Range(5, x - 5), plotTerrain.terrainData.size.y, Random.Range(5, z - 5)) + plotTerrain.transform.position;
+        Vector3 spawnLoc = new Vector3(Random.Range(5, x - 5), 10, Random.Range(5, z - 5)) + plotTerrain.transform.position;
+        RaycastHit hit;
+        if (Physics.Raycast(spawnLoc, Vector3.down, out hit, 100))
+        {
+            spawnLoc = hit.point;
+        }
+        else spawnLoc = new Vector3(Random.Range(5, x - 5), 5, Random.Range(5, z - 5)) + plotTerrain.transform.position;
+
         //Subtract 5 to prevent spawning on edges of plot
-        return new Vector3(Random.Range(5, x - 5), plotTerrain.terrainData.size.y, Random.Range(5, z - 5)) + plotTerrain.transform.position;
+        return spawnLoc;
     }
 }
