@@ -171,74 +171,77 @@ public class ObjectPlacement : MonoBehaviour
     }
     public bool canPlace() //Detect if object can be placed here
     {
-        // FLOOR
-        if (placedObjectPlaceholder.GetComponent<Flooring>())
+        if (PlotManager.instance.activePlot.GetComponent<Plot>().isPurchased)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
+            // FLOOR
+            if (placedObjectPlaceholder.GetComponent<Flooring>())
             {
-                if (hit.transform.gameObject.GetComponent<Foundation>())
-                    return true;
-                else return false;
-            }
-        }
-        // WALL
-        else if (placedObjectPlaceholder.GetComponent<Wall>())
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
-            {
-                if (hit.transform.gameObject.GetComponent<Flooring>())
+                RaycastHit hit;
+                if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
                 {
-                    Collider[] colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f);
-                    if (colliders.Length >= 1)
-                    {
-                        foreach (var collider in colliders)
-                        {
-                            if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<Wall>() &&
-                            collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    return true;
+                    if (hit.transform.gameObject.GetComponent<Foundation>())
+                        return true;
+                    else return false;
                 }
             }
-        }
-        // DOOR
-        else if (placedObjectPlaceholder.GetComponent<Door>())
-        {
-            Collider[] colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f);
-            if (colliders.Length >= 1)
+            // WALL
+            else if (placedObjectPlaceholder.GetComponent<Wall>())
             {
-                foreach (var collider in colliders)
+                RaycastHit hit;
+                if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
                 {
-                    //If in doorway
-                    if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<WallDoorway>() &&
-                    collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
+                    if (hit.transform.gameObject.GetComponent<Flooring>())
                     {
+                        Collider[] colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f);
+                        if (colliders.Length >= 1)
+                        {
+                            foreach (var collider in colliders)
+                            {
+                                if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<Wall>() &&
+                                collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
+                                {
+                                    return false;
+                                }
+                            }
+                        }
                         return true;
                     }
                 }
-                return false;
             }
-        }
-        // INSIDE FURNITURE
-        if (placedObjectItem != null && placedObjectItem.placeableType == ItemPlaceable.PlaceableType.InsideFurniture)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
+            // DOOR
+            else if (placedObjectPlaceholder.GetComponent<Door>())
             {
-                if (hit.transform.gameObject.GetComponent<Flooring>())
-                    return true;
-                else return false;
+                Collider[] colliders = Physics.OverlapSphere(placedObjectPlaceholder.transform.position, 2f);
+                if (colliders.Length >= 1)
+                {
+                    foreach (var collider in colliders)
+                    {
+                        //If in doorway
+                        if (collider != placedObjectPlaceholder.GetComponent<Collider>() && collider.transform.gameObject.GetComponent<WallDoorway>() &&
+                        collider.transform.eulerAngles == placedObjectPlaceholder.transform.eulerAngles && collider.transform.position == placedObjectPlaceholder.transform.position)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
             }
+            // INSIDE FURNITURE
+            if (placedObjectItem != null && placedObjectItem.placeableType == ItemPlaceable.PlaceableType.InsideFurniture)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(placedObjectPlaceholder.transform.position + new Vector3(0, 2, 0), placedObjectPlaceholder.transform.TransformDirection(Vector3.down), out hit, 2f))
+                {
+                    if (hit.transform.gameObject.GetComponent<Flooring>())
+                        return true;
+                    else return false;
+                }
+            }
+            //DEFAULT
+            else if (Physics.CheckSphere(placedObjectPlaceholder.transform.position, 1, cannotBuildLayer))
+                return false;
+            else return true;
         }
-        //DEFAULT
-        else if (Physics.CheckSphere(placedObjectPlaceholder.transform.position, 1, cannotBuildLayer))
-            return false;
-        else return true;
 
         return false;
     }

@@ -6,7 +6,6 @@ public class PlotManager : MonoBehaviour
 {
     public GameObject[] Plots;
     public GameObject activePlot;
-
     private static PlotManager _instance;
     public static PlotManager instance { get { return _instance; } }
 
@@ -44,5 +43,15 @@ public class PlotManager : MonoBehaviour
                 activePlot = hits[i].transform.parent.gameObject;
             }
         }
+    }
+
+    public GameObject GetPlotByCoord(Vector2 coord)
+    {
+        foreach (GameObject plot in Plots)
+        {
+            if (plot.GetComponent<Plot>().plotCoordinates == coord)
+                return plot;
+        }
+        return null;
     }
 }
