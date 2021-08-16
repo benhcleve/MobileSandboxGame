@@ -21,16 +21,22 @@ public class PlotManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject plot in Plots)
-        {
-            plot.GetComponent<Plot>().BakeTerrain();
-        }
+        UpdatePlotNavAndFence();
     }
 
     private void Update()
     {
         SetActivePlot();
     }
+
+    public void UpdatePlotNavAndFence()
+    {
+        foreach (GameObject plot in Plots)
+        {
+            plot.GetComponent<Plot>().BakeTerrain();
+        }
+    }
+
     public void SetActivePlot()
     {
         RaycastHit[] hits;

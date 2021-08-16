@@ -99,7 +99,11 @@ public class FenceManager : MonoBehaviour
                     if (targetPlot.isPurchased)
                         newFence = Instantiate(prefabFenceOpen);
                     if (!targetPlot.isPurchased)
+                    {
                         newFence = Instantiate(prefabFenceBuyPlot);
+                        newFence.transform.Find("Buy Land Sign").GetComponent<BuyPlot>().targetPlot = targetPlot; //Sets the plot sign to buy target plot
+                    }
+
 
                     newFence.transform.parent = parentFenceEmpty;
                     newFence.transform.localPosition = Vector3.zero;
@@ -200,7 +204,7 @@ public class FenceManager : MonoBehaviour
 
         if (openNorth)
         {
-            Debug.Log("bingbong");
+
             foreach (Transform child in northFence.transform) //Destroy all children fences
                 GameObject.Destroy(child.gameObject);
 

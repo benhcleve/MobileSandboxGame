@@ -19824,7 +19824,7 @@ PrefabInstance:
     - target: {fileID: 5081536370711739565, guid: 7548cb976b9d8c245bcfed5aa533fa79,
         type: 3}
       propertyPath: isPurchased
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5081536370711739565, guid: 7548cb976b9d8c245bcfed5aa533fa79,
         type: 3}
@@ -32978,6 +32978,80 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &1525559598215722074
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 92.11955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.16634661
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.2930946
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234757139745195984, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759232584576114026, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_Name
+      value: PlotFenceClosed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759232584576114026, guid: e8352085b6dc7684e8a108faf976ffdf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8352085b6dc7684e8a108faf976ffdf, type: 3}
 --- !u!137 &1630794974051468335
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -34176,20 +34250,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 165360229}
     m_Modifications:
     - target: {fileID: 2146048992, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
-      propertyPath: openEast
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2146048992, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
-      propertyPath: openWest
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2146048992, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
       propertyPath: openNorth
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2146048992, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
-      propertyPath: openSouth
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5081536370711739564, guid: 7548cb976b9d8c245bcfed5aa533fa79,
         type: 3}
