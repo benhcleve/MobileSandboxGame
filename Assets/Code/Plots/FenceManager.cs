@@ -101,7 +101,7 @@ public class FenceManager : MonoBehaviour
                     if (!targetPlot.isPurchased)
                     {
                         newFence = Instantiate(prefabFenceBuyPlot);
-                        newFence.transform.Find("Buy Land Sign").GetComponent<BuyPlot>().targetPlot = targetPlot; //Sets the plot sign to buy target plot
+                        newFence.transform.Find("BuySign").GetComponent<BuyPlot>().targetPlot = targetPlot; //Sets the plot sign to buy target plot
                     }
 
 
