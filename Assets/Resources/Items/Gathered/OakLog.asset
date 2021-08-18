@@ -16,10 +16,14 @@ MonoBehaviour:
   currentSlot: {fileID: 0}
   itemName: Oak Log
   description: Can be used for woodworking or used as fuel.
-  stackable: 0
+  stackable: 1
   stackCount: 1
   usesFill: 0
   fill: 0
   icon: {fileID: 21300000, guid: 3edf7a07dabe30144a5bbe86bb93e465, type: 3}
   prefab: {fileID: 8592007542044761671, guid: 0921f00bf33d1ff4cbbff1f9dda9243f, type: 3}
   value: 5
+  craftable: 0
+  craftOutputStackCount: 1
+  craftingRecipeItems: []
+  craftingRecipeItemCount: 
