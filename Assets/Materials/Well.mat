@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Well
   m_Shader: {fileID: 4800000, guid: 6459b2db96a08ca41b0f9b39dc7ad59e, type: 3}
-  m_ShaderKeywords: N_F_EAL_ON N_F_O_ON N_F_RELGI_ON N_F_SS_ON
+  m_ShaderKeywords: N_F_EAL_ON N_F_RELGI_ON N_F_SS_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -201,7 +201,7 @@ Material:
     - _N_F_MC: 0
     - _N_F_NLASOBF: 0
     - _N_F_NM: 0
-    - _N_F_O: 1
+    - _N_F_O: 0
     - _N_F_PT: 0
     - _N_F_R: 0
     - _N_F_RL: 0
@@ -245,9 +245,9 @@ Material:
     - _SelfLitIntensity: 0.5
     - _SelfLitPower: 2
     - _SelfShadowAffectedByLightShadowStrength: 0
-    - _SelfShadowHardness: 0.3
+    - _SelfShadowHardness: 1
     - _SelfShadowRealTimeShadowColorPower: 1
-    - _SelfShadowRealtimeShadowIntensity: 0.25
+    - _SelfShadowRealtimeShadowIntensity: 0.15
     - _SelfShadowShadowTAtViewDirection: 0
     - _SelfShadowThreshold: 0.85
     - _ShadowColorTexturePower: 0

@@ -35,6 +35,7 @@ public class GrassSpawner : MonoBehaviour
                         if (Physics.Raycast(localPoint + terrainPos + randomness, Vector3.down, out hit, 10, groundMask))
                         {
                             GameObject grass = Instantiate(grassObj, hit.point, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                            grass.transform.localScale = new Vector3(Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f));
                             grass.transform.rotation = Quaternion.LookRotation(grass.transform.forward, hit.normal);
                             grass.transform.parent = transform;
                         }
