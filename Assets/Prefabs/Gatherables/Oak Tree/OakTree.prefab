@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5871552863850582008}
   - component: {fileID: 571931263966797301}
   - component: {fileID: 4361755492367017987}
+  - component: {fileID: -6389139828266107541}
   m_Layer: 0
   m_Name: OakTree
   m_TagString: Tree
@@ -149,3 +150,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6079870161998767429}
   m_Mesh: {fileID: 6193004489318787115, guid: 75f9a013f3f393249a25d650e1416c49, type: 3}
+--- !u!205 &-6389139828266107541
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079870161998767429}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 1
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0.57
+    renderers: []
+  m_Enabled: 1

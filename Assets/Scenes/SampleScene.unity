@@ -19814,71 +19814,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
---- !u!1 &1180737057
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1180737058}
-  - component: {fileID: 1180737060}
-  - component: {fileID: 1180737059}
-  m_Layer: 0
-  m_Name: Bush Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1180737058
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180737057}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1155975634}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1180737059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180737057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ecb4f29e5d7da94da571161c8e4efb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grassMat: {fileID: 2100000, guid: 06e8400315eec75468afbca92232a164, type: 2}
---- !u!114 &1180737060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180737057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfd0f1f04d6f88947a5067f9a8468c97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xSize: 0
-  zSize: 0
-  plotTerrain: {fileID: 1787976751}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 0
-  bushObj: {fileID: 3232527467359255474, guid: b3bff9e15a811b849bb97f49d51cb8e2, type: 3}
-  bushCount: 10
 --- !u!1001 &1190847020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28473,12 +28408,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5081536369703449982}
   m_PrefabAsset: {fileID: 0}
---- !u!218 &1787976751 stripped
-Terrain:
-  m_CorrespondingSourceObject: {fileID: 5081536370417379662, guid: 7548cb976b9d8c245bcfed5aa533fa79,
-    type: 3}
-  m_PrefabInstance: {fileID: 5081536369703449982}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1791511401
 GameObject:
   m_ObjectHideFlags: 0
@@ -34508,10 +34437,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 165360229}
     m_Modifications:
-    - target: {fileID: 2146048992, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
-      propertyPath: openNorth
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5081536370711739564, guid: 7548cb976b9d8c245bcfed5aa533fa79,
         type: 3}
       propertyPath: m_RootOrder
@@ -34577,8 +34502,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: (0,0)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5081536369938571985, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7548cb976b9d8c245bcfed5aa533fa79, type: 3}
 --- !u!1 &5237061289951748851
 GameObject:

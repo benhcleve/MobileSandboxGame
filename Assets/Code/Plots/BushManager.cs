@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeSpawner : MonoBehaviour
+public class BushManager : MonoBehaviour
 {
     public int xSize, zSize;
     public Terrain plotTerrain;
     public LayerMask groundMask;
-    public GameObject TreeObj;
-    public int treeCount = 10;
+    public GameObject bushObj;
+    public int bushCount = 10;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class TreeSpawner : MonoBehaviour
     {
         List<Vector3> spawnLocs = new List<Vector3>();
 
-        for (int x = 0; x < treeCount; x++)
+        for (int x = 0; x < bushCount; x++)
         {
             Vector3 spawnPos = GenerateSpawnPosition(xSize, zSize);
 
@@ -31,7 +31,7 @@ public class TreeSpawner : MonoBehaviour
                     spawnPos = GenerateSpawnPosition(xSize, zSize);
             }
 
-            GameObject tree = Instantiate(TreeObj, spawnPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
+            GameObject tree = Instantiate(bushObj, spawnPos, Quaternion.Euler(0, Random.Range(0, 360), 0));
             spawnLocs.Add(spawnPos);
             tree.transform.parent = transform;
         }

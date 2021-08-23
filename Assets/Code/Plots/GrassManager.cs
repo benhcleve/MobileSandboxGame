@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassSpawner : MonoBehaviour
+public class GrassManager : MonoBehaviour
 {
     public int xSize, zSize;
+    public GameObject plot;
     public Terrain plotTerrain;
     public LayerMask groundMask;
     public GameObject grassObj;
+    List<GameObject> grassList = new List<GameObject>();
 
     void Start()
     {
@@ -16,6 +18,29 @@ public class GrassSpawner : MonoBehaviour
 
         GenerateGrass();
     }
+
+    private void Update()
+    {
+        GrassVisibility();
+    }
+
+    void GrassVisibility()
+    {
+        if (grassList.Count > 0 && !grassList[0].GetComponent<MeshRenderer>().enabled && PlotManager.instance.activePlot == plot)
+        {
+            Debug.Log("Hi");
+            foreach (GameObject grass in grassList)
+                grass.GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if (grassList.Count > 0 && grassList[0].GetComponent<MeshRenderer>().enabled && PlotManager.instance.activePlot != plot)
+        {
+            Debug.Log("Hello");
+            foreach (GameObject grass in grassList)
+                grass.GetComponent<MeshRenderer>().enabled = false;
+        }
+        else return;
+    }
+
     void GenerateGrass()
     {
         for (int i = 0, z = 0; z <= zSize; z++)
@@ -38,6 +63,7 @@ public class GrassSpawner : MonoBehaviour
                             grass.transform.localScale = new Vector3(Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f));
                             grass.transform.rotation = Quaternion.LookRotation(grass.transform.forward, hit.normal);
                             grass.transform.parent = transform;
+                            grassList.Add(grass);
                         }
                     }
                 }
