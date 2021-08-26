@@ -28,13 +28,11 @@ public class GrassManager : MonoBehaviour
     {
         if (grassList.Count > 0 && !grassList[0].GetComponent<MeshRenderer>().enabled && PlotManager.instance.activePlot == plot)
         {
-            Debug.Log("Hi");
             foreach (GameObject grass in grassList)
                 grass.GetComponent<MeshRenderer>().enabled = true;
         }
         else if (grassList.Count > 0 && grassList[0].GetComponent<MeshRenderer>().enabled && PlotManager.instance.activePlot != plot)
         {
-            Debug.Log("Hello");
             foreach (GameObject grass in grassList)
                 grass.GetComponent<MeshRenderer>().enabled = false;
         }
