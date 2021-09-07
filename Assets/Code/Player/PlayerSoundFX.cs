@@ -8,6 +8,7 @@ public class PlayerSoundFX : MonoBehaviour
     public AudioClip footStepSFX;
     public AudioClip woodChopSFX;
     public AudioClip rockMineSFX;
+    public ParticleSystem footstepParticles;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -17,6 +18,7 @@ public class PlayerSoundFX : MonoBehaviour
     {
         audioSource.pitch = Random.Range(0.8f, 1.2f);
         audioSource.PlayOneShot(footStepSFX);
+        footstepParticles.Play();
     }
 
     private void WoodChop()
