@@ -24159,7 +24159,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 5
+  m_Speed: 6
   m_Acceleration: Infinity
   avoidancePriority: 50
   m_AngularSpeed: Infinity
@@ -39002,6 +39002,75 @@ Transform:
   m_Father: {fileID: 5746564758738167646}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4658954012200184431
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128848460328671324, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5505232921738560230, guid: 2e8d07a604321a94294e11f2a260e14d,
+        type: 3}
+      propertyPath: m_Name
+      value: BrownPeckerBird
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2e8d07a604321a94294e11f2a260e14d, type: 3}
 --- !u!1001 &4813483604534151864
 PrefabInstance:
   m_ObjectHideFlags: 0
