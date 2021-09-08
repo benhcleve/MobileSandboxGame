@@ -314,7 +314,7 @@ Material:
     - _GlossColor: {r: 1, g: 1, b: 1, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
-    - _LightColor: {r: 0.7624434, g: 0.70104784, b: 0.5813862, a: 0.5064369}
+    - _LightColor: {r: 0.7615553, g: 0.7307351, b: 0.6419327, a: 0.46227607}
     - _MainColor: {r: 0.0848463, g: 0.24528301, b: 0.104098685, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineOffset: {r: 0, g: 0, b: 0, a: 1}
