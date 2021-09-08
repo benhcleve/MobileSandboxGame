@@ -39,11 +39,11 @@ public class Pickaxe : MonoBehaviour
     public void EndMining()
     {
         StopAllCoroutines();
+        UIManager.instance.uiState = UIManager.UIState.Default;
         PlayerAnimation.instance.animator.SetBool("isMiningOre", false);
         PlayerInteraction.instance.target = null;
-        slider.gameObject.SetActive(true);
         pickaxeUI.SetActive(false);
-        UIManager.instance.uiState = UIManager.UIState.Default;
+
     }
 
 
@@ -55,20 +55,22 @@ public class Pickaxe : MonoBehaviour
 
     IEnumerator Mine()
     {
-        hasTapped = false;
-        timeElapsed = 0;
-        pickaxeUI.SetActive(true);
-        slider.gameObject.SetActive(true);
-        PlayerAnimation.instance.animator.SetBool("isMiningOre", true);
         UIManager.instance.uiState = UIManager.UIState.Minigame;
+        pickaxeUI.SetActive(true);
+
+        yield return new WaitForSeconds(.1f); //Wait to prevent click of object to not count as a meter press
 
         while (true)
         {
-            if (PlayerInteraction.instance.target == null) //End coroutine if tree is falling
+            if (PlayerInteraction.instance.target == null || !PlayerInteraction.instance.target.GetComponent<OreBase>())
+            {
                 EndMining();
+                break;
+            }
 
-            hasTapped = false;
+            PlayerAnimation.instance.animator.SetBool("isMiningOre", true);
             timeElapsed = 0;
+            hasTapped = false;
             slider.gameObject.SetActive(true);
             damageType = 0;
 
@@ -120,8 +122,6 @@ public class Pickaxe : MonoBehaviour
                             damageType = 3;
                             break;
                     }
-                    slider.gameObject.SetActive(false);
-                    hasTapped = true;
                 }
 
             }
@@ -151,8 +151,6 @@ public class Pickaxe : MonoBehaviour
                         damageType = 3;
                         break;
                 }
-                slider.gameObject.SetActive(false);
-                hasTapped = true;
             }
         }
     }

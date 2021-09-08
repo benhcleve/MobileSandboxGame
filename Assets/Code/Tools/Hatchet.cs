@@ -40,18 +40,21 @@ public class Hatchet : MonoBehaviour
     public void EndChopping()
     {
         StopAllCoroutines();
+        UIManager.instance.uiState = UIManager.UIState.Default;
         PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", false);
         PlayerInteraction.instance.target = null;
-        slider.gameObject.SetActive(true);
+
         hatchetUI.SetActive(false);
-        UIManager.instance.uiState = UIManager.UIState.Default;
     }
 
 
     void MeterPress(float damageMult)
     {
-        damageMultiplier = damageMult;
-        slider.gameObject.SetActive(false);
+        if (hasTapped)
+        {
+            damageMultiplier = damageMult;
+            slider.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator Chop()
@@ -59,14 +62,19 @@ public class Hatchet : MonoBehaviour
 
         UIManager.instance.uiState = UIManager.UIState.Minigame;
         hatchetUI.SetActive(true);
-        slider.gameObject.SetActive(true);
-        PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
+
+        yield return new WaitForSeconds(.1f); //Wait to prevent click of object to not count as a meter press
 
         while (true)
         {
-            if (PlayerInteraction.instance.target == null || PlayerInteraction.instance.target.GetComponent<TreeBase>().fallen) //End coroutine if tree is falling
+            if (PlayerInteraction.instance.target == null || !PlayerInteraction.instance.target.GetComponent<TreeBase>() || PlayerInteraction.instance.target.GetComponent<TreeBase>().fallen) //End coroutine if tree is falling
+            {
                 EndChopping();
+                break;
+            }
 
+
+            PlayerAnimation.instance.animator.SetBool("isChoppingHatchet", true);
             timeElapsed = 0;
             hasTapped = false;
             slider.gameObject.SetActive(true);
@@ -93,6 +101,8 @@ public class Hatchet : MonoBehaviour
             yield return new WaitUntil(() =>
             PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).IsName("Chop") &&
             PlayerAnimation.instance.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f);
+
+
         }
 
     }
@@ -102,8 +112,10 @@ public class Hatchet : MonoBehaviour
         {
             if (Input.touchCount > 0 && !hasTapped)
             {
+                hasTapped = true;
                 if (Input.GetTouch(0).phase == TouchPhase.Began) //Set starting position of touch 1
                 {
+
                     switch (slider.state)
                     {
                         case HitSlider.State.WeakHitZone:
@@ -119,7 +131,7 @@ public class Hatchet : MonoBehaviour
                             damageType = 3;
                             break;
                     }
-                    hasTapped = true;
+
                 }
 
             }
@@ -132,6 +144,7 @@ public class Hatchet : MonoBehaviour
         {
             if (Input.GetMouseButton(0) && !hasTapped)
             {
+                hasTapped = true;
 
                 switch (slider.state)
                 {
@@ -148,7 +161,7 @@ public class Hatchet : MonoBehaviour
                         damageType = 3;
                         break;
                 }
-                hasTapped = true;
+
             }
         }
     }
