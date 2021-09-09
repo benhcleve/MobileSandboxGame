@@ -219,7 +219,7 @@ public class DragDropItems : MonoBehaviour
             if (fromSlot != null && fromSlot.currentItem != null)
             {
                 touchMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
-                if (touchMoveDist > 50)
+                if (touchMoveDist > 50 || draggedIcon.gameObject.activeInHierarchy)
                 {
                     if (!draggedIcon.gameObject.activeInHierarchy)
                     {
@@ -239,18 +239,23 @@ public class DragDropItems : MonoBehaviour
             // Drop the dragged item
             if (fromSlot != null && fromSlot.currentItem != null)
             {
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0) && draggedIcon.gameObject.activeInHierarchy)
                 {
 
                     draggedIcon.transform.DOKill(); //Ends tweening animation if still playing while dropped
                     draggedIcon.transform.localScale = Vector3.one;
-                    if (fromSlot != null) //Turn off dragged icon and return icon to itemslot
+                    if (fromSlot != null)
+                    {
+                        //Turn off dragged icon and return icon to itemslot
                         fromSlot.icon.enabled = true;
+                        audioSource.pitch = .9f;
+                        audioSource.PlayOneShot(popSFX);
+                    }
+
                     draggedIcon.sprite = null;
                     draggedIcon.gameObject.SetActive(false);
 
-                    audioSource.pitch = .9f;
-                    audioSource.PlayOneShot(popSFX);
+
 
                     // Raycast at the point of the touch end and get itemslot as toSlot if exists
                     PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
