@@ -13,7 +13,14 @@ public class DragDropItems : MonoBehaviour
     public Image draggedIcon;
     public GameObject placeableBoxPrefab;
 
-    // Update is called once per frame
+    AudioSource audioSource;
+    public AudioClip popSFX;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         DetectTouch();
@@ -59,6 +66,9 @@ public class DragDropItems : MonoBehaviour
                         draggedIcon.sprite = fromSlot.icon.sprite;
                         fromSlot.icon.enabled = false;
                         draggedIcon.transform.DOScale(1.5f, 1f).SetEase(Ease.OutElastic);
+
+                        audioSource.pitch = 1f;
+                        audioSource.PlayOneShot(popSFX);
                     }
                     RectTransform iconRect = draggedIcon.GetComponent<RectTransform>();
                     iconRect.position = Input.GetTouch(0).position;
@@ -119,6 +129,9 @@ public class DragDropItems : MonoBehaviour
                                 PlayerInventory.instance.inventory[fromSlot.inventoryIndex] = null;
                             else fromSlot.currentItem = null;
 
+                            audioSource.pitch = .5f;
+                            audioSource.PlayOneShot(popSFX);
+
                             toSlot.UpdateItemSlot();
                             fromSlot.UpdateItemSlot();
 
@@ -137,6 +150,9 @@ public class DragDropItems : MonoBehaviour
                             //Place fromSlot Item on toSlot and remove reference to item on fromSlot
                             toSlot.currentItem = fromSlotItem;
                             fromSlot.currentItem = null;
+
+                            audioSource.pitch = .9f;
+                            audioSource.PlayOneShot(popSFX);
 
                             // Update slot UI
                             toSlot.UpdateItemSlot();
@@ -158,6 +174,9 @@ public class DragDropItems : MonoBehaviour
                             //Place fromSlot Item on toSlot and remove reference to item on fromSlot
                             toSlot.currentItem = fromSlotItem;
                             fromSlot.currentItem = toSlotItem;
+
+                            audioSource.pitch = .9f;
+                            audioSource.PlayOneShot(popSFX);
 
                             //Update slot UI
                             toSlot.UpdateItemSlot();
@@ -208,6 +227,9 @@ public class DragDropItems : MonoBehaviour
                         draggedIcon.sprite = fromSlot.icon.sprite;
                         fromSlot.icon.enabled = false;
                         draggedIcon.transform.DOScale(1.5f, 1f).SetEase(Ease.OutElastic);
+
+                        audioSource.pitch = 1f;
+                        audioSource.PlayOneShot(popSFX);
                     }
                     RectTransform iconRect = draggedIcon.GetComponent<RectTransform>();
                     iconRect.position = Input.mousePosition;
@@ -215,16 +237,20 @@ public class DragDropItems : MonoBehaviour
             }
 
             // Drop the dragged item
-            if (fromSlot != null)
+            if (fromSlot != null && fromSlot.currentItem != null)
             {
                 if (Input.GetMouseButtonUp(0))
                 {
+
                     draggedIcon.transform.DOKill(); //Ends tweening animation if still playing while dropped
                     draggedIcon.transform.localScale = Vector3.one;
                     if (fromSlot != null) //Turn off dragged icon and return icon to itemslot
                         fromSlot.icon.enabled = true;
                     draggedIcon.sprite = null;
                     draggedIcon.gameObject.SetActive(false);
+
+                    audioSource.pitch = .9f;
+                    audioSource.PlayOneShot(popSFX);
 
                     // Raycast at the point of the touch end and get itemslot as toSlot if exists
                     PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
@@ -282,6 +308,9 @@ public class DragDropItems : MonoBehaviour
                                 else fromSlot.currentItem = null;
                             }
 
+                            audioSource.pitch = .9f;
+                            audioSource.PlayOneShot(popSFX);
+
                             toSlot.UpdateItemSlot();
                             fromSlot.UpdateItemSlot();
 
@@ -337,6 +366,9 @@ public class DragDropItems : MonoBehaviour
                                 toSlot.currentItem = fromSlotItem;
                                 fromSlot.currentItem = toSlotItem;
                             }
+
+                            audioSource.pitch = .9f;
+                            audioSource.PlayOneShot(popSFX);
 
                             //Update slot UI
                             toSlot.UpdateItemSlot();
