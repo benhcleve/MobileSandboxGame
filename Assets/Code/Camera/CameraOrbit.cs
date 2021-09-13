@@ -52,7 +52,7 @@ public class CameraOrbit : MonoBehaviour
     void CameraRotation()
     {
         //DESKTOP
-#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
+#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_WEBGL
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
             if (Input.GetMouseButton(1))
@@ -91,7 +91,7 @@ public class CameraOrbit : MonoBehaviour
     void CameraZoom()
     {
         //Zooming Input from our Mouse Scroll Wheel
-#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
+#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_WEBGL
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             float zoomAmount = Input.GetAxis("Mouse ScrollWheel") * (ZoomSensitivity * 5); //Multiply for desktop
