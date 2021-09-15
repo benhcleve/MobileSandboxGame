@@ -221,7 +221,7 @@ public class DragDropItems : MonoBehaviour
                 touchMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
                 if (touchMoveDist > 50 || draggedIcon.gameObject.activeInHierarchy)
                 {
-                    if (!draggedIcon.gameObject.activeInHierarchy)
+                    if (!draggedIcon.gameObject.activeInHierarchy && EventSystem.current.IsPointerOverGameObject())
                     {
                         draggedIcon.gameObject.SetActive(true);
                         draggedIcon.sprite = fromSlot.icon.sprite;
