@@ -77,7 +77,25 @@ public class PlayerMovement : MonoBehaviour
                 {
                     mouseMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
                     if (beganTouchWalkable && mouseMoveDist >= 50)
-                        SetDestination(Input.mousePosition);
+                    {
+
+                        // Cast a ray from screen point
+                        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                        // Save the info
+                        RaycastHit hit;
+                        // You successfully hit
+                        if (Physics.Raycast(ray, out hit, 100, clickableLayers))
+                        {
+                            Vector3 dir = (hit.point - transform.position); //Get direction of mouse according to player position
+                            destination = dir.normalized + transform.position; //normalize direction and add player position to get new destination
+                            touchMarker.transform.position = destination;
+                            navMeshAgent.SetDestination(destination);
+                        }
+
+                        if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
+                            GetComponent<PlayerInteraction>().target = null;
+                    }
+
                 }
 
                 if (Input.GetMouseButtonUp(0))
@@ -86,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
                     if (mouseMoveDist < 50 && beganTouchWalkable) //If tap to move, set destination
                         SetDestination(Input.mousePosition);
-                    else if (mouseMoveDist >= 50) //If has been dragging to move, end destination
+                    else if (mouseMoveDist >= 50) //If has been dragging to move, end destination{}
                         navMeshAgent.destination = transform.position;
                     beganTouchWalkable = false;
                 }
@@ -123,9 +141,26 @@ public class PlayerMovement : MonoBehaviour
                 }
                 if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary) //Drag to move
                 {
-                    touchMoveDist = Vector2.Distance(touchStartPos, Input.GetTouch(0).position); //Detect touch 1 drag distance
+                    touchMoveDist = Vector2.Distance(touchStartPos, Input.mousePosition); //Detect touch 1 drag distance
                     if (beganTouchWalkable && touchMoveDist >= 50)
-                        SetDestination(Input.GetTouch(0).position);
+                    {
+
+                        // Cast a ray from screen point
+                        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                        // Save the info
+                        RaycastHit hit;
+                        // You successfully hit
+                        if (Physics.Raycast(ray, out hit, 100, clickableLayers))
+                        {
+                            Vector3 dir = (hit.point - transform.position); //Get direction of mouse according to player position
+                            destination = dir.normalized + transform.position; //normalize direction and add player position to get new destination
+                            touchMarker.transform.position = destination;
+                            navMeshAgent.SetDestination(destination);
+                        }
+
+                        if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
+                            GetComponent<PlayerInteraction>().target = null;
+                    }
                 }
 
                 if (Input.GetTouch(0).phase == TouchPhase.Ended)
