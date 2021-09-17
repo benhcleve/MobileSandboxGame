@@ -55,13 +55,16 @@ public class GrassManager : MonoBehaviour
                         Vector3 terrainPos = new Vector3(plotTerrain.transform.position.x, 0, plotTerrain.transform.position.z);
 
                         RaycastHit hit;
-                        if (Physics.Raycast(localPoint + terrainPos + randomness, Vector3.down, out hit, 10, groundMask))
+                        if (Physics.Raycast(localPoint + terrainPos + randomness + new Vector3(0, 2, 0), Vector3.down, out hit, 10))
                         {
-                            GameObject grass = Instantiate(grassObj, hit.point, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
-                            grass.transform.localScale = new Vector3(Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f));
-                            grass.transform.rotation = Quaternion.LookRotation(grass.transform.forward, hit.normal);
-                            grass.transform.parent = transform;
-                            grassList.Add(grass);
+                            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+                            {
+                                GameObject grass = Instantiate(grassObj, hit.point, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                                grass.transform.localScale = new Vector3(Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f), Random.Range(0.5f, 1.0f));
+                                grass.transform.rotation = Quaternion.LookRotation(grass.transform.forward, hit.normal);
+                                grass.transform.parent = transform;
+                                grassList.Add(grass);
+                            }
                         }
                     }
                 }

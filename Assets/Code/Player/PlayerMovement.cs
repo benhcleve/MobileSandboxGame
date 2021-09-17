@@ -90,10 +90,11 @@ public class PlayerMovement : MonoBehaviour
                             destination = dir.normalized + transform.position; //normalize direction and add player position to get new destination
                             touchMarker.transform.position = destination;
                             navMeshAgent.SetDestination(destination);
+
+                            if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
+                                GetComponent<PlayerInteraction>().target = null;
                         }
 
-                        if (!hit.transform.gameObject.GetComponent<Interactable>()) //If not interactable, set target to null
-                            GetComponent<PlayerInteraction>().target = null;
                     }
 
                 }
