@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c23dd7accee0fd249a19729e4214c28f, type: 3}
-  m_Name: Pants
+  m_Name: Hair_MediumMessy
   m_EditorClassIdentifier: 
-  ID: 2002
+  ID: 2003
   currentSlot: {fileID: 0}
-  itemName: Blue Jeans
+  itemName: Medium Messy
   description: 
   stackable: 0
   stackCount: 1
   usesFill: 0
   fill: 0
   icon: {fileID: 0}
-  prefab: {fileID: 1968068508976924421, guid: 010ad94ed18259f41b8bfeee31f92cd7, type: 3}
+  prefab: {fileID: 5054691250819647769, guid: e919c4c00907f914f941c3c213686226, type: 3}
   value: 0
   craftable: 0
   craftOutputStackCount: 1
@@ -30,5 +30,5 @@ MonoBehaviour:
   texture: {fileID: 0}
   color:
     serializedVersion: 2
-    rgba: 0
-  apparelType: Legs
+    rgba: 2906481
+  apparelType: Head

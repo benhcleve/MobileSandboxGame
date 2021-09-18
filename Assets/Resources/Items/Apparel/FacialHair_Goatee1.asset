@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c23dd7accee0fd249a19729e4214c28f, type: 3}
-  m_Name: Pants
+  m_Name: FacialHair_Goatee1
   m_EditorClassIdentifier: 
-  ID: 2002
+  ID: 2005
   currentSlot: {fileID: 0}
-  itemName: Blue Jeans
+  itemName: Goatee 1
   description: 
   stackable: 0
   stackCount: 1
   usesFill: 0
   fill: 0
   icon: {fileID: 0}
-  prefab: {fileID: 1968068508976924421, guid: 010ad94ed18259f41b8bfeee31f92cd7, type: 3}
+  prefab: {fileID: 972041781880409339, guid: ac6df9780deec22458cac3383a82e0f1, type: 3}
   value: 0
   craftable: 0
   craftOutputStackCount: 1
@@ -31,4 +31,4 @@ MonoBehaviour:
   color:
     serializedVersion: 2
     rgba: 0
-  apparelType: Legs
+  apparelType: Head

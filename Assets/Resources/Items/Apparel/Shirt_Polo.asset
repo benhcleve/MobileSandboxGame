@@ -10,20 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c23dd7accee0fd249a19729e4214c28f, type: 3}
-  m_Name: MediumHair(Brown)
+  m_Name: Shirt_Polo
   m_EditorClassIdentifier: 
-  ID: 2003
-  itemName: Medium Hair (Brown)
+  ID: 2006
+  currentSlot: {fileID: 0}
+  itemName: Polo T-Shirt
   description: 
   stackable: 0
   stackCount: 1
   usesFill: 0
   fill: 0
   icon: {fileID: 0}
-  prefab: {fileID: 5054691250819647769, guid: e919c4c00907f914f941c3c213686226, type: 3}
+  prefab: {fileID: 8856472476384502205, guid: 246863347f4c42949a94d68a9787017b, type: 3}
   value: 0
+  craftable: 0
+  craftOutputStackCount: 1
+  craftingRecipeItems: []
+  craftingRecipeItemCount: 
   texture: {fileID: 0}
   color:
     serializedVersion: 2
-    rgba: 2906481
-  apparelType: Head
+    rgba: 0
+  apparelType: Chest

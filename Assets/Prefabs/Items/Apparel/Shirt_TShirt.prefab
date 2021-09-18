@@ -257,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2330507315349591459}
   m_Layer: 0
-  m_Name: TShirt
+  m_Name: Shirt_TShirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

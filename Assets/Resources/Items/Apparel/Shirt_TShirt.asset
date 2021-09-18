@@ -10,10 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c23dd7accee0fd249a19729e4214c28f, type: 3}
-  m_Name: Tshirt
+  m_Name: Shirt_TShirt
   m_EditorClassIdentifier: 
   ID: 2001
-  itemName: Tshirt
+  currentSlot: {fileID: 0}
+  itemName: T-Shirt
   description: 
+  stackable: 0
+  stackCount: 1
+  usesFill: 0
+  fill: 0
   icon: {fileID: 0}
   prefab: {fileID: 3106481687814262553, guid: e1bff6c85373c5e439ced1e75c8bb979, type: 3}
+  value: 0
+  craftable: 0
+  craftOutputStackCount: 1
+  craftingRecipeItems: []
+  craftingRecipeItemCount: 
+  texture: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 0
+  apparelType: Chest
